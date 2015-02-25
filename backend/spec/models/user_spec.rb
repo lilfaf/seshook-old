@@ -14,6 +14,7 @@ describe User do
   it { is_expected.to have_db_column(:current_sign_in_ip) }
   it { is_expected.to have_db_column(:last_sign_in_ip) }
   it { is_expected.to have_db_column(:role) }
+  it { is_expected.to have_db_column(:avatar) }
 
   it { is_expected.to have_db_index(:email).unique }
   it { is_expected.to have_db_index(:reset_password_token).unique }

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150225181131) do
+ActiveRecord::Schema.define(version: 20150225204512) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,42 +33,28 @@ ActiveRecord::Schema.define(version: 20150225181131) do
   add_index "addresses", ["street", "city"], name: "index_addresses_on_street_and_city", using: :btree
 
   create_table "albums", force: :cascade do |t|
-    t.string   "name",           null: false
-    t.text     "description"
-    t.integer  "albumable_id"
-    t.string   "albumable_type"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer  "user_id"
   end
 
-  add_index "albums", ["albumable_type", "albumable_id"], name: "index_albums_on_albumable_type_and_albumable_id", using: :btree
-  add_index "albums", ["name"], name: "index_albums_on_name", using: :btree
   add_index "albums", ["user_id"], name: "index_albums_on_user_id", using: :btree
 
   create_table "photos", force: :cascade do |t|
-    t.string   "file",           null: false
-    t.string   "content_type",   null: false
-    t.integer  "size",           null: false
-    t.string   "key"
-    t.string   "etag"
-    t.integer  "photoable_id"
-    t.string   "photoable_type"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer  "user_id"
   end
 
-  add_index "photos", ["photoable_type", "photoable_id"], name: "index_photos_on_photoable_type_and_photoable_id", using: :btree
   add_index "photos", ["user_id"], name: "index_photos_on_user_id", using: :btree
 
   create_table "spots", force: :cascade do |t|
     t.string    "name"
-    t.integer   "status",                                                              default: 0, null: false
-    t.geography "lonlat",     limit: {:srid=>4326, :type=>"point", :geographic=>true},             null: false
+    t.string    "status",                                                              default: "0", null: false
+    t.geography "lonlat",     limit: {:srid=>4326, :type=>"point", :geographic=>true},               null: false
     t.integer   "user_id"
-    t.datetime  "created_at",                                                                      null: false
-    t.datetime  "updated_at",                                                                      null: false
+    t.datetime  "created_at",                                                                        null: false
+    t.datetime  "updated_at",                                                                        null: false
   end
 
   add_index "spots", ["lonlat"], name: "index_spots_on_lonlat", using: :gist
@@ -89,6 +75,7 @@ ActiveRecord::Schema.define(version: 20150225181131) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "role",                   default: 0
+    t.string   "avatar"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

@@ -4,5 +4,9 @@ FactoryGirl.define do
     password              { 'seshook123' }
     password_confirmation { 'seshook123' }
   end
+
+  factory :admin, parent: :user do
+    after(:build) { |u| u.admin! }
+  end
 end
 
