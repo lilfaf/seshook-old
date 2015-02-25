@@ -1,0 +1,6 @@
+# Ignore bundler config.
+backend/.bundle
+# Ignore all logfiles and tempfiles.
+backend/log
+backend/tmp
+backend/public/uploads
