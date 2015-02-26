@@ -1,0 +1,19 @@
+= simple_form_for [:admin, @spot] do |f|
+  .row
+    .col-md-6
+      = f.input :status, collection: Spot.statuses.keys, selected: @spot.status
+      /= f.input :status, collection: Spot.statuses.map{ |s| [s[0].humanize, s[0]] }, selected: @spot.status
+      = f.input :name
+      = f.simple_fields_for :address do |af|
+        = af.input :street
+        = af.input :city
+        = af.input :zip, label: 'Postal code'
+        = af.input :state
+        = af.input :country_code, label: 'Country',
+            priority: %w(US FR), prompt: 'Please select a country'
+    .col-md-6
+      = f.input :latitude, as: :float
+      = f.input :longitude, as: :float
+      #map data-latlon=[@spot.latitude, @spot.longitude]
+  = f.button :submit
+  = link_to 'Cancel', admin_spots_path, class: 'btn btn-cancel'

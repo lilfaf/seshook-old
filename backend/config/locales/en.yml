@@ -20,4 +20,10 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  errors:
+    invalid_record: 'Invalid record. Please fix errors and try again.'
+    not_found: 'The record you were looking for could not be found.'
+    parameter_missing: 'Required %{param} parameter missing.'
+    forbidden_operation: 'An invalid operation was attempted.'
+    access_denied: "Whoa! Where do you think you're going? Unauthorized access!"
+

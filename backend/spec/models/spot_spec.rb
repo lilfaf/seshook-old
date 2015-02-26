@@ -12,7 +12,6 @@ describe Spot do
   it { is_expected.to have_db_index(:lonlat) }
   it { is_expected.to have_db_index(:user_id) }
 
-  it { is_expected.to validate_presence_of(:status) }
   it { is_expected.to validate_presence_of(:latitude) }
   it { is_expected.to validate_presence_of(:longitude) }
   it { is_expected.to validate_numericality_of(:latitude).is_greater_than_or_equal_to(-90).is_less_than_or_equal_to(90) }
@@ -23,4 +22,8 @@ describe Spot do
   it { is_expected.to have_one(:address).dependent(:destroy) }
   it { is_expected.to have_many(:photos).dependent(:destroy) }
   it { is_expected.to have_many(:albums).dependent(:destroy) }
+
+  it 'has pending status by default' do
+    expect(subject.pending?).to be(true)
+  end
 end

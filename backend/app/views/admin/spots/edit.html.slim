@@ -1,0 +1,34 @@
+.page-header
+  h1 Editing spot ##{@spot.id}
+
+.page-header
+  h4 Location info
+
+.bs-callout.bs-callout-success
+  = render 'form'
+
+.page-header
+  h4 Associations
+
+.bs-callout.bs-callout-warning
+  h4 Pictures
+  .row.thumbnails
+    - @spot.photos.each do |photo|
+      .col-xs-3.col-md-2
+        = link_to image_tag(photo.file.url), photo.file.url, class: 'thumbnail swipebox'
+
+.bs-callout.bs-callout-info
+  h4 Albums
+  p
+    /= link_to 'New Album', new_spot_album_path(@spot), class: 'btn btn-info'
+  /.row
+  /  - @spot.albums.each do |album|
+  /    .col-sm-6.col-md-4
+  /      .thumbnail
+  /        - if img = album.images.last
+  /           = image_tag(img.image.small.url)
+  /        .caption
+  /          h3 = album.name
+  /          p some description
+  /          p
+  /            = link_to 'Edit', edit_spot_album_path(@spot, album), class: 'btn btn-default'

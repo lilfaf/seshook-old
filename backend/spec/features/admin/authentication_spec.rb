@@ -32,5 +32,7 @@ describe 'authentication' do
       expect(page).to have_content('Signed out successfully')
     end
   end
+
+  context ''
 end
 

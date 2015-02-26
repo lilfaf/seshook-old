@@ -19,7 +19,12 @@ gem 'mini_magick'
 gem 'sidekiq'
 gem 'sinatra', require: false
 
+# Admin dependencies
+gem 'responders'
+gem 'simple_form'
 gem 'country_select', '~> 2.1.1'
+
+gem 'kaminari', '~> 0.16.3'
 
 gem 'slim-rails'
 gem 'jquery-rails'
