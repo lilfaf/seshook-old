@@ -16,6 +16,7 @@ ActiveRecord::Migration.maintain_test_schema!
 RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
 
+  config.include JsonSpec::Helpers
   config.include Devise::TestHelpers, type: :controller
 
   config.include Warden::Test::Helpers

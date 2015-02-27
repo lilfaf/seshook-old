@@ -11,7 +11,8 @@ gem 'devise'
 gem 'doorkeeper', '~> 2.1.0'
 
 # File uploads and processing
-gem 'fog', '~> 1.26.0'
+gem 'aws-sdk', '~> 2.0.28'
+gem 'fog',     '~> 1.26.0'
 gem 'carrierwave'
 gem 'mini_magick'
 
@@ -43,6 +44,7 @@ group :development, :test do
   gem 'dotenv-rails'
   gem 'capybara'
   gem 'poltergeist'
+  gem 'json_spec'
 end
 
 group :test do

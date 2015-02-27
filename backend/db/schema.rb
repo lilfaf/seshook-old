@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150225221445) do
+ActiveRecord::Schema.define(version: 20150226172248) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -114,6 +114,23 @@ ActiveRecord::Schema.define(version: 20150225221445) do
   add_index "spots", ["lonlat"], name: "index_spots_on_lonlat", using: :gist
   add_index "spots", ["status"], name: "index_spots_on_status", using: :btree
   add_index "spots", ["user_id"], name: "index_spots_on_user_id", using: :btree
+
+  create_table "uploads", force: :cascade do |t|
+    t.binary   "uuid"
+    t.string   "filename"
+    t.string   "content_type"
+    t.integer  "state"
+    t.string   "upload_type"
+    t.integer  "user_id"
+    t.integer  "uploadable_id"
+    t.string   "uploadable_type"
+    t.datetime "pending_at"
+    t.datetime "imported_at"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "uploads", ["uploadable_type", "uploadable_id"], name: "index_uploads_on_uploadable_type_and_uploadable_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

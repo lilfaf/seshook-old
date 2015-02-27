@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resource :upload, only: [:new, :create]
+
   use_doorkeeper do
     skip_controllers :applications
   end
