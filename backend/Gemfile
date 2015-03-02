@@ -25,6 +25,9 @@ gem 'responders'
 gem 'simple_form'
 gem 'country_select', '~> 2.1.1'
 
+# Api
+gem 'active_model_serializers'
+
 gem 'kaminari', '~> 0.16.3'
 
 gem 'slim-rails'

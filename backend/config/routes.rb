@@ -1,9 +1,17 @@
+require 'constraints/api'
+
 Rails.application.routes.draw do
 
   mount S3Relay::Engine => '/s3_relay'
 
   use_doorkeeper do
     skip_controllers :applications
+  end
+
+  namespace :api do
+    scope module: :v1, constraints: Constraints::Api.new(version: 1, default: true) do
+      resources :spots, except: :destroy
+    end
   end
 
   devise_for :users, path: ''
