@@ -1,0 +1,50 @@
+doctype html
+html
+  head
+    title
+      | Seshook Admin
+    = stylesheet_link_tag    'application', media: 'all'
+    = javascript_include_tag 'application'
+    = csrf_meta_tags
+
+  body
+    /.navmenu.navmenu-default.navmenu-fixed-left.offcanvas-xs
+    /  ul.nav.navmenu-nav
+    /    = nav_link 'Dashboard', dashboard_path
+    /      i.glyphicon.glyphicon-dashboard
+    /    = nav_link 'Users', users_path
+    /      i.glyphicon.glyphicon-user
+    /    = nav_link 'Spots', spots_path
+    /      i.glyphicon.glyphicon-map-marker
+    /    = nav_link 'Albums', albums_path
+    /      i.glyphicon.glyphicon-picture
+    /    - if can? :manage, Doorkeeper::Application
+    /      = nav_link 'OAuth Applications', oauth_applications_path
+    /        i.glyphicon.glyphicon-phone
+    /    - if can? :manage, :sidekiq
+    /      li = link_to main_app.sidekiq_web_path, target: "_blank"
+    /        i.glyphicon.glyphicon-stats
+    /        | Jobs Monitoring
+    /    li.divider
+    /    li = link_to destroy_user_session_path, method: :delete
+    /      i.glyphicon.glyphicon-log-out
+    /      | Logout
+
+    nav.navbar.navbar-fixed-top.navbar-inverse
+      button.navbar-toggle[type="button" class="navbar-toggle" data-toggle="offcanvas" data-target=".navmenu"]
+        span.sr-only Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+
+      .navbar-header
+        = link_to 'SESHOOK ADMIN', admin_dashboard_path, class: 'navbar-brand'
+      ul.nav.navbar-nav.navbar-right.hidden-xs
+        li = link_to destroy_user_session_path, method: :delete
+          | Log out
+        /li= link_to current_user.email, edit_user_path(current_user)
+
+    #wrapper
+      .container
+        = render 'shared/flash_messages', flash: flash
+        = yield

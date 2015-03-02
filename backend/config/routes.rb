@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  resource :upload, only: [:new, :create]
+  mount S3Relay::Engine => '/s3_relay'
 
   use_doorkeeper do
     skip_controllers :applications

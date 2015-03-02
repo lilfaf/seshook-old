@@ -1,4 +1,6 @@
 class Admin::BaseController < ApplicationController
+  layout 'admin'
+
   self.responder = ApplicationResponder
   respond_to :html
 

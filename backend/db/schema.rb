@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150226172248) do
+ActiveRecord::Schema.define(version: 20150228165853) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -102,6 +102,22 @@ ActiveRecord::Schema.define(version: 20150226172248) do
   add_index "photos", ["photoable_type", "photoable_id"], name: "index_photos_on_photoable_type_and_photoable_id", using: :btree
   add_index "photos", ["user_id"], name: "index_photos_on_user_id", using: :btree
 
+  create_table "s3_relay_uploads", force: :cascade do |t|
+    t.binary   "uuid"
+    t.integer  "user_id"
+    t.string   "parent_type"
+    t.integer  "parent_id"
+    t.string   "upload_type"
+    t.text     "filename"
+    t.string   "content_type"
+    t.string   "state"
+    t.json     "data",         default: {}
+    t.datetime "pending_at"
+    t.datetime "imported_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "spots", force: :cascade do |t|
     t.string    "name"
     t.integer   "status",                                                              default: 0, null: false
@@ -114,23 +130,6 @@ ActiveRecord::Schema.define(version: 20150226172248) do
   add_index "spots", ["lonlat"], name: "index_spots_on_lonlat", using: :gist
   add_index "spots", ["status"], name: "index_spots_on_status", using: :btree
   add_index "spots", ["user_id"], name: "index_spots_on_user_id", using: :btree
-
-  create_table "uploads", force: :cascade do |t|
-    t.binary   "uuid"
-    t.string   "filename"
-    t.string   "content_type"
-    t.integer  "state"
-    t.string   "upload_type"
-    t.integer  "user_id"
-    t.integer  "uploadable_id"
-    t.string   "uploadable_type"
-    t.datetime "pending_at"
-    t.datetime "imported_at"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-  end
-
-  add_index "uploads", ["uploadable_type", "uploadable_id"], name: "index_uploads_on_uploadable_type_and_uploadable_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

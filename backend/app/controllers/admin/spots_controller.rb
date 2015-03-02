@@ -14,12 +14,12 @@ class Admin::SpotsController < Admin::BaseController
     @spot = Spot.new(spot_params)
     @spot.user = current_user
     @spot.save
-    respond_with :admin, @spot #, location: spots_path
+    respond_with :admin, @spot
   end
 
   def update
     @spot.update(spot_params)
-    respond_with :admin, @spot #, location: spots_path
+    respond_with :admin, @spot
   end
 
   def destroy
@@ -34,7 +34,7 @@ class Admin::SpotsController < Admin::BaseController
   end
 
   def spot_params
-    params.require(:spot).permit(:status, :name, :latitude, :longitude,
+    params.require(:spot).permit(:status, :name, :latitude, :longitude, new_photo_uploads_uuids: [],
                                  address_attributes: [:street, :city, :zip, :state, :country_code]
                                 )
   end

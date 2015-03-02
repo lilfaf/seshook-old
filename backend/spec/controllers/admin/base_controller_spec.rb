@@ -1,5 +1,5 @@
 require 'rails_helper'
 
-RSpec.describe Admin::BaseController, type: :controller do
-
+describe Admin::BaseController do
+  it { is_expected.to use_before_filter(:require_admin!) }
 end

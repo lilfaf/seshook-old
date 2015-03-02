@@ -11,10 +11,10 @@ gem 'devise'
 gem 'doorkeeper', '~> 2.1.0'
 
 # File uploads and processing
-gem 'aws-sdk', '~> 2.0.28'
-gem 'fog',     '~> 1.26.0'
+gem 'fog', '~> 1.26.0'
 gem 'carrierwave'
 gem 'mini_magick'
+gem 's3_relay'
 
 # Background jobs
 gem 'sidekiq'
@@ -45,6 +45,7 @@ group :development, :test do
   gem 'capybara'
   gem 'poltergeist'
   gem 'json_spec'
+  gem 'foreman'
 end
 
 group :test do

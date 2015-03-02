@@ -23,7 +23,33 @@ describe Spot do
   it { is_expected.to have_many(:photos).dependent(:destroy) }
   it { is_expected.to have_many(:albums).dependent(:destroy) }
 
+  it { is_expected.to accept_nested_attributes_for(:address) }
+
   it 'has pending status by default' do
     expect(subject.pending?).to be(true)
+  end
+
+  it 'set latitude and longitude on initialize' do
+    obj = described_class.find(subject.id)
+    expect(obj.latitude).to eq(subject.lonlat.y)
+    expect(obj.longitude).to eq(subject.lonlat.x)
+  end
+
+  it 'updates latlon before validations' do
+    subject.latitude = 1.0
+    expect(subject).to receive(:update_lonlat)
+    subject.validate
+  end
+
+  describe 'photo processing' do
+    include ActiveJob::TestHelper
+
+    subject { build(:spot_with_upload) }
+    after   { clear_enqueued_jobs }
+
+    it 'should enqueue jobs' do
+      subject.save
+      expect(enqueued_jobs.size).to eq(1)
+    end
   end
 end

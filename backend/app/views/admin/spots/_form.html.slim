@@ -12,8 +12,13 @@
         = af.input :country_code, label: 'Country',
             priority: %w(US FR), prompt: 'Please select a country'
     .col-md-6
+      - if @spot.errors.include?(:lonlat)
+        span.error Location has already been taken
       = f.input :latitude, as: :float
       = f.input :longitude, as: :float
       #map data-latlon=[@spot.latitude, @spot.longitude]
+
+  = s3_relay_field @spot, :photo_uploads, multiple: true
+
   = f.button :submit
   = link_to 'Cancel', admin_spots_path, class: 'btn btn-cancel'
