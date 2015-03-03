@@ -62,7 +62,7 @@ en:
       edit:
         title: 'Edit application'
       index:
-        title: 'Your applications'
+        title: 'Listing applications'
         new: 'New Application'
         name: 'Name'
         callback_url: 'Callback URL'

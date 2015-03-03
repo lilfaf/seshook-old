@@ -18,20 +18,20 @@ html
           i.glyphicon.glyphicon-map-marker
         = nav_link 'Albums', admin_albums_path
           i.glyphicon.glyphicon-picture
-        /- if can? :manage, Doorkeeper::Application
-        = nav_link 'OAuth Applications', admin_oauth_applications_path
-          i.glyphicon.glyphicon-phone
-        /- if can? :manage, :sidekiq
-        li = link_to sidekiq_web_path, target: "_blank"
-          i.glyphicon.glyphicon-stats
-          | Jobs Monitoring
+        - if can? :manage, Doorkeeper::Application
+          = nav_link 'OAuth Applications', admin_oauth_applications_path
+            i.glyphicon.glyphicon-phone
+        - if can? :manage, :sidekiq
+          li = link_to sidekiq_web_path, target: '_blank'
+            i.glyphicon.glyphicon-stats
+            | Jobs Monitoring
         li.divider
         li = link_to destroy_user_session_path, method: :delete
           i.glyphicon.glyphicon-log-out
-          | Logout
+          | Log out
 
     nav.navbar.navbar-fixed-top.navbar-inverse
-      button.navbar-toggle[type="button" class="navbar-toggle" data-toggle="offcanvas" data-target=".navmenu"]
+      button.navbar-toggle[type='button' class='navbar-toggle' data-toggle='offcanvas' data-target='.navmenu']
         span.sr-only Toggle navigation
         span.icon-bar
         span.icon-bar
@@ -40,8 +40,7 @@ html
       .navbar-header
         = link_to 'SESHOOK ADMIN', admin_dashboard_path, class: 'navbar-brand'
       ul.nav.navbar-nav.navbar-right.hidden-xs
-        li = link_to 'Log out', destroy_user_session_path, method: :delete
-        /li= link_to current_user.email, edit_user_path(current_user)
+        li= link_to current_user.email, edit_admin_user_path(current_user)
 
     #wrapper
       .container

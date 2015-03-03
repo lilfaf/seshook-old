@@ -8,5 +8,9 @@ FactoryGirl.define do
   factory :admin, parent: :user do
     after(:build) { |u| u.admin! }
   end
+
+  factory :superadmin, parent: :user do
+    after(:build) { |u| u.superadmin! }
+  end
 end
 

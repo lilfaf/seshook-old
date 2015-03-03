@@ -15,20 +15,20 @@
   .row.thumbnails
     - @spot.photos.each do |photo|
       .col-xs-3.col-md-2
-        = link_to image_tag(photo.file.thumb.url), photo.file.thumb.url, class: 'thumbnail swipebox'
+        = link_to image_tag(photo.file.small.url), photo.file.large.url, class: 'thumbnail swipebox'
 
 .bs-callout.bs-callout-info
   h4 Albums
   p
-    /= link_to 'New Album', new_spot_album_path(@spot), class: 'btn btn-info'
-  /.row
-  /  - @spot.albums.each do |album|
-  /    .col-sm-6.col-md-4
-  /      .thumbnail
-  /        - if img = album.images.last
-  /           = image_tag(img.image.small.url)
-  /        .caption
-  /          h3 = album.name
-  /          p some description
-  /          p
-  /            = link_to 'Edit', edit_spot_album_path(@spot, album), class: 'btn btn-default'
+    = link_to 'New Album', new_admin_spot_album_path(@spot), class: 'btn btn-info'
+  .row
+    - @spot.albums.each do |album|
+      .col-sm-6.col-md-4
+        .thumbnail
+          - if img = album.photos.last
+             = image_tag(img.file.small.url)
+          .caption
+            h3 = album.name
+            p = album.description
+            p
+              = link_to 'Edit', edit_admin_spot_album_path(@spot, album), class: 'btn btn-default'

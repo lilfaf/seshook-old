@@ -1,3 +1,5 @@
-= simple_form_for @album, url: polymorphic_path([@albumable, @album]) do |f|
+= simple_form_for @album, url: polymorphic_path([:admin, @albumable, @album]) do |f|
   = f.input :name
+  = f.input :description
   = f.button :submit
+  = link_to 'Cancel', admin_albums_path, class: 'btn btn-cancel'

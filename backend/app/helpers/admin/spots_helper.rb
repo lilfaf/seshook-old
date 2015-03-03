@@ -10,6 +10,15 @@ module Admin
         spot.status.capitalize
       end
     end
+
+    def options_for_graph_period_select
+      options_for_select([
+        ['3 days',   3],
+        ['1 week',   7],
+        ['1 month',  30],
+        ['6 months', 180],
+        ['1 year',   365],
+      ], 30)
+    end
   end
 end
-

@@ -3,6 +3,8 @@ require 'rails_helper'
 describe User do
   subject { create(:user) }
 
+  it_behaves_like 'temporal scopes'
+
   it { is_expected.to have_db_column(:email).with_options(null: false, default: '') }
   it { is_expected.to have_db_column(:encrypted_password).with_options(null: false, default: '') }
   it { is_expected.to have_db_column(:reset_password_token) }

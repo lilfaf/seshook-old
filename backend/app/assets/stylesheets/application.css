@@ -2,3 +2,7 @@
  *= require bootstrap_and_overrides
  *= require_self
  */
+
+body {
+  padding-top: 70px;
+}

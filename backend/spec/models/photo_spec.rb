@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 describe Photo do
+  it_behaves_like 'temporal scopes'
+
   it { is_expected.to have_db_column(:file).with_options(null: false) }
   it { is_expected.to have_db_column(:content_type).with_options(null: false) }
   it { is_expected.to have_db_column(:size).with_options(null: false) }

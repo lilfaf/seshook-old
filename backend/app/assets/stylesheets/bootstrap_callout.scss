@@ -1,0 +1,74 @@
+$callout-default-color: #777    !default;
+$callout-primary-color: #428bca !default;
+$callout-success-color: #5cb85c !default;
+$callout-danger-color:  #d9534f !default;
+$callout-warning-color: #f0ad4e !default;
+$callout-info-color:    #5bc0de !default;
+
+.bs-callout {
+  padding: 20px;
+  margin: 20px 0;
+  border: 1px solid #eee;
+  border-left-width: 5px;
+  border-radius: 3px;
+
+  h4 {
+    margin-top: 0;
+    margin-bottom: 5px;
+  }
+
+  p:last-child {
+      margin-bottom: 0;
+  }
+
+  code {
+    border-radius: 3px;
+  }
+
+  &+.bs-callout {
+    margin-top: -5px;
+  }
+}
+
+.bs-callout-default {
+    border-left-color: $callout-default-color;
+    h4 {
+        color: $callout-default-color;
+    }
+}
+
+.bs-callout-primary {
+  border-left-color: $callout-primary-color;
+  h4 {
+      color: $callout-primary-color;
+  }
+}
+
+.bs-callout-success {
+  border-left-color: $callout-success-color;
+  h4 {
+      color: $callout-success-color;
+  }
+}
+
+
+.bs-callout-danger {
+  border-left-color: $callout-danger-color;
+  h4 {
+      color: $callout-danger-color;
+  }
+}
+
+.bs-callout-warning {
+  border-left-color: $callout-warning-color;
+  h4 {
+      color: $callout-warning-color;
+  }
+}
+
+.bs-callout-info {
+  border-left-color: $callout-info-color;
+  h4 {
+      color: $callout-info-color;
+  }
+}

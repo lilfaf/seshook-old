@@ -1,4 +1,6 @@
 class Photo < ActiveRecord::Base
+  include TemporalScopes
+
   mount_uploader :file, PhotoUploader
 
   validates :file,         presence: true

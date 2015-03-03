@@ -8,6 +8,9 @@ require 'capybara/rails'
 require 'capybara/poltergeist'
 require 'sidekiq/testing'
 
+# Use phantomjs as headless browser
+Capybara.javascript_driver = :poltergeist
+
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
 # Checks for pending migrations before tests are run.

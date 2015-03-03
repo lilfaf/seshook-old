@@ -26,6 +26,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get '/', to: 'dashboard#index', as: :dashboard
+    get :data, to: 'dashboard#chart_data', as: :dashboard_chart_data
     resources :spots, except: :show do
       resources :albums, except: :show
     end

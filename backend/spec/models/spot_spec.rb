@@ -3,6 +3,8 @@ require 'rails_helper'
 describe Spot do
   subject { create(:spot) }
 
+  it_behaves_like 'temporal scopes'
+
   it { is_expected.to have_db_column(:name) }
   it { is_expected.to have_db_column(:status).with_options(null: false, default: 0) }
   it { is_expected.to have_db_column(:lonlat).with_options(null: false, geographic: true) }

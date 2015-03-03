@@ -1,0 +1,70 @@
+/*
+ *= require bootstrap_and_overrides
+ *= require bootstrap_callout
+ *= require bootstrap-select
+ *= require jasny-bootstrap
+ *= require swipebox
+ *= require_tree .
+ *= require_self
+ */
+
+/* shared components */
+
+.divider {
+  border-bottom: 1px solid #eeeeee;
+}
+
+/* body has padding left on large display for the sidebar */
+
+body {
+  margin-bottom: 50px;
+}
+
+@media (min-width: 768px) {
+  body {
+    padding: 70px 0 0 200px;
+  }
+}
+
+.container {
+  width: 100%;
+}
+
+/* navbar and sidebar styles */
+
+.navbar-right {
+  margin-right: 0;
+}
+
+.navmenu {
+  width: 200px;
+  padding-top: 50px;
+
+  .glyphicon {
+    margin-right: 5px;
+    font-size: 18px;
+  }
+}
+
+/* Customise table actions glyphicons style */
+
+table.table > tbody.rowlink > tr > td.rowlink-skip:last-child {
+  width: 30px;
+  i {
+    color: #777;
+    &:hover {
+      color: #333;
+    }
+  }
+}
+
+/* thumbnails */
+
+.thumbnails {
+  .thumbnail {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+  }
+}
+
