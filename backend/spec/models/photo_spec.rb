@@ -20,9 +20,10 @@ describe Photo do
   it { is_expected.to belong_to(:photoable) }
 
   it 'updates file size and content_type' do
-    subject.file = File.open('spec/fixtures/logo.png')
+    subject.file = File.open('spec/fixtures/exif.jpg')
+    allow(subject.file.file).to receive(:size).and_return(123456)
     subject.save!
-    expect(subject.size).to eq(23688)
-    expect(subject.content_type).to eq('image/png')
+    expect(subject.size).to eq(123456)
+    expect(subject.content_type).to eq('image/jpeg')
   end
 end
