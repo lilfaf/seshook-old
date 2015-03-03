@@ -16,4 +16,8 @@ FactoryGirl.define do
   factory :spot_with_album, parent: :spot do
     after(:build) { |s| s.albums << create(:album) }
   end
+
+  factory :spot_with_author, parent: :spot do
+    after(:build) { |s| s.user = create(:user) }
+  end
 end

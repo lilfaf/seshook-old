@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   scope :admin do
     as :user do
       get 'login', to: 'admin/sessions#new', as: :new_admin_session
+      resources :applications, controller: 'admin/applications', as: :oauth_applications
     end
   end
 
@@ -32,7 +33,6 @@ Rails.application.routes.draw do
     end
     resources :users, except: :show
     resources :albums, except: :show
-    resources :applications, as: :oauth_applications
   end
 
   mount Sidekiq::Web, at: '/sidekiq', constraints: Constraint::CanCan.new(:manage, :sidekiq)

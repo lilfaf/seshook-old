@@ -2,7 +2,6 @@
   .row
     .col-md-6
       = f.input :status, collection: Spot.statuses.keys, selected: @spot.status
-      /= f.input :status, collection: Spot.statuses.map{ |s| [s[0].humanize, s[0]] }, selected: @spot.status
       = f.input :name
       = f.simple_fields_for :address do |af|
         = af.input :street
@@ -18,7 +17,7 @@
       = f.input :longitude, as: :float
       #map data-latlon=[@spot.latitude, @spot.longitude]
 
-  = s3_relay_field @spot, :photo_uploads, multiple: true
+  = s3_relay_field @spot, :photo_uploads, multiple: true, id: 'spot_photos'
 
   = f.button :submit
   = link_to 'Cancel', admin_spots_path, class: 'btn btn-cancel'

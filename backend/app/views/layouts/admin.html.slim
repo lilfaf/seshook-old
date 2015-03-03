@@ -19,7 +19,7 @@ html
         = nav_link 'Albums', admin_albums_path
           i.glyphicon.glyphicon-picture
         - if can? :manage, Doorkeeper::Application
-          = nav_link 'OAuth Applications', admin_oauth_applications_path
+          = nav_link 'OAuth Applications', oauth_applications_path
             i.glyphicon.glyphicon-phone
         - if can? :manage, :sidekiq
           li = link_to sidekiq_web_path, target: '_blank'

@@ -5,21 +5,17 @@ describe Admin::ApplicationsController do
 
   before { sign_in admin }
 
-  #context "as an admin" do
-  #  let(:admin) { create(:admin) }
-  #
-  #  it "unauthorize access" do
-  #    get :index
-  #    expect(response.body).to redirect_to(dashboard_path)
-  #  end
-  #end
-
   context "as an admin" do
     let(:admin) { create(:admin) }
 
-    #it 'includes application helper' do
-    #  expect(subject.respond_to?(:bootstrap_class_for)).to be(true)
-    #end
+    it "unauthorize access" do
+      get :index
+      expect(response).to redirect_to(admin_dashboard_path)
+    end
+  end
+
+  context "as an admin" do
+    let(:admin) { create(:superadmin) }
 
     it "renders admin layout" do
       get :index

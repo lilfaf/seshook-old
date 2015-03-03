@@ -60,7 +60,7 @@ en:
         redirect_uri: 'Use one line per URI'
         native_redirect_uri: 'Use %{native_redirect_uri} for local tests'
       edit:
-        title: 'Edit application'
+        title: 'Editing application'
       index:
         title: 'Listing applications'
         new: 'New Application'

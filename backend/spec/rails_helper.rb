@@ -7,6 +7,7 @@ require 'shoulda/matchers'
 require 'capybara/rails'
 require 'capybara/poltergeist'
 require 'sidekiq/testing'
+require 'fakeredis/rspec'
 
 # Use phantomjs as headless browser
 Capybara.javascript_driver = :poltergeist

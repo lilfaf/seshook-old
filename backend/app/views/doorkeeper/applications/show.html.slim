@@ -1,0 +1,22 @@
+.page-header
+  h1 = t('.title', name: @application.name)
+
+dl
+  dt= t('.application_id')
+  dd
+    code#application_id
+        = @application.uid
+
+  dt= t('.secret')
+  dd
+    code#secret
+        = @application.secret
+
+  dt= t('.callback_urls')
+  - @application.redirect_uri.split.each do |uri|
+    dd
+      code#uri = uri
+
+br
+= link_to t('doorkeeper.applications.buttons.edit'), edit_oauth_application_path(@application), class: 'btn btn-primary pull-left'
+= link_to t('doorkeeper.applications.buttons.destroy'), oauth_application_path(@application), data: {confirm: t('doorkeeper.applications.confirmations.destroy')}, method: :delete, class: 'btn btn-danger btn-cancel'

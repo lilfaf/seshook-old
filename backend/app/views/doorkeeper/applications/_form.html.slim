@@ -1,0 +1,10 @@
+= simple_form_for application, url: doorkeeper_submit_path(application) do |f|
+  = f.input :name, required: true, autofocus: true
+  = f.input :redirect_uri, required: true
+  span.help-block
+    = t('doorkeeper.applications.help.redirect_uri')
+  - if Doorkeeper.configuration.native_redirect_uri
+    span.help-block
+      = raw t('doorkeeper.applications.help.native_redirect_uri', native_redirect_uri: "<code>#{ Doorkeeper.configuration.native_redirect_uri }</code>")
+  = f.button :submit
+  = link_to t('doorkeeper.applications.buttons.cancel'), oauth_applications_path, class: 'btn btn-danger btn-cancel'
