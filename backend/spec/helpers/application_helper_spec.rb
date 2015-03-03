@@ -7,4 +7,12 @@ describe ApplicationHelper do
     it { expect(helper.bootstrap_class_for('alert')).to eq('alert-warning') }
     it { expect(helper.bootstrap_class_for('notice')).to eq('alert-info') }
   end
+
+  describe "nav_link" do
+    it "returns an active nav link" do
+      helper.params[:controller] = 'admin/spots'
+      expect(helper.nav_link('Spots', admin_spots_path)).to have_css('li.active')
+      expect(helper.nav_link('Users', admin_users_path)).not_to have_css('li.active')
+    end
+  end
 end

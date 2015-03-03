@@ -1,0 +1,17 @@
+doctype html
+html
+  head
+    title
+      | Seshook Admin
+    = stylesheet_link_tag    'admin/application', media: 'all'
+    = javascript_include_tag 'admin/application'
+    = csrf_meta_tags
+  body
+    nav.navbar.navbar-fixed-top.navbar-inverse
+      .navbar-header
+        = link_to 'SESHOOK ADMIN', new_admin_session_path, class: 'navbar-brand'
+
+    .container
+      .col-sm-6.col-sm-offset-3
+        = render 'shared/flash_messages', flash: flash
+        = yield

@@ -1,0 +1,24 @@
+.page-header
+  = link_to 'New Album', new_admin_album_path, class: 'btn btn-default pull-right'
+  h1 Listing albums
+
+.bs-callout.bs-callout-info
+  table.table.table-striped.table-hover
+    thead
+      tr
+        th Name
+        th Albumable
+        th
+
+    tbody.rowlink data-link='row'
+      - @albums.each do |album|
+        tr
+          td = link_to album.name, edit_polymorphic_path([album.albumable, album])
+          td.rowlink-skip
+            - if albumable = album.albumable
+              = link_to "##{albumable.try(:id)}", edit_polymorphic_path(albumable)
+          td.rowlink-skip
+            = link_to album, data: {confirm: 'Are you sure?'}, method: :delete, id: :delete
+              i.glyphicon.glyphicon-trash
+
+  = paginate @albums

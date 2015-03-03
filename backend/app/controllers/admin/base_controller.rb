@@ -11,7 +11,7 @@ module Admin
 
     def require_admin!
       authenticate_user!
-      unless current_user.admin?
+      unless current_user.admin? || current_user.superadmin?
         redirect_to root_path, alert: t('errors.access_denied')
       end
     end

@@ -1,0 +1,3 @@
+= simple_form_for @album, url: polymorphic_path([@albumable, @album]) do |f|
+  = f.input :name
+  = f.button :submit

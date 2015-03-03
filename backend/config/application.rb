@@ -38,5 +38,8 @@ module Backend
 
     # Auto load lib directory
     config.autoload_paths << Rails.root.join('lib')
+
+    # Precompiled assets
+    config.assets.precompile += %w( admin/main.css admin/main.js )
   end
 end

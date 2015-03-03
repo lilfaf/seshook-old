@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  enum role: [:user, :admin, :superadmin]
+  enum role: [:member, :admin, :superadmin]
 
   validates :role, presence: true
 

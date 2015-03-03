@@ -1,4 +1,6 @@
+require 'sidekiq/web'
 require 'constraints/api'
+require 'constraints/cancan'
 
 Rails.application.routes.draw do
 
@@ -18,14 +20,21 @@ Rails.application.routes.draw do
 
   scope :admin do
     as :user do
-      get 'login', to: 'devise/sessions#new', as: :new_admin_session
+      get 'login', to: 'admin/sessions#new', as: :new_admin_session
     end
   end
 
   namespace :admin do
     get '/', to: 'dashboard#index', as: :dashboard
-    resources :spots, except: :show
+    resources :spots, except: :show do
+      resources :albums, except: :show
+    end
+    resources :users, except: :show
+    resources :albums, except: :show
+    resources :applications, as: :oauth_applications
   end
+
+  mount Sidekiq::Web, at: '/sidekiq', constraints: Constraint::CanCan.new(:manage, :sidekiq)
 
   root to: 'home#index'
 end

@@ -12,4 +12,5 @@ describe Album do
   it { is_expected.to validate_uniqueness_of(:name).scoped_to(:albumable_id) }
 
   it { is_expected.to belong_to(:albumable) }
+  it { is_expected.to have_many(:photos) }
 end

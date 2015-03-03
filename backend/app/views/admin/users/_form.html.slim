@@ -1,0 +1,6 @@
+= simple_form_for @user do |f|
+  = f.input :email, autofocus: true, required: true
+  - if @user.new_record?
+    = f.input :password, hint: "#{User.password_length.min} characters minimum", required: true
+    = f.input :password_confirmation, required: true
+  = f.button :submit

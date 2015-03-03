@@ -25,8 +25,8 @@ describe User do
   it { is_expected.to have_many(:photos) }
   it { is_expected.to have_many(:albums) }
 
-  it 'has user role by default' do
-    expect(subject.user?).to be(true)
+  it 'has member role by default' do
+    expect(subject.member?).to be(true)
   end
 
   let(:valid_emails) {[
