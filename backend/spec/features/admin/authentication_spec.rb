@@ -26,11 +26,19 @@ describe 'authentication' do
       expect(page).to have_content('Signed in successfully')
     end
 
-    it 'signs out and redirec to root' do
+    it 'signs out and redirect to root' do
       click_link 'Log out'
       expect(page.current_path).to eq(root_path)
       expect(page).to have_content('Signed out successfully')
     end
   end
-end
 
+  context 'as a superuser' do
+    let(:superadmin) { create(:superadmin) }
+
+    it 'redirects to dashboard' do
+      login_for superadmin.email, 'seshook123'
+      expect(page.current_path).to eq(admin_dashboard_path)
+    end
+  end
+end

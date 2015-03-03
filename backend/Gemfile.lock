@@ -118,6 +118,9 @@ GEM
     em-websocket (0.5.1)
       eventmachine (>= 0.12.9)
       http_parser.rb (~> 0.6.0)
+    ember-cli-rails (0.1.8)
+      railties (~> 4.0)
+      sprockets-rails (~> 2.0)
     erubis (2.7.0)
     eventmachine (1.0.7)
     excon (0.44.2)
@@ -449,6 +452,7 @@ DEPENDENCIES
   devise
   doorkeeper (~> 2.1.0)
   dotenv-rails
+  ember-cli-rails (~> 0.1.8)
   factory_girl_rails
   faker
   fakeredis

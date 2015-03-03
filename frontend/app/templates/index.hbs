@@ -1,0 +1,5 @@
+{{#if session.isAuthenticated}}
+  <h2 id="title">Fuck yeah! Your are signed in as {{ session.currentUser.email }}!</h2>
+{{else}}
+  <h2 id="title">Please try to sign in!</h2>
+{{/if}}

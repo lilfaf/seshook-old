@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   namespace :api do
     scope module: :v1, constraints: Constraints::Api.new(version: 1, default: true) do
       resources :spots, except: :destroy
+      resources :users, only: [:index, :show]
     end
   end
 
@@ -38,4 +39,5 @@ Rails.application.routes.draw do
   mount Sidekiq::Web, at: '/sidekiq', constraints: Constraint::CanCan.new(:manage, :sidekiq)
 
   root to: 'home#index'
+  get '/*path', to: 'home#index' # proxy to ember app
 end
