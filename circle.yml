@@ -1,0 +1,22 @@
+machine:
+  ruby:
+    version: 2.2.0
+
+dependencies:
+  cache_directories:
+    - frontend/node_modules
+    - frontend/bower_components
+  override:
+    - bundle install:
+      pwd: backend
+    - npm install -g ember-cli
+    - npm install -g bower
+    - npm purge && npm install && bower install:
+      pwd: frontend
+
+test:
+  override:
+    - bundle exec rspec
+      pwd: backend
+    - ember test:
+      pwd: frontend
