@@ -1,22 +1,28 @@
+---
 machine:
   ruby:
     version: 2.2.0
+  services:
+    - postgresql
 
 dependencies:
-  cache_directories:
-    - frontend/node_modules
-    - frontend/bower_components
+  pre:
+    - npm install -g ember-cli@0.1.15
+    - npm install -g bower
   override:
     - bundle install:
-      pwd: backend
-    - npm install -g ember-cli
-    - npm install -g bower
-    - npm purge && npm install && bower install:
-      pwd: frontend
+        pwd: backend
+    - npm install && bower install:
+        pwd: frontend
+
+database:
+  override:
+    - RAILS_ENV=test bundle exec rake db:create db:migrate:
+        pwd: backend
 
 test:
   override:
-    - bundle exec rspec
-      pwd: backend
+    - bundle exec rspec:
+        pwd: backend
     - ember test:
-      pwd: frontend
+        pwd: frontend
