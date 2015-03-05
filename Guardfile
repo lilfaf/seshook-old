@@ -1,3 +1,5 @@
+directories %w(backend/app frontend/app)
+
 guard 'livereload' do
   watch(%r{backend/app/views/.+\.(erb|haml|slim)$})
   watch(%r{backend/app/helpers/.+\.rb})
