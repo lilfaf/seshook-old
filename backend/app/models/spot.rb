@@ -1,5 +1,6 @@
 class Spot < ActiveRecord::Base
   include TemporalScopes
+
   GEO_FACTORY = RGeo::Geographic.spherical_factory(srid: 4326)
   set_rgeo_factory_for_column :lonlat, GEO_FACTORY
 
@@ -59,5 +60,24 @@ class Spot < ActiveRecord::Base
     record = self.class.where(lonlat: lonlat)
     record = record.where.not(id: id) if persisted?
     errors.add(:lonlat, :taken) if record.exists?
+  end
+
+  def self.close_to(latitude, longitude, distance_in_meters = 2000)
+    where(%Q{
+      ST_DWithin(
+        spots.lonlat,
+        ST_GeographyFromText('SRID=4326;POINT(#{longitude} #{latitude})'),
+        #{distance_in_meters}
+        )
+    })
+  end
+
+  def self.closest(latitude, longitude)
+    close_to(latitude, longitude).order(%Q{
+      ST_Distance(
+        spots.lonlat,
+        ST_GeomFromEWKT('SRID=4326;POINT(#{longitude} #{latitude})')
+        )
+    }).first
   end
 end

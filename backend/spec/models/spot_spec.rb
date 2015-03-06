@@ -54,4 +54,18 @@ describe Spot do
       expect(enqueued_jobs.size).to eq(1)
     end
   end
+
+  describe 'search class methods' do
+    let!(:far)     { create(:spot, latitude: 40,     longitude: -77) }
+    let!(:close)   { create(:spot, latitude: 39.01,  longitude: -75.99) }
+    let!(:closest) { create(:spot, latitude: 39.001, longitude: -75.999) }
+
+    describe '.close_to' do
+      it { expect(described_class.close_to(39, -76)).to eq([close, closest]) }
+    end
+
+    describe '.closest' do
+      it { expect(described_class.closest(39, -76)).to eq(closest) }
+    end
+  end
 end
