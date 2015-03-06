@@ -1,10 +1,7 @@
 = simple_form_for [:admin, @spot] do |f|
   .row
     .col-md-6
-      - if @spot.new_record?
-        = f.input :photos, hint: t('admin.file_field_help')
-          = s3_relay_field @spot, :photo_uploads, multiple: true, id: 'spot_photos'
-
+      = render partial: 'admin/shared/form_file_input', locals: { f: f, resource: @spot }
       = f.input :status, collection: Spot.statuses.keys, selected: @spot.status
       = f.input :name
       = f.simple_fields_for :address do |af|

@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 describe Album do
+  it_behaves_like 'photoable'
+
   it { is_expected.to have_db_column(:name).with_options(null: false) }
   it { is_expected.to have_db_column(:description) }
   it { is_expected.to have_db_column(:albumable_id) }
@@ -12,5 +14,4 @@ describe Album do
   it { is_expected.to validate_uniqueness_of(:name).scoped_to(:albumable_id) }
 
   it { is_expected.to belong_to(:albumable) }
-  it { is_expected.to have_many(:photos) }
 end

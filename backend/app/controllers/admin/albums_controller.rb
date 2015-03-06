@@ -39,7 +39,7 @@ module Admin
     end
 
     def album_params
-      params.require(:album).permit(:name, :description)
+      params.require(:album).permit(:name, :description, new_photo_uploads_uuids: [])
     end
   end
 end

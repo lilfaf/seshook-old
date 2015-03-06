@@ -7,3 +7,5 @@
 
 .bs-callout.bs-callout-info
   = render 'form'
+
+= render partial: 'admin/shared/photo_list', locals: { resource: @album }

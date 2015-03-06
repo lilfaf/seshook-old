@@ -1,5 +1,6 @@
 = simple_form_for @album, url: polymorphic_path([:admin, @albumable, @album]) do |f|
   = f.input :name
   = f.input :description
+  = render partial: 'admin/shared/form_file_input', locals: { f: f, resource: @album }
   = f.button :submit
   = link_to 'Cancel', admin_albums_path, class: 'btn btn-cancel'

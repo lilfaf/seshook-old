@@ -70,7 +70,7 @@ describe 'managing spots' do
     context 'working with a spot' do
       let!(:spot) { create(:spot) }
 
-      it 'does not have to image input on edit' do
+      it 'does not have photos input on edit' do
         visit edit_admin_spot_path(spot)
         expect(page).not_to have_field('Photos')
       end
@@ -100,7 +100,7 @@ describe 'managing spots' do
 
       it 'create an associated photo', js: true do
         visit edit_admin_spot_path(spot)
-        attach_file('edit_spot_photos', 'spec/fixtures/exif.jpg')
+        attach_file('file', 'spec/fixtures/exif.jpg')
         expect(page).to have_selector('.s3r-progress')
         expect(page).to have_content('exif.jpg')
       end

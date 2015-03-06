@@ -1,0 +1,3 @@
+- if resource.new_record?
+  = f.input :photos, hint: t('admin.file_field_help')
+    = s3_relay_field resource, :photo_uploads, multiple: true, id: "#{resource.class.name.downcase}_photos"

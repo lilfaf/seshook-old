@@ -53,10 +53,11 @@ describe 'managing albums' do
         expect(page).to have_content("can't be blank")
       end
 
-      it 'succeed with valid attributes' do
+      it 'succeed with valid attributes', js: true do
         visit new_admin_album_path
         fill_in 'Name', with: 'default name'
         fill_in 'Description', with: 'some description'
+        attach_file('album_photos', 'spec/fixtures/exif.jpg')
         click_button 'Create Album'
         expect(page).to have_content("Album was successfully created")
       end
@@ -64,6 +65,11 @@ describe 'managing albums' do
 
     context 'working with a album' do
       let!(:album) { create(:album) }
+
+      it 'does not have photos input on edit' do
+        visit edit_admin_album_path(album)
+        expect(page).not_to have_field('Photos')
+      end
 
       it 'cannot edit a album to be invalid' do
         visit edit_admin_album_path(album)
@@ -99,6 +105,13 @@ describe 'managing albums' do
         visit admin_albums_path
         click_link('delete')
         expect(page).to have_content('Album was successfully destroyed')
+      end
+
+      it 'create an associated photo', js: true do
+        visit edit_admin_album_path(album)
+        attach_file('file', 'spec/fixtures/exif.jpg')
+        expect(page).to have_selector('.s3r-progress')
+        expect(page).to have_content('exif.jpg')
       end
     end
   end

@@ -4,6 +4,7 @@ describe Spot do
   subject { create(:spot) }
 
   it_behaves_like 'temporal scopes'
+  it_behaves_like 'photoable'
 
   it { is_expected.to have_db_column(:name) }
   it { is_expected.to have_db_column(:status).with_options(null: false, default: 0) }
@@ -22,7 +23,7 @@ describe Spot do
 
   it { is_expected.to belong_to(:user) }
   it { is_expected.to have_one(:address).dependent(:destroy) }
-  it { is_expected.to have_many(:photos).dependent(:destroy) }
+  #it { is_expected.to have_many(:photos).dependent(:destroy) }
   it { is_expected.to have_many(:albums).dependent(:destroy) }
 
   it { is_expected.to accept_nested_attributes_for(:address) }
@@ -41,18 +42,6 @@ describe Spot do
     subject.latitude = 1.0
     expect(subject).to receive(:update_lonlat)
     subject.validate
-  end
-
-  describe 'photo processing' do
-    include ActiveJob::TestHelper
-
-    subject { build(:spot_with_upload) }
-    after   { clear_enqueued_jobs }
-
-    it 'should enqueue jobs' do
-      subject.save
-      expect(enqueued_jobs.size).to eq(1)
-    end
   end
 
   describe 'search class methods' do
