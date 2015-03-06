@@ -20,9 +20,6 @@ jQuery ->
       # set map position
       map.setMarker(data.latlon)
 
-  # init jasny file input preview
-  $('.fileinput').fileinput()
-
 class @Map
   token: 'pk.eyJ1IjoibGlsZmFmIiwiYSI6InY2TUktVkUifQ.eVZ3ivj1dlTxTAsJYRQI3g'
   mapId: 'lilfaf.l26132mi'

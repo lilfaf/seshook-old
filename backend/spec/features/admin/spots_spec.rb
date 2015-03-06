@@ -37,6 +37,7 @@ describe 'managing spots' do
       it 'autocomplete form form exif metatdata', js: true do
         visit new_admin_spot_path
         attach_file('spot_photos', 'spec/fixtures/exif.jpg')
+        expect(page).to have_field('Photos')
         expect(page).to have_field('Latitude', with: '48.851')
         expect(page).to have_field('Longitude', with: '2.3705')
         expect(page).to have_field('Street', with: 'Rue de Lyon')
@@ -71,7 +72,7 @@ describe 'managing spots' do
 
       it 'does not have to image input on edit' do
         visit edit_admin_spot_path(spot)
-        expect(page).not_to have_field('Image')
+        expect(page).not_to have_field('Photos')
       end
 
       it 'cannot edit a spot to be invalid' do
@@ -95,6 +96,13 @@ describe 'managing spots' do
         visit admin_spots_path
         click_link 'delete'
         expect(page).to have_content('Spot was successfully destroyed')
+      end
+
+      it 'create an associated photo', js: true do
+        visit edit_admin_spot_path(spot)
+        attach_file('edit_spot_photos', 'spec/fixtures/exif.jpg')
+        expect(page).to have_selector('.s3r-progress')
+        expect(page).to have_content('exif.jpg')
       end
 
       it 'create an associated album' do

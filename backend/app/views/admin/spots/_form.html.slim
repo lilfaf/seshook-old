@@ -1,6 +1,10 @@
 = simple_form_for [:admin, @spot] do |f|
   .row
     .col-md-6
+      - if @spot.new_record?
+        = f.input :photos, hint: t('admin.file_field_help')
+          = s3_relay_field @spot, :photo_uploads, multiple: true, id: 'spot_photos'
+
       = f.input :status, collection: Spot.statuses.keys, selected: @spot.status
       = f.input :name
       = f.simple_fields_for :address do |af|
@@ -10,14 +14,13 @@
         = af.input :state
         = af.input :country_code, label: 'Country',
             priority: %w(US FR), prompt: 'Please select a country'
+
     .col-md-6
       - if @spot.errors.include?(:lonlat)
         span.error Location has already been taken
       = f.input :latitude, as: :float
       = f.input :longitude, as: :float
       #map data-latlon=[@spot.latitude, @spot.longitude]
-
-  = s3_relay_field @spot, :photo_uploads, multiple: true, id: 'spot_photos'
 
   = f.button :submit
   = link_to 'Cancel', admin_spots_path, class: 'btn btn-cancel'

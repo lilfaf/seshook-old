@@ -12,6 +12,7 @@
 
 .bs-callout.bs-callout-warning
   h4 Pictures
+  = s3_relay_field @spot, :photo_uploads, multiple: true, id: 'edit_spot_photos'
   .row.thumbnails
     - @spot.photos.each do |photo|
       .col-xs-3.col-md-2

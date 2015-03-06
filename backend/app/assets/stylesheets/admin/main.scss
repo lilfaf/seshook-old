@@ -5,6 +5,7 @@
  *= require jasny-bootstrap
  *= require swipebox
  *= require mapbox
+ *= require s3_relay
  *= require_tree .
  *= require_self
  */
@@ -69,4 +70,3 @@ table.table > tbody.rowlink > tr > td.rowlink-skip:last-child {
     overflow: hidden;
   }
 }
-
