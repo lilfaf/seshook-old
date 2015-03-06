@@ -13,11 +13,5 @@ class ApplicationController < ActionController::Base
 
   def authenticate_for_s3_relay
     doorkeeper_token ? doorkeeper_authorize! : warden.authenticate!
-
-    #current_user = if doorkeeper_token
-    #         User.find(doorkeeper_token.resource_owner_id)
-    #       else
-    #         warden.authenticate!
-    #       end
   end
 end

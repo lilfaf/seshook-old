@@ -238,6 +238,7 @@ GEM
       guard (~> 2.1)
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
+    high_voltage (2.2.1)
     hike (1.2.3)
     hitimes (1.2.2)
     http_parser.rb (0.6.0)
@@ -482,6 +483,7 @@ DEPENDENCIES
   guard-bundler
   guard-livereload
   guard-rspec
+  high_voltage (~> 2.2.1)
   jquery-rails
   js-routes
   json_spec
