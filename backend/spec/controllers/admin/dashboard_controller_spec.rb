@@ -1,8 +1,7 @@
 require 'rails_helper'
 
 describe Admin::DashboardController do
-  let(:admin) { create(:admin) }
-  before { sign_in admin }
+  before { sign_in current_admin }
 
   describe "GET #index" do
     before { get :index }

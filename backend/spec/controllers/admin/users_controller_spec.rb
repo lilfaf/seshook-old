@@ -1,15 +1,14 @@
 require 'rails_helper'
 
 describe Admin::UsersController do
-  let(:admin) { create(:admin) }
   let(:user)  { create(:user) }
 
-  before { sign_in admin }
+  before { sign_in current_admin }
 
   describe "GET index" do
     it "assigns all users as @users" do
       get :index
-      expect(assigns(:users)).to eq([admin, user])
+      expect(assigns(:users)).to eq([current_admin, user])
     end
   end
 

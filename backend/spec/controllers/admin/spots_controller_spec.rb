@@ -2,9 +2,8 @@ require 'rails_helper'
 
 describe Admin::SpotsController do
   let(:spot)  { create(:spot) }
-  let(:admin) { create(:admin) }
 
-  before { sign_in admin }
+  before { sign_in current_admin }
 
   describe 'GET index' do
     it 'assigns all spots as @spots' do

@@ -6,7 +6,7 @@ describe Admin::ApplicationsController do
   before { sign_in admin }
 
   context "as an admin" do
-    let(:admin) { create(:admin) }
+    let(:admin) { current_admin }
 
     it "unauthorize access" do
       get :index

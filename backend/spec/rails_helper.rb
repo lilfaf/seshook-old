@@ -24,9 +24,7 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
 
   config.include JsonSpec::Helpers
-  config.include ApiHelper, type: :controller
   config.include Devise::TestHelpers, type: :controller
-
   config.include Warden::Test::Helpers
   Warden.test_mode!
 end

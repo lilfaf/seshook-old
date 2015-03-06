@@ -1,10 +1,9 @@
 require 'rails_helper'
 
 describe Admin::AlbumsController do
-  let!(:admin) { create(:admin) }
   let!(:album) { create(:album) }
 
-  before { sign_in admin }
+  before { sign_in current_admin }
 
   describe "GET index" do
     it "assigns all albums as @albums" do
