@@ -45,6 +45,20 @@ cd frontend && ember test
 cd backend && rake test
 ```
 
+## Samples
+
+Generate sample from photos with  exif metadata
+
+```bash
+cd backend && rake samples:seed
+```
+
+#### Environment variables
+
+Customise images directory path with `IMAGES_PATH`, defaults to `./images`
+
+Set `USE_REDIS_CACHE=true` to cache geocoder responses
+
 ## License
 
 © Seshook 2015
