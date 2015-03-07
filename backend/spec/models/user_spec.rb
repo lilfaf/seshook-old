@@ -26,6 +26,7 @@ describe User do
   it { is_expected.to have_many(:spots) }
   it { is_expected.to have_many(:photos) }
   it { is_expected.to have_many(:albums) }
+  it { is_expected.to have_one(:avatar_upload) }
 
   it 'has member role by default' do
     expect(subject.member?).to be(true)
@@ -65,5 +66,18 @@ describe User do
       expect(subject.valid?).to be(false)
     end
   end
-end
 
+  describe 'processgin avatar' do
+    include ActiveJob::TestHelper
+    subject { build(:user) }
+    let(:upload) { create(:upload) }
+
+    after   { clear_enqueued_jobs }
+
+    it 'should enqueue jobs' do
+      subject.new_avatar_upload_uuid = upload.uuid
+      subject.save
+      expect(enqueued_jobs.size).to eq(1)
+    end
+  end
+end

@@ -1,7 +1,6 @@
 /*
  *= require bootstrap_and_overrides
  *= require bootstrap_callout
- *= require bootstrap-select
  *= require jasny-bootstrap
  *= require swipebox
  *= require mapbox
@@ -34,6 +33,11 @@ body {
 }
 
 /* navbar and sidebar styles */
+
+.navbar-avatar {
+  margin: 8px 0px;
+  height: 34px;
+}
 
 .navbar-right {
   margin-right: 0;

@@ -54,6 +54,7 @@ describe 'managing users' do
         fill_in 'Email', with: 'test@mail.com'
         fill_in 'user_password', with: 'seshook123'
         fill_in 'user_password_confirmation', with: 'seshook123'
+        attach_file('file', 'spec/fixtures/exif.jpg')
         click_button 'Create User'
         expect(page).to have_content("User was successfully created")
       end
@@ -80,6 +81,13 @@ describe 'managing users' do
         visit admin_users_path
         click_link('delete', match: :first)
         expect(page).to have_content('User was successfully destroyed')
+      end
+
+      it 'can update avatar image', js: true do
+        visit edit_admin_user_path(user)
+        attach_file('file', 'spec/fixtures/logo.png')
+        expect(page).to have_selector('.s3r-progress')
+        expect(page).to have_content('logo.png')
       end
     end
   end
