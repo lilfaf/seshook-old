@@ -19,4 +19,18 @@ module ApplicationHelper
       end
     end
   end
+
+  def delete_action(resource)
+    link_to([:admin, resource],
+      data: {
+        confirm: 'Are you sure?',
+        toggle: 'tooltip', placement: 'left'
+      },
+      title: 'Delete',
+      method: :delete,
+      id: :delete
+    ) do
+      content_tag(:i, nil, class: 'glyphicon glyphicon-trash')
+    end
+  end
 end

@@ -15,4 +15,13 @@ describe ApplicationHelper do
       expect(helper.nav_link('Users', admin_users_path)).not_to have_css('li.active')
     end
   end
+
+  describe "delete_action" do
+    let(:resource) { create(:user) }
+
+    it "has tooltip and glyph trash icon" do
+      expect(helper.delete_action(resource)).to have_css('a[data-toggle="tooltip"]')
+      expect(helper.delete_action(resource)).to have_css('.glyphicon.glyphicon-trash')
+    end
+  end
 end

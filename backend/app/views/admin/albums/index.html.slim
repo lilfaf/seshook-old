@@ -18,7 +18,6 @@
             - if albumable = album.albumable
               = link_to "##{albumable.try(:id)}", edit_polymorphic_path([:admin, albumable])
           td.rowlink-skip
-            = link_to [:admin, album], data: {confirm: 'Are you sure?'}, method: :delete, id: :delete
-              i.glyphicon.glyphicon-trash
+            = delete_action(album)
 
   = paginate @albums
