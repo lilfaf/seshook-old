@@ -1,6 +1,6 @@
 <div class="col-sm-6 col-sm-offset-3">
-  <div class="panel panel-default center-block">
-    <div class="panel-heading"><h2>Login</h2></div>
+<div class="panel panel-default center-block">
+    <div class="panel-heading"><h2>Register</h2></div>
     <div class="panel-body">
       {{#if errorMessage}}
       <div class="alert alert-danger alert-dismissable">
@@ -8,7 +8,7 @@
         <strong>Oh snap!</strong> {{errorMessage}}
       </div>
       {{/if}}
-      <form role="form" {{action 'authenticate' on='submit'}}>
+      <form role="form" {{action 'register' on='submit'}}>
         <div class="form-group">
           <label for='email'>Email</label>
           {{input id='email' class='form-control' placeholder='Enter Email' autofocus='true' value=email}}
@@ -17,7 +17,11 @@
           <label for='password'>Password</label>
           {{input id='password' class='form-control' placeholder='Enter Password' type='password' value=password}}
         </div>
-        <button type='submit' class="btn btn-success">Login</button>
+        <div class="form-group">
+          <label for='password_confirmation'>Password Confirmation</label>
+          {{input id='password' class='form-control' placeholder='Enter Password Confirmation' type='password' value=passwordConfirmation}}
+        </div>
+        <button type='submit' class="btn btn-success">Register</button>
       </form>
     </div>
   </div>

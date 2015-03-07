@@ -40,6 +40,17 @@ describe('Acceptance: Authentication', function() {
     });
   });
 
+  it('login with invalid credentials', function() {
+    visit('/login');
+    click('button[type=submit]');
+    andThen(function() {
+      expect(find('.alert-danger').text()).to.equal('Invalid email or password');
+    });
+  });
+
+
+
+
   /* TODO Add signup with test helper
 
   it ('signs in user with valid credentials', function() {
