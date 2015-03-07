@@ -47,11 +47,19 @@ Ce document est une courte documentation technique
 
 ## TODO
 
-- Background jobs  `HOT !!!`
-- API serialization
-- Admin image management
-- Ember authentication
-- Import sample images
+- ~~Background jobs  `HOT !!!`~~
+- ~~Admin image management~~
+- ~~Ember authentication~~ (still needs register)
+- ~~Import sample images~~
+- [API] secure routes
+- [API] dev & test routes (controllers, serialization)
+- [ADMIN] fix carrierwave fallback image
+- [EMBER] register
+- [EMBER] map component w/ tests
+- [EMBER] side list
+- [EMBER] dynamic search
+- [CORE] Elastic search index
+- [CORE] Search service ?
 
 ##### BRIGHT FUTURE MOTHERFUCKER
 
