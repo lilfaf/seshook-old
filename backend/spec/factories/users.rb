@@ -12,5 +12,8 @@ FactoryGirl.define do
   factory :superadmin, parent: :user do
     after(:build) { |u| u.superadmin! }
   end
-end
 
+  factory :user_with_avatar, parent: :user do
+    after(:build) { |u| u.avatar = File.open('spec/fixtures/placeholder_avatar.png') }
+  end
+end

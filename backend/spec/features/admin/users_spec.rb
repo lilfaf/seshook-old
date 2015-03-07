@@ -89,6 +89,14 @@ describe 'managing users' do
         expect(page).to have_selector('.s3r-progress')
         expect(page).to have_content('logo.png')
       end
+
+      it 'can remove avatar' do
+        user = create(:user_with_avatar)
+        visit edit_admin_user_path(user)
+        check('user_remove_avatar')
+        click_button 'Update User'
+        expect(page).to have_content("User was successfully updated")
+      end
     end
   end
 end

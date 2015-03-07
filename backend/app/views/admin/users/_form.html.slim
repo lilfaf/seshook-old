@@ -8,6 +8,10 @@
     = s3_relay_field @user, :avatar_upload
   - if @user.avatar?
     = image_tag @user.avatar.thumb.url, class: 'thumbnail'
+    = f.check_box :remove_avatar, as: :checkbox
+    |  Remove avatar
+    br
+    br
 
   = f.button :submit
   = link_to 'Cancel', admin_users_path, class: 'btn btn-cancel'
