@@ -1,0 +1,19 @@
+db:
+  image: mdillon/postgis
+  ports:
+    - "5432:5432"
+
+redis:
+  image: redis:2.8.19
+  ports:
+    - "6379:6379"
+
+backend:
+  build: dockerfiles/rails
+  volumes:
+    - .:/data
+  ports:
+    - "3000:3000"
+  links:
+    - db
+    - redis
