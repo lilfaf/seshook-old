@@ -40,6 +40,6 @@ Rails.application.routes.draw do
 
   get 'about', to: 'high_voltage/pages#show', id: 'about'
 
-  root to: 'home#index'
-  get '/*path', to: 'home#index' # proxy to ember app
+  root to: 'application#index'
+  get '/*path', to: 'application#index' # proxy to ember app
 end

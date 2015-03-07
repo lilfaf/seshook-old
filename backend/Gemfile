@@ -35,7 +35,7 @@ gem 'country_select', '~> 2.1.1'
 gem 'active_model_serializers'
 
 # Ember Frontend
-gem 'ember-cli-rails', '~> 0.1.8'
+gem 'ember-cli-rails', '~> 0.1.10'
 
 # JS and stylesheets
 gem 'bootstrap-select-rails'

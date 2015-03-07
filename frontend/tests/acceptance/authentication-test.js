@@ -3,12 +3,14 @@
 import {
   describe,
   it,
+  before,
   beforeEach,
   afterEach
 } from 'mocha';
 import { expect } from 'chai';
 import Ember from 'ember';
 import startApp from '../helpers/start-app';
+import Pretender from 'pretender';
 
 var App;
 
@@ -40,16 +42,29 @@ describe('Acceptance: Authentication', function() {
     });
   });
 
-  it('login with invalid credentials', function() {
-    visit('/login');
-    click('button[type=submit]');
-    andThen(function() {
-      expect(find('.alert-danger').text()).to.equal('Invalid email or password');
+  describe('with invalid email or password', function() {
+    before(function() {
+      var error = {
+        "error": "invalid_grant",
+        "error_description": "Invalid email or password."
+      };
+      var server = new Pretender(function() {
+        this.post('/oauth/token', function(request) {
+          return [401, {"Content-Type": "application/json"}, JSON.stringify(error)];
+        });
+      });
+    });
+
+    it('fails to login', function() {
+      visit('/login');
+      fillIn('#identification', 'seshook@email.com');
+      fillIn('#password', 'seshook');
+      click('button.btn.btn-success');
+      andThen(function() {
+        expect(find('div.alert.alert-danger').text()).to.have.string('Oh snap! Invalid email or password.');
+      });
     });
   });
-
-
-
 
   /* TODO Add signup with test helper
 
