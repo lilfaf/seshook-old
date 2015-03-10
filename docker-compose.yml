@@ -10,12 +10,16 @@ redis:
   ports:
     - "6379:6379"
 
+worker:
+  image: seshook-worker
+  links:
+    - db
+    - redis
+
 web:
-  build: .
+  image: seshook-app
   environment:
-    - AWS_REGION=eu-west-1
-  env_file:
-    - backend/.env
+    - RAILS_ENV=production
   ports:
     - "80:80"
   links:

@@ -68,18 +68,27 @@ Install requirements
 - [docker-machine](https://docs.docker.com/machine/) `brew cask install docker-machine`
 - [docker-compose](https://docs.docker.com/compose/) `brew install docker-compose`
 
-Create docker host vm
+To run docker containers on a your local machine you must create a docker host virtual machine.
 
 ```bash
 docker-machine create -d vmwarefusion dev
 $(docker-machine env dev)
 ```
 
-Build and run containers
+Build containers
 
 ```bash
-docker-compose build web
-docker-compose run -e RAILS_ENV=production web bundle exec rake db:create db:migrate db:seed
+rake docker:build
+
+# or build images individually
+rake docker:build:app
+rake docker:build:worker
+```
+
+Setup database and launch all containers
+
+```bash
+docker-compose run web bundle exec rake db:create db:setup
 docker-compose up
 ```
 
