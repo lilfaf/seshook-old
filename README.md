@@ -59,6 +59,30 @@ Customise images directory path with `IMAGES_PATH`, defaults to `./images`
 
 Set `USE_REDIS_CACHE=true` to cache geocoder responses
 
+## Running on Docker
+
+Install requirements
+
+- Vmware Fusion
+- Docker
+- [docker-machine](https://docs.docker.com/machine/) `brew cask install docker-machine`
+- [docker-compose](https://docs.docker.com/compose/) `brew install docker-compose`
+
+Create docker host vm
+
+```bash
+docker-machine create -d vmwarefusion dev
+$(docker-machine env dev)
+```
+
+Build and run containers
+
+```bash
+docker-compose build web
+docker-compose run -e RAILS_ENV=production web bundle exec rake db:create db:migrate db:seed
+docker-compose up
+```
+
 ## License
 
 © Seshook 2015

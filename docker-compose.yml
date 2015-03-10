@@ -1,0 +1,23 @@
+db:
+  image: mdillon/postgis
+  environment:
+    - POSTGRES_PASSWORD=st7Senup
+  ports:
+    - "5432:5432"
+
+redis:
+  image: redis
+  ports:
+    - "6379:6379"
+
+web:
+  build: .
+  environment:
+    - AWS_REGION=eu-west-1
+  env_file:
+    - backend/.env
+  ports:
+    - "80:80"
+  links:
+    - db
+    - redis

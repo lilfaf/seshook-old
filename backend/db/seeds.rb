@@ -6,13 +6,15 @@
   end
 end
 
-%w(Web Mobile).each do |name|
-  FactoryGirl.create(:application, name: name)
-end
+unless Rails.env.production?
+  %w(web mobile).each do |name|
+    FactoryGirl.create(:application, name: name)
+  end
 
-(1..100).each do |i|
-  %i(user spot).each do |model|
-    FactoryGirl.create(model, created_at: rand(365).days.ago.to_date)
-    FactoryGirl.create(model, created_at: rand(365).days.ago.to_date)
+  (1..100).each do |i|
+    %i(user spot).each do |model|
+      FactoryGirl.create(model, created_at: rand(365).days.ago.to_date)
+      FactoryGirl.create(model, created_at: rand(365).days.ago.to_date)
+    end
   end
 end
