@@ -94,18 +94,18 @@ docker-compose up
 
 ## Deploy staging
 
-A [DigitalOcean](https://www.digitalocean.com/) acces token is required.
+Build containers on the staging env
 
 ```bash
-docker-machine create --driver digitalocean --digitalocean-access-token=<token> seshook-staging
+docker-machine create --driver digitalocean --digitalocean-size=1gb --digitalocean-access-token=7ad775f83b87a51558064820496a1ab8e3dfcb4f18885ecce756bf6a53a7c5aa seshook-staging
 $(docker-machine env seshook-staging)
 ```
 
-```bash
-git checkout staging
-```
+Run all containers on remote server
 
-Them build and run containers as usual.
+```bash
+docker-compose -f docker-compose-staging.yml up
+```
 
 ## License
 
