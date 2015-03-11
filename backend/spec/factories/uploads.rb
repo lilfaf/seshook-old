@@ -9,4 +9,8 @@ FactoryGirl.define do
   factory :photo_upload, parent: :upload do
     upload_type 'PhotoUpload'
   end
+
+  factory :avatar_upload, parent: :upload do
+    upload_type 'AvatarUpload'
+  end
 end

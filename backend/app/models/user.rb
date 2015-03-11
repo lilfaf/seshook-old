@@ -25,6 +25,8 @@ class User < ActiveRecord::Base
   private
 
   def import_avatar_upload
-    ProcessAvatarJob.perform_later(self, avatar_upload)
+    if avatar_upload.present?
+      ProcessAvatarJob.perform_later(self, avatar_upload)
+    end
   end
 end
