@@ -92,6 +92,21 @@ docker-compose run web bundle exec rake db:create db:setup
 docker-compose up
 ```
 
+## Deploy staging
+
+A [DigitalOcean](https://www.digitalocean.com/) acces token is required.
+
+```bash
+docker-machine create --driver digitalocean --digitalocean-access-token=<token> seshook-staging
+$(docker-machine env seshook-staging)
+```
+
+```bash
+git checkout staging
+```
+
+Them build and run containers as usual.
+
 ## License
 
 © Seshook 2015

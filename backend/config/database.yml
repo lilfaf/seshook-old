@@ -16,6 +16,11 @@ test:
   <<: *default
   database: seshook_test
 
+staging:
+  <<: *default
+  database: seshook_staging
+  password: <%= ENV.fetch('DB_ENV_POSTGRES_PASSWORD', '') %>
+
 production:
   <<: *default
   database: seshook_production
