@@ -70,7 +70,7 @@ describe User do
   describe 'processgin avatar' do
     include ActiveJob::TestHelper
     subject { build(:user) }
-    let(:upload) { create(:upload) }
+    let(:upload) { create(:avatar_upload) }
 
     after   { clear_enqueued_jobs }
 
