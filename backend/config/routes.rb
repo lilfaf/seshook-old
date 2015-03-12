@@ -38,7 +38,10 @@ Rails.application.routes.draw do
 
   mount Sidekiq::Web, at: '/sidekiq', constraints: Constraint::CanCan.new(:manage, :sidekiq)
 
-  get 'about', to: 'high_voltage/pages#show', id: 'about'
+  get 'about',   to: 'high_voltage/pages#show', id: 'about'
+  get 'contact', to: 'high_voltage/pages#show', id: 'contact'
+  get 'privacy', to: 'high_voltage/pages#show', id: 'privacy'
+  get 'terms',   to: 'high_voltage/pages#show', id: 'terms'
 
   root to: 'application#index'
   get '/*path', to: 'application#index' # proxy to ember app

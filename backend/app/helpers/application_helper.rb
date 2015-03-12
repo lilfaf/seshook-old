@@ -33,4 +33,12 @@ module ApplicationHelper
       content_tag(:i, nil, class: 'glyphicon glyphicon-trash')
     end
   end
+
+  def footer_links
+    content_tag(:ul, class: 'list-inline') do
+      STATIC_PAGES.map do |p|
+        concat content_tag(:li, link_to(p.humanize, "/#{p}"))
+      end
+    end
+  end
 end

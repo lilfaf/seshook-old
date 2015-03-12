@@ -1,0 +1,34 @@
+ /* sticky footer */
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 70px;
+}
+
+#footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  min-height: 50px;
+  margin-top: 20px;
+  border: 1px solid transparent;
+  background-color: #f8f8f8;
+  border-color: #e7e7e7;
+
+  /* inner footer style */
+  .container {
+    padding-top: 17px;
+    a {
+      color: #777;
+      a:hover {
+        color: #333;
+      }
+    }
+  }
+}

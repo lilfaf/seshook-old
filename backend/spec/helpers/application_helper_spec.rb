@@ -24,4 +24,12 @@ describe ApplicationHelper do
       expect(helper.delete_action(resource)).to have_css('.glyphicon.glyphicon-trash')
     end
   end
+
+  describe "footer_links" do
+    it 'has static pages links' do
+      STATIC_PAGES.each do |page|
+        expect(helper.footer_links).to have_css("li a[href='/#{page}']")
+      end
+    end
+  end
 end
