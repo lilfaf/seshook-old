@@ -20,11 +20,11 @@ describeModule(
     });
 
     it('config namespace', function() {
-      expect(this.subject().namespace).to.equal('api/');
+      expect(this.subject().namespace).to.equal('api');
     });
 
     it('config host', function() {
-      expect(this.subject().host).to.equal('http://localhost:3000');
+      expect(this.subject().host).to.equal('');
     });
   }
 );

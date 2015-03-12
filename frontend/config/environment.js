@@ -7,8 +7,8 @@ module.exports = function(environment) {
     baseURL: '/',
     locationType: 'auto',
     // application adapter config
-    apiNamespace: 'api/',
-    apiHost: 'http://localhost:3000',
+    apiNamespace: 'api',
+    apiHost: '',
 
     EmberENV: {
       FEATURES: {
@@ -29,6 +29,8 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
+
+    ENV.apiHost = 'http://localhost:3000';
   }
 
   if (environment === 'test') {

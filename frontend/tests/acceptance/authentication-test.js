@@ -19,21 +19,9 @@ var FakeServer;
 describe('Acceptance: Authentication', function() {
   beforeEach(function() {
     App = startApp();
-
-    var error_payload = {
-      error: "invalid_grant",
-      error_description: "Invalid email or password."
-    };
-
-    FakeServer = new Pretender(function() {
-      this.post('/oauth/token', function(request) {
-        return [401, {"Content-Type": "application/json"}, JSON.stringify(error_payload)];
-      });
-    });
   });
 
   afterEach(function() {
-    FakeServer.shutdown();
     Ember.run(App, 'destroy');
   });
 
@@ -56,27 +44,85 @@ describe('Acceptance: Authentication', function() {
     });
   });
 
-  it('fails to login with invalid email or password', function() {
-    visit('/login');
-    fillIn('#identification', 'seshook@email.com');
-    fillIn('#password', 'seshook');
-    click('button.btn.btn-success');
-    andThen(function() {
-      expect(find('div.alert.alert-danger').text()).to.have.string('Oh snap! Invalid email or password.');
+  describe('with invalid credentials', function() {
+    before(function() {
+      var error_payload = {
+        error: "invalid_grant",
+        error_description: "Invalid email or password."
+      };
+
+      FakeServer = new Pretender(function() {
+        this.post('/oauth/token', function(request) {
+          return [401, {"Content-Type": "application/json"}, JSON.stringify(error_payload)];
+        });
+      });
+    });
+
+    after(function() {
+      FakeServer.shutdown();
+    });
+
+    it('fails to login', function() {
+      visit('/login');
+      fillIn('#identification', 'unknown@email.com');
+      fillIn('#password', '123');
+      click('button.btn.btn-success');
+      andThen(function() {
+        expect(currentPath()).to.equal('login');
+        expect(find('div.alert.alert-danger').text()).to.have.string('Oh snap! Invalid email or password.');
+      });
+    });
+  });
+
+  describe('with valid credentials', function() {
+    beforeEach(function() {
+      var success_payload = {
+        access_token: "89c8e6a0447e4bcbaee557a2ffe77562542748c0dc1831b9abb65aff8121c897",
+        token_type: "bearer",
+        expires_in:7200,
+        created_at:1426125577,
+        user_id:1
+      };
+
+      var user_payload = {
+        user: { id: 1, email: "member@email.com" }
+      };
+
+      FakeServer = new Pretender(function() {
+        this.post('/oauth/token', function(request) {
+          return [200, {"Content-Type": "application/json"}, JSON.stringify(success_payload)];
+        });
+
+        this.post('/oauth/revoke', function(request) {
+          return [200, {"Content-Type": "application/json"}, JSON.stringify({})];
+        });
+
+        this.get('/api/users/1', function(request) {
+          return [200, {"Content-Type": "application/json"}, JSON.stringify(user_payload)];
+        });
+      });
+
+      visit('/login');
+      fillIn('#identification', 'member@email.com');
+      fillIn('#password', 'seshook123');
+      click('form button');
+    });
+
+    afterEach(function() {
+      FakeServer.shutdown();
+    });
+
+    it('logs in successfully', function() {
+      expect(currentPath()).to.equal('index');
+      expect(find('.navbar-nav a').text()).to.equal('Logout');
+    });
+
+    it('logs out', function() {
+      click('.navbar-nav a');
+      andThen(function() {
+        expect(currentPath()).to.equal('index');
+        expect(find('.navbar-nav a:last').text()).to.equal('Login');
+      });
     });
   });
 });
-
-/* TODO Add signup with test helper
-
-it ('signs in user with valid credentials', function() {
-  visit('/login');
-  fillIn('#email', 'member@email.com');
-  fillIn('#password', 'seshook123');
-  click('form button');
-  andThen(function() {
-    expect(currentPath()).to.equal('/');
-    expect(find('.navbar-nav a').text()).to.equal('Logout');
-  });
-}); */
-
