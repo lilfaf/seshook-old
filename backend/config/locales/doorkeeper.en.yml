@@ -119,7 +119,8 @@ en:
 
         # Access token errors
         invalid_client: 'Client authentication failed due to unknown client, no client authentication included, or unsupported authentication method.'
-        invalid_grant: 'The provided authorization grant is invalid, expired, revoked, does not match the redirection URI used in the authorization request, or was issued to another client.'
+        #invalid_grant: 'The provided authorization grant is invalid, expired, revoked, does not match the redirection URI used in the authorization request, or was issued to another client.'
+        invalid_grant: 'Invalid email or password.'
         unsupported_grant_type: 'The authorization grant type is not supported by the authorization server.'
 
         # Password Access token errors

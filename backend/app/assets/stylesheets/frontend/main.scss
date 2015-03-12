@@ -1,3 +1,7 @@
+/*
+ *= require_tree .
+ */
+
 /* sticky footer */
 
 html {
@@ -28,10 +32,12 @@ body {
   }
 }
 
-/* custom bootstrap alert */
+/* site wide bootstrap alert */
 
-.alert {
+body > .alert {
   margin-bottom: 0;
+  border-radius: 0;
+  text-align: center;
 }
 
 /* some dummy css */

@@ -1,5 +1,6 @@
 {
   "framework": "mocha",
+  "phantomjs_debug_port": "5656",
   "test_page": "tests/index.html?hidepassed",
   "launch_in_ci": [
     "PhantomJS"

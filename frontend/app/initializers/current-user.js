@@ -7,7 +7,6 @@ export function initialize(container) {
       var id = this.get('user_id');
       var self = this;
       if (!Ember.isEmpty(id)) {
-        console.log('hello');
         return container.lookup('store:main').find('user', id).then(function(user) {
           self.set('currentUser', user);
         });
