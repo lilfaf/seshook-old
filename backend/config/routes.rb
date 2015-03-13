@@ -17,7 +17,13 @@ Rails.application.routes.draw do
     end
   end
 
-  devise_for :users, path: ''
+  scope :api do
+    as :user do
+      post 'users', to: 'devise/registrations#create', module: :devise
+    end
+  end
+
+  devise_for :users
 
   scope :admin do
     as :user do

@@ -75,7 +75,7 @@ describe('Acceptance: Authentication', function() {
   });
 
   describe('with valid credentials', function() {
-    beforeEach(function() {
+    before(function() {
       var success_payload = {
         access_token: "89c8e6a0447e4bcbaee557a2ffe77562542748c0dc1831b9abb65aff8121c897",
         token_type: "bearer",
@@ -90,31 +90,38 @@ describe('Acceptance: Authentication', function() {
 
       FakeServer = new Pretender(function() {
         this.post('/oauth/token', function(request) {
-          return [200, {"Content-Type": "application/json"}, JSON.stringify(success_payload)];
+          return [200, {"Content-Type": "application/json"}, success_payload];
         });
 
         this.post('/oauth/revoke', function(request) {
-          return [200, {"Content-Type": "application/json"}, JSON.stringify({})];
+          return [200, {"Content-Type": "application/json"}, null];
         });
 
         this.get('/api/users/1', function(request) {
-          return [200, {"Content-Type": "application/json"}, JSON.stringify(user_payload)];
+          return [200, {"Content-Type": "application/json"}, user_payload];
         });
       });
 
+      FakeServer.prepareBody = function(body) {
+        return body ? JSON.stringify(body) : '{}';
+      };
+    });
+
+    after(function() {
+      FakeServer.shutdown();
+    });
+
+    beforeEach(function() {
       visit('/login');
       fillIn('#identification', 'member@email.com');
       fillIn('#password', 'seshook123');
       click('form button');
     });
 
-    afterEach(function() {
-      FakeServer.shutdown();
-    });
-
     it('logs in successfully', function() {
       expect(currentPath()).to.equal('index');
       expect(find('.navbar-nav a').text()).to.equal('Logout');
+      expect(find('#title').text()).to.equal('Fuck yeah! Your are signed in as member@email.com!');
     });
 
     it('logs out', function() {
