@@ -23,6 +23,8 @@ module Api
     # The same with rescue, append it at the end to wrap as much as possible.
     include ActionController::Rescue
 
+    before_action :doorkeeper_authorize!
+
     respond_to :json
 
     rescue_from ActiveRecord::RecordNotFound, with: :not_found

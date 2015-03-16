@@ -53,7 +53,7 @@ describe 'managing albums' do
         expect(page).to have_content("can't be blank")
       end
 
-      it 'succeed with valid attributes', js: true do
+      it 'succeed with valid attributes' do
         visit new_admin_album_path
         fill_in 'Name', with: 'default name'
         fill_in 'Description', with: 'some description'

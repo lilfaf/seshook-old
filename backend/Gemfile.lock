@@ -4,6 +4,16 @@ GIT
   specs:
     mapbox-rails (2.1.5)
 
+GIT
+  remote: git://github.com/carrierwaveuploader/carrierwave.git
+  revision: cfaed417bc36443e1e45c4c4c83e879c9f7210c7
+  specs:
+    carrierwave (0.10.0)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      json (>= 1.7)
+      mime-types (>= 1.16)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -77,11 +87,6 @@ GEM
       xpath (~> 2.0)
     carmen (1.0.1)
       unicode_utils (~> 1.4.0)
-    carrierwave (0.10.0)
-      activemodel (>= 3.2.0)
-      activesupport (>= 3.2.0)
-      json (>= 1.7)
-      mime-types (>= 1.16)
     celluloid (0.16.0)
       timers (~> 4.0.0)
     chartkick (1.3.2)
@@ -462,7 +467,7 @@ DEPENDENCIES
   cancancan
   capybara
   carmen
-  carrierwave
+  carrierwave!
   chartkick
   coffee-rails (~> 4.1.0)
   countries

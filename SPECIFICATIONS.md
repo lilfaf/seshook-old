@@ -51,10 +51,10 @@ Ce document est une courte documentation technique
 - ~~Admin image management~~
 - ~~Ember authentication~~ (still needs register)
 - ~~Import sample images~~
-- [API] secure routes
+- ~~[API] secure routes~~
 - [API] dev & test routes (controllers, serialization)
-- [ADMIN] fix carrierwave fallback image
-- [EMBER] register
+- ~~[ADMIN] fix carrierwave fallback image~~
+- ~~[EMBER] register~~
 - [EMBER] map component w/ tests
 - [EMBER] side list
 - [EMBER] dynamic search

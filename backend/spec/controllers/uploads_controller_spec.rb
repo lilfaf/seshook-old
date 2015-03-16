@@ -26,7 +26,7 @@ describe S3Relay::UploadsController do
 
     context 'user signed in through doorkeeper' do
       it 'render signed url as json' do
-        get :new, access_token: oauth_token, format: :json
+        api_get :new
         expect(response.status).to eq(200)
         expect(response.body).to have_json_type(Hash)
       end

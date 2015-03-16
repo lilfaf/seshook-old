@@ -6,7 +6,7 @@ describe Api::V1::SpotsController do
   describe '#index' do
     it 'return spots' do
       create(:spot)
-      get :index, format: :json
+      api_get :index
       expect(response.status).to eq(200)
       expect(response.body).to have_json_size(2).at_path('spots')
     end
@@ -14,12 +14,12 @@ describe Api::V1::SpotsController do
 
   describe "#show" do
     it "returns 404 not found" do
-      get :show, id: 10, format: :json
+      api_get :show, id: 10
       assert_not_found!
     end
 
     it "return spot" do
-      get :show, id: spot.id, format: :json
+      api_get :show, id: spot.id
       expect(response.status).to eq(200)
       expect(json_response[:spot][:latlon]).to eq([spot.latitude, spot.longitude])
     end

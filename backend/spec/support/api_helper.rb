@@ -19,6 +19,26 @@ module ApiHelper
     JSON.parse(response.body, symbolize_names: true)
   end
 
+  def api_get(action, params={}, session=nil, flash=nil)
+    api_process(action, params, session, flash, 'GET')
+  end
+
+  def api_post(action, params={}, session=nil, flash=nil)
+    api_process(action, params, session, flash, 'POST')
+  end
+
+  def api_put(action, params={}, session=nil, flash=nil)
+    api_process(action, params, session, flash, 'PUT')
+  end
+
+  def api_delete(action, params={}, session=nil, flash=nil)
+    api_process(action, params, session, flash, 'DELETE')
+  end
+
+  def api_process(action, params={}, session=nil, flash=nil, method='GET')
+    process(action, method, params.reverse_merge!(format: :json, access_token: oauth_token), session, flash)
+  end
+
   def assert_parameter_missing!
     expect(response.status).to eq(400)
     expect(json_response[:message]).to match(/parameter missing/)
