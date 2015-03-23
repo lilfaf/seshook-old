@@ -1,6 +1,6 @@
-.page-header
+.page-header.clearfix
+  = render partial: 'admin/shared/search_form', locals: { fields: :name_or_address_street_or_address_zip_or_address_city_or_address_country_cont }
   = link_to 'New Spot', new_admin_spot_path, class: 'btn btn-default pull-right'
-  h1 Listing spots
 
 .bs-callout.bs-callout-success
   table.table.table-striped.table-hover

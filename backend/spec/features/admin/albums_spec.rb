@@ -1,9 +1,11 @@
 require 'rails_helper'
 
 describe 'managing albums' do
-  context 'not signed in as admin' do
-    let(:album) { create(:album) }
+  let!(:admin) { create(:admin) }
+  let!(:album) { create(:album) }
+  let!(:spot)  { create(:spot_with_album) }
 
+  context 'not signed in as admin' do
     it 'cannot view albums' do
       visit admin_albums_path
       expect(page).to have_content(I18n.t('devise.failure.unauthenticated'))
@@ -11,33 +13,30 @@ describe 'managing albums' do
   end
 
   context 'signed in as admin' do
-    let(:admin) { create(:admin) }
-
     before { login_as admin }
 
-    it "can view albums" do
+    it 'can view albums' do
       visit admin_dashboard_path
       within '.navmenu' do
         click_link 'Albums'
       end
       expect(page.current_path).to eq(admin_albums_path)
-      expect(page).to have_content('Listing albums')
     end
 
-    it "can paginate albums" do
+    it 'can paginate albums' do
       a1 = create(:album)
       a2 = create(:album)
       visit admin_albums_path
       expect(page).not_to have_css('.pagination')
       visit admin_albums_path(per_page: 1)
       expect(page).to have_css('.pagination')
-      expect(page).to have_content(a1.name)
-      click_link('Next')
       expect(page).to have_content(a2.name)
+      click_link('Next')
+      expect(page).to have_content(a1.name)
       expect(page.current_url).to eq(admin_albums_url(page: 2, per_page: 1 ))
     end
 
-    it "can visit parent albumable" do
+    it 'can visit parent albumable' do
       spot = create(:spot_with_album)
       visit admin_albums_path
       click_link "##{spot.id}"
@@ -64,8 +63,6 @@ describe 'managing albums' do
     end
 
     context 'working with a album' do
-      let!(:album) { create(:album) }
-
       it 'does not have photos input on edit' do
         visit edit_admin_album_path(album)
         expect(page).not_to have_field('Photos')
@@ -85,8 +82,6 @@ describe 'managing albums' do
       end
 
       context 'album with albumable' do
-        let!(:spot) { create(:spot_with_album) }
-
         it 'redirects to spot album edit path' do
           visit admin_albums_path
           click_link spot.albums.last.name
@@ -98,12 +93,12 @@ describe 'managing albums' do
         visit edit_admin_album_path(album)
         fill_in 'Name', with: 'new name'
         click_button 'Update Album'
-        expect(page).to have_content("Album was successfully updated")
+        expect(page).to have_content('Album was successfully updated')
       end
 
       it 'deleting a album' do
         visit admin_albums_path
-        click_link('delete')
+        click_link('delete', match: :first)
         expect(page).to have_content('Album was successfully destroyed')
       end
 
@@ -112,6 +107,20 @@ describe 'managing albums' do
         attach_file('file', 'spec/fixtures/exif.jpg')
         expect(page).to have_selector('.s3r-progress')
         expect(page).to have_content('exif.jpg')
+      end
+    end
+
+    context 'searching for albums' do
+      it 'can search by name' do
+        search_with_term('album', album.name)
+        expect(page).to have_content(album.name)
+        expect(page).not_to have_content(spot.albums.last.name)
+      end
+
+      it 'can search by albumable type' do
+        search_with_term('album', 'Spot')
+        expect(page).to have_content(spot.albums.last.name)
+        expect(page).not_to have_content(album.name)
       end
     end
   end

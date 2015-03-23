@@ -3,7 +3,8 @@ module Admin
     before_action :set_user, only: [:edit, :update, :destroy]
 
     def index
-      @users = User.page(params[:page]).per(params[:per_page])
+      @q = User.search_with_sort(params[:q])
+      @users = @q.result.page(params[:page]).per(params[:per_page])
     end
 
     def new

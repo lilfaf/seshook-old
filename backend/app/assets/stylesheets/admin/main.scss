@@ -74,3 +74,19 @@ table.table > tbody.rowlink > tr > td.rowlink-skip:last-child {
     overflow: hidden;
   }
 }
+
+/* Search form */
+
+.search-form {
+  padding-left: 0;
+}
+
+/* Ransack custom */
+
+.sort_link {
+  color: #333333;
+  &:hover {
+    color: #333333;
+  }
+}
+

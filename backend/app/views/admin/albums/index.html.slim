@@ -1,6 +1,6 @@
-.page-header
+.page-header.clearfix
+  = render partial: 'admin/shared/search_form', locals: { fields: :name_or_description_or_albumable_type_cont }
   = link_to 'New Album', new_admin_album_path, class: 'btn btn-default pull-right'
-  h1 Listing albums
 
 .bs-callout.bs-callout-info
   table.table.table-striped.table-hover

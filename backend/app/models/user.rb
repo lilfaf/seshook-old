@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   include TemporalScopes
+  include RansackSearchable
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable

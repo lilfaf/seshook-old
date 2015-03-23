@@ -3,7 +3,8 @@ module Admin
     before_action :set_spot, only: [:edit, :update, :destroy]
 
     def index
-      @spots = Spot.includes(:address).page(params[:page]).per(params[:per_page])
+      @q = Spot.search_with_sort(params[:q])
+      @spots = @q.result.includes(:address).page(params[:page]).per(params[:per_page])
     end
 
     def new

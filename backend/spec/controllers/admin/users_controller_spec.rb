@@ -8,7 +8,7 @@ describe Admin::UsersController do
   describe "GET index" do
     it "assigns all users as @users" do
       get :index
-      expect(assigns(:users)).to eq([current_admin, user])
+      expect(assigns(:users)).to eq([user, current_admin])
     end
   end
 

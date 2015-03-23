@@ -3,7 +3,8 @@ module Admin
     before_action :set_album, only: [:edit, :update, :destroy]
 
     def index
-      @albums = scope.includes(:albumable).page(params[:page]).per(params[:per_page])
+      @q = Album.search_with_sort(params[:q])
+      @albums = @q.result.includes(:albumable).page(params[:page]).per(params[:per_page])
     end
 
     def new

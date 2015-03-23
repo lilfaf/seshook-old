@@ -1,6 +1,7 @@
 class Spot < ActiveRecord::Base
   include TemporalScopes
   include Photoable
+  include RansackSearchable
 
   GEO_FACTORY = RGeo::Geographic.spherical_factory(srid: 4326)
   set_rgeo_factory_for_column :lonlat, GEO_FACTORY

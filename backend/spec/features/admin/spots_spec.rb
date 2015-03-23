@@ -1,9 +1,11 @@
 require 'rails_helper'
 
 describe 'managing spots' do
-  context 'not signed in as admin' do
-    let(:user) { create(:user) }
+  let!(:admin) { create(:admin) }
+  let!(:spot)  { create(:spot) }
+  let!(:spot_with_album)  { create(:spot_with_album) }
 
+  context 'not signed in as admin' do
     it 'cannot view spots' do
       visit admin_spots_path
       expect(page).to have_content(I18n.t('devise.failure.unauthenticated'))
@@ -11,13 +13,11 @@ describe 'managing spots' do
   end
 
   context 'signed in as admin' do
-    let(:admin) { create(:admin) }
-
     before { login_as admin }
 
     it 'can view spots' do
       visit admin_spots_path
-      expect(page).to have_content('Listing spots')
+      expect(page).to have_content(admin.email)
     end
 
     it 'can paginate spots' do
@@ -27,9 +27,9 @@ describe 'managing spots' do
       expect(page).not_to have_css('.pagination')
       visit admin_spots_path(per_page: 1)
       expect(page).to have_css('.pagination')
-      expect(page).to have_content(s1.name)
-      click_link('Next')
       expect(page).to have_content(s2.name)
+      click_link('Next')
+      expect(page).to have_content(s1.name)
       expect(page.current_url).to eq(admin_spots_url(page: 2, per_page: 1 ))
     end
 
@@ -68,8 +68,6 @@ describe 'managing spots' do
     end
 
     context 'working with a spot' do
-      let!(:spot) { create(:spot) }
-
       it 'does not have photos input on edit' do
         visit edit_admin_spot_path(spot)
         expect(page).not_to have_field('Photos')
@@ -94,7 +92,7 @@ describe 'managing spots' do
 
       it 'deleting a spot' do
         visit admin_spots_path
-        click_link 'delete'
+        click_link('delete', match: :first)
         expect(page).to have_content('Spot was successfully destroyed')
       end
 
@@ -113,10 +111,25 @@ describe 'managing spots' do
       end
 
       it 'editing associated album' do
-        spot = create(:spot_with_album)
-        visit edit_admin_spot_path(spot)
+        visit edit_admin_spot_path(spot_with_album)
         click_link 'Edit'
-        expect(page.current_path).to eq(edit_polymorphic_path([:admin, spot, spot.albums.last]))
+        expect(page.current_path).to eq(edit_polymorphic_path([:admin, spot_with_album, spot_with_album.albums.last]))
+      end
+    end
+
+    context 'searching for albums' do
+      it 'can search by street' do
+        search_with_term('spot', spot.address.street)
+        expect(page).to have_content(spot.name)
+        expect(page).not_to have_content(spot_with_album.name)
+      end
+
+      it 'can search by country name' do
+        spot.address.country_code = 'FR'
+        spot.save
+        search_with_term('spot', 'france')
+        expect(page).to have_content(spot.name)
+        expect(page).not_to have_content(spot_with_album.name)
       end
     end
   end

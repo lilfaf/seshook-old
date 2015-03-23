@@ -108,14 +108,6 @@ describe Admin::AlbumsController do
   context "with spot parent albumable" do
     let(:spot) { create(:spot_with_album) }
 
-    describe "GET index" do
-      it "assigns @albumable and associated @albums" do
-        get :index, spot_id: spot.id
-        expect(assigns(:albumable)).to eq(spot)
-        expect(assigns(:albums)).to eq(spot.albums)
-      end
-    end
-
     describe "GET new" do
       it "assigns a new @album associated with @albumable" do
         get :new, spot_id: spot.id
