@@ -1,12 +1,14 @@
 module Api
   module V1
     class SpotsController < Api::BaseController
+      load_and_authorize_resource except: [:create, :update]
+
       def index
-        render json: Spot.all
+        render json: @spots
       end
 
       def show
-        render json: Spot.find(params[:id])
+        render json: @spot
       end
 
       def create
@@ -15,6 +17,11 @@ module Api
 
       def update
         render json: Spot.update(params[:id], params[:spot])
+      end
+
+      def destroy
+        @spot.destroy
+        head :no_content
       end
     end
   end

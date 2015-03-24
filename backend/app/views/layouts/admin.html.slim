@@ -13,12 +13,15 @@ html
       ul.nav.navmenu-nav
         = nav_link 'Dashboard', admin_dashboard_path
           i.glyphicon.glyphicon-dashboard
-        = nav_link 'Users', admin_users_path
-          i.glyphicon.glyphicon-user
-        = nav_link 'Spots', admin_spots_path
-          i.glyphicon.glyphicon-map-marker
-        = nav_link 'Albums', admin_albums_path
-          i.glyphicon.glyphicon-picture
+        - if can? :manage, User
+          = nav_link 'Users', admin_users_path
+            i.glyphicon.glyphicon-user
+        - if can? :manage, Spot
+          = nav_link 'Spots', admin_spots_path
+            i.glyphicon.glyphicon-map-marker
+        - if can? :manage, Album
+          = nav_link 'Albums', admin_albums_path
+            i.glyphicon.glyphicon-picture
         - if can? :manage, Doorkeeper::Application
           = nav_link 'OAuth Applications', oauth_applications_path
             i.glyphicon.glyphicon-phone

@@ -20,17 +20,57 @@ module Api
     include AbstractController::Callbacks
     include Doorkeeper::Rails::Helpers
 
+    include CanCan::ControllerAdditions
+
     # The same with rescue, append it at the end to wrap as much as possible.
     include ActionController::Rescue
 
-    before_action :doorkeeper_authorize!
-
     respond_to :json
 
+    # You might need to comment out the next line for debugging
+    rescue_from Exception, with: :error_during_processing
     rescue_from ActiveRecord::RecordNotFound, with: :not_found
+    rescue_from CanCan::AccessDenied, with: :unauthorized
+    rescue_from ActionController::ParameterMissing, with: :parameter_missing
+
+    before_action :doorkeeper_authorize!
+
+    def current_user
+      if doorkeeper_token
+        @current_user ||= User.find(doorkeeper_token.resource_owner_id)
+      end
+    end
+
+    def invalid_record!(record)
+      render json: {
+        message: I18n.t('errors.invalid_record'), errors: record.errors
+      }, status: :unprocessable_entity
+    end
+
+    private
+
+    def error_during_processing(exception)
+      Rails.logger.error exception.message
+      Rails.logger.error exception.backtrace.join("\n")
+      render text: { exception: exception.message }.to_json, status: 500 and return
+    end
 
     def not_found
-      render json: { message: I18n.t('errors.not_found') }, status: :not_found
+      render json: {
+        message: I18n.t('errors.not_found')
+      }, status: :not_found
+    end
+
+    def unauthorized
+      render json: {
+        message: I18n.t('errors.forbidden_operation')
+      }, status: :forbidden
+    end
+
+    def parameter_missing(exception)
+      render json: {
+        message: I18n.t('errors.parameter_missing', param: exception.param)
+      }, status: :bad_request
     end
   end
 end
