@@ -47,6 +47,18 @@ module Api
       }, status: :unprocessable_entity
     end
 
+    def metadata(arr)
+      {
+        pagination: {
+          next_page:    arr.next_page,
+          prev_page:    arr.prev_page,
+          current_page: arr.current_page,
+          total_pages:  arr.total_pages,
+          total_count:  arr.total_count
+        }
+      }
+    end
+
     private
 
     def error_during_processing(exception)

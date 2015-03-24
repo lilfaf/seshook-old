@@ -10,16 +10,15 @@ describe Api::V1::UsersController do
     it 'return spots' do
       api_get :index
       expect(response.status).to eq(200)
-      expect(response.body).to have_json_size(2).at_path('users')
-      expect(response.body).to have_json_type(Array).at_path('users')
-
+      expect(json_response[:users]).to be_a(Array)
+      expect(json_response[:users].size).to eq(2)
       expect(json_response[:users].first).to have_attributes(attributes)
     end
 
     context "pagination" do
       it "can select the next page of products" do
         api_get :index, page: 2, per_page: 1
-        expect(response.body).to have_json_size(1).at_path('users')
+        expect(json_response[:users].size).to eq(1)
 
         pagination_meta = json_response[:meta][:pagination]
         expect(pagination_meta[:current_page]).to eq(2)
@@ -40,8 +39,8 @@ describe Api::V1::UsersController do
     it "return spot" do
       api_get :show, id: user.id
       expect(response.status).to eq(200)
-      expect(response.body).to be_json_eql(valid_json)
-      expect(response.body).to have_json_type(Hash).at_path('user')
+      expect(json_response[:user]).to be_a(Hash)
+      expect(json_response[:user]).to have_attributes(attributes)
     end
   end
 
