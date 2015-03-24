@@ -1,10 +1,11 @@
 module Api
   module V1
     class SpotsController < Api::BaseController
-      load_and_authorize_resource except: [:create, :update]
+      load_and_authorize_resource
 
       def index
-        render json: @spots
+        @spots = @spots.page(params[:page]).per(params[:per_page])
+        render json: @spots, meta: metadata(@spots)
       end
 
       def show
@@ -12,16 +13,34 @@ module Api
       end
 
       def create
-        render json: Spot.create(params[:spot])
+        @spot.user = current_user
+        if @spot.save
+          render json: @spot
+        else
+          invalid_record!(@spot)
+        end
       end
 
       def update
-        render json: Spot.update(params[:id], params[:spot])
+        if @spot.update_attributes(spot_params)
+          render json: @spot
+        else
+          invalid_record!(@spot)
+        end
       end
 
       def destroy
         @spot.destroy
         head :no_content
+      end
+
+      private
+
+      def spot_params
+        params.require(:spot).permit(
+          :name, :latitude, :longitude, new_photo_uploads_uuids: [],
+          address_attributes: [:street, :city, :zip, :state, :country_code]
+        )
       end
     end
   end

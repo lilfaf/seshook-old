@@ -69,6 +69,7 @@ describe Api::V1::UsersController do
       email = 'new@email.com'
       api_put :update, id: current_user.id, user: { email: email }
       current_user.reload
+      expect(response.status).to eq(200)
       expect(current_user.email).to eq(email)
     end
   end
