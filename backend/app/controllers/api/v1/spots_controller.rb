@@ -3,13 +3,28 @@ module Api
     class SpotsController < Api::BaseController
       load_and_authorize_resource
 
+      api :GET, '/spots'
+      param :page,     Integer, desc: "Page number"
+      param :per_page, Integer, desc: "Items per page"
+
       def index
         @spots = @spots.page(params[:page]).per(params[:per_page])
         render json: @spots, meta: metadata(@spots)
       end
 
+      api :GET, '/spots/:id'
+      param :id, Integer, desc: 'Spot ID', required: true
+
       def show
         render json: @spot
+      end
+
+      api :POST, '/spots'
+      param :spot, Hash, desc: 'Spot attributes' do
+        param :name,     String, desc: 'Spot name'
+        param :latitude,  Float,  desc: 'Spot latitude', required: true
+        param :longitude, Float,  desc: 'Spot latitude', required: true
+        # TODO address
       end
 
       def create

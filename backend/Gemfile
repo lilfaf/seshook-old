@@ -64,6 +64,7 @@ gem 'carmen'
 
 # Static pages
 gem 'high_voltage', '~> 2.2.1'
+gem 'apipie-rails'
 
 group :development, :test do
   gem 'puma', '~> 2.11.0'

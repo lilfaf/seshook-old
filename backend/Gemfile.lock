@@ -70,6 +70,8 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    apipie-rails (0.3.3)
+      json
     arel (6.0.0)
     autoprefixer-rails (5.1.7.1)
       execjs
@@ -471,6 +473,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers
   activerecord-postgis-adapter (~> 3.0.0.beta2)
+  apipie-rails
   better_errors
   binding_of_caller
   bootstrap-sass (~> 3.3.3)

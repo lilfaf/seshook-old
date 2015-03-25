@@ -1,5 +1,7 @@
 module Api
   class BaseController < ActionController::Metal
+    extend Apipie::DSL::Controller
+
     include AbstractController::Rendering
 
     include ActionController::UrlFor

@@ -1,0 +1,191 @@
+  <h4><a href='#spots'>Spots</a></h4>
+  <ul>
+      <li><a href='#spots-index'>index</a></li>
+      <li><a href='#spots-show'>show</a></li>
+      <li><a href='#spots-create'>create</a></li>
+  </ul>
+
+
+
+  <hr/>
+
+  <div>
+    <h2 id="spots">
+      <a href='#spots'>Spots</a><br>
+      <small></small>
+    </h2>
+  </div>
+
+
+  <div>
+
+      <hr/>
+
+      <h3 id="spots-index">
+      <a href='#spots'>Spots</a> / <a href='#spots-index'>index</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /api/spots
+            <br>
+            <small></small>
+          </h4>
+      </div>
+
+      <div>
+        
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>page </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be Integer</p>
+ ]
+      </small>
+      
+<p>Page number</p>
+
+    </li>
+    
+    <li>
+      <strong>per_page </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be Integer</p>
+ ]
+      </small>
+      
+<p>Items per page</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="spots-show">
+      <a href='#spots'>Spots</a> / <a href='#spots-show'>show</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /api/spots/:id
+            <br>
+            <small></small>
+          </h4>
+      </div>
+
+      <div>
+        
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>id </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be Integer</p>
+ ]
+      </small>
+      
+<p>Spot ID</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="spots-create">
+      <a href='#spots'>Spots</a> / <a href='#spots-create'>create</a>
+      </h3>
+
+      <div>
+          <h4>
+              POST /api/spots
+            <br>
+            <small></small>
+          </h4>
+      </div>
+
+      <div>
+        
+
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>spot </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be a Hash</p>
+ ]
+      </small>
+      
+<p>Spot attributes</p>
+
+    </li>
+    <ul>
+    <li>
+      <strong>name </strong>:
+      <small>
+        optional
+        
+          [ 
+<p>Must be String</p>
+ ]
+      </small>
+      
+<p>Spot name</p>
+
+    </li>
+    
+    <li>
+      <strong>latitude </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be Float</p>
+ ]
+      </small>
+      
+<p>Spot latitude</p>
+
+    </li>
+    
+    <li>
+      <strong>longitude </strong>:
+      <small>
+        required
+        
+          [ 
+<p>Must be Float</p>
+ ]
+      </small>
+      
+<p>Spot latitude</p>
+
+    </li>
+    
+</ul>
+
+</ul>
+
+      </div>
+  </div>
