@@ -21,7 +21,7 @@ module Api
 
       api :POST, '/spots'
       param :spot, Hash, desc: 'Spot attributes' do
-        param :name,     String, desc: 'Spot name'
+        param :name,      String, desc: 'Spot name'
         param :latitude,  Float,  desc: 'Spot latitude', required: true
         param :longitude, Float,  desc: 'Spot latitude', required: true
         # TODO address
