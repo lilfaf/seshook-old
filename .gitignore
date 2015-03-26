@@ -4,4 +4,4 @@ backend/.bundle
 backend/log
 backend/tmp
 backend/public/uploads
-Dockerfile
+./Dockerfile
