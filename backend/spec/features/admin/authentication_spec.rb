@@ -1,11 +1,9 @@
 require 'rails_helper'
 
 describe 'authentication' do
-  def login_for(email, password)
+  it 'cannot recover password' do
     visit new_admin_session_path
-    fill_in 'Email', with: email
-    fill_in 'Password', with: password
-    click_button 'Log in'
+    expect(page).not_to have_content('Forgot your password?')
   end
 
   context 'with invalid email or password' do
