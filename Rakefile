@@ -3,13 +3,13 @@ namespace :docker do
 
   namespace :build do
     task :app do
-      sh 'ln -snf Dockerfile.app Dockerfile'
+      sh 'ln -snf dockerfiles/app/Dockerfile Dockerfile'
       sh 'docker build -t seshook-app .'
       sh 'rm -f Dockerfile'
     end
 
     task :worker do
-      sh 'ln -snf Dockerfile.worker Dockerfile'
+      sh 'ln -snf dockerfiles/worker/Dockerfile Dockerfile'
       sh 'docker build -t seshook-worker .'
       sh 'rm -f Dockerfile'
     end

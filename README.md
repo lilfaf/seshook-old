@@ -59,11 +59,11 @@ Customise images directory path with `IMAGES_PATH`, defaults to `./images`
 
 Set `USE_REDIS_CACHE=true` to cache geocoder responses
 
-## Running on Docker
+## Docker environment
 
 Install requirements
 
-- Vmware Fusion
+- Vmware Fusion or VirtualBox
 - Docker
 - [docker-machine](https://docs.docker.com/machine/) `brew cask install docker-machine`
 - [docker-compose](https://docs.docker.com/compose/) `brew install docker-compose`
@@ -71,7 +71,11 @@ Install requirements
 To run docker containers on a your local machine you must create a docker host virtual machine.
 
 ```bash
+# Vmware Fusion
 docker-machine create -d vmwarefusion dev
+# or VirtualBox
+docker-machine create -d virtualbox dev
+
 $(docker-machine env dev)
 ```
 
@@ -88,23 +92,10 @@ rake docker:build:worker
 Setup database and launch all containers
 
 ```bash
-docker-compose run web bundle exec rake db:create db:setup
+docker-compose run web bundle exec rake db:create db:setup RAILS_ENV=production
 docker-compose up
-```
 
-## Deploy staging
-
-Build containers on the staging env
-
-```bash
-docker-machine create --driver digitalocean --digitalocean-size=1gb --digitalocean-access-token=7ad775f83b87a51558064820496a1ab8e3dfcb4f18885ecce756bf6a53a7c5aa seshook-staging
-$(docker-machine env seshook-staging)
-```
-
-Run all containers on remote server
-
-```bash
-docker-compose -f docker-compose-staging.yml up
+open http://$(docker-machine ip dev)
 ```
 
 ## License

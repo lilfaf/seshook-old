@@ -18,8 +18,6 @@ worker:
 
 web:
   image: seshook-app
-  environment:
-    - RAILS_ENV=production
   ports:
     - "80:80"
   links:
