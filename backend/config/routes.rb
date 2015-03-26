@@ -4,7 +4,6 @@ require 'constraints/cancan'
 
 Rails.application.routes.draw do
 
-  apipie
   mount S3Relay::Engine => '/s3_relay'
 
   use_doorkeeper do

@@ -1,7 +1,5 @@
 module Api
   class BaseController < ActionController::Metal
-    extend Apipie::DSL::Controller
-
     include AbstractController::Rendering
 
     include ActionController::UrlFor
@@ -36,6 +34,8 @@ module Api
     rescue_from ActionController::ParameterMissing, with: :parameter_missing
 
     before_action :doorkeeper_authorize!
+
+    load_and_authorize_resource
 
     def current_user
       if doorkeeper_token

@@ -1,8 +1,6 @@
 module Api
   module V1
     class UsersController < Api::BaseController
-      load_and_authorize_resource
-
       def index
         @users = @users.page(params[:page]).per(params[:per_page])
         render json: @users, meta: metadata(@users)
