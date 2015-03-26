@@ -19,7 +19,7 @@ Seshook
 Install dependencies and setup database
 
 ```bash
-make install && make prepare
+rake install && rake prepare
 ```
 
 Start web server
@@ -33,7 +33,7 @@ foreman start
 Running all tests
 
 ```bash
-make test
+rake test
 ```
 
 Or run frontend and backend tests independently
@@ -42,7 +42,7 @@ Or run frontend and backend tests independently
 # ember
 cd frontend && ember test
 # rails
-cd backend && rake test
+cd backend && rspec spec
 ```
 
 ## Samples

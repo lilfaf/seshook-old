@@ -15,3 +15,17 @@ namespace :docker do
     end
   end
 end
+
+task :install do
+  sh 'cd backend && bundle install && cd -'
+  sh 'cd frontend && npm install && bower install'
+end
+
+task :prepare do
+  sh 'cd backend && bundle exec rake db:setup'
+end
+
+task :test do
+  sh 'cd backend && bundle exec rspec && cd -'
+  sh 'cd frontend && ember test'
+end
