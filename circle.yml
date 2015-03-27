@@ -8,7 +8,7 @@ machine:
 
 dependencies:
   pre:
-    - npm install -g ember-cli@0.1.15
+    - npm install -g ember-cli@0.2.1
     - npm install -g bower
   override:
     - bundle install:
