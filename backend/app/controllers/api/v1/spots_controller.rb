@@ -10,7 +10,6 @@ module Api
 
       def search
         @spots = Spot.search_for(params[:q]).records
-        raise @spots.size.inspect
         render json: @spots, meta: metadata(@spots)
       end
 

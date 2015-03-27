@@ -33,11 +33,14 @@ describe Api::V1::SpotsController do
   describe '#search' do
     before do
       Spot.__elasticsearch__.create_index! index: Spot.index_name
-      Spot.create!(attributes_for(:spot).merge(name: 'hola seshook'))
+      create(:spot, name: 'hey seshook')
+      # Sleeping here to allow Elasticsearch
+      # to index the objects we created
+      sleep 1
     end
 
     it 'return spots' do
-      api_get :search, q: 'hola'
+      api_get :search, q: 'hey'
       expect(json_response[:spots].size).to eq(1)
     end
 
