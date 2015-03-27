@@ -4,7 +4,7 @@ describe Api::V1::UsersController do
   let!(:user) { create(:user) }
   let!(:valid_json) { {user: {email: user.email }}.to_json }
 
-  let!(:attributes) { [:id, :email, :created_at, :updated_at] }
+  let!(:attributes) { [:id, :email, :avatar, :created_at, :updated_at] }
 
   describe '#index' do
     it 'return spots' do

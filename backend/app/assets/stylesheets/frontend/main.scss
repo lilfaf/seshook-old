@@ -21,3 +21,15 @@ h2 {
     background: #ffb7b7;
   }
 }
+
+/* navigation bar */
+
+.navbar-nav > li.dropdown > a {
+  padding-top: 8px;
+  padding-bottom: 8px;
+
+  .navbar-avatar {
+    margin-right: 5px;
+    height: 34px;
+  }
+}
