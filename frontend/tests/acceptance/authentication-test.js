@@ -120,8 +120,10 @@ describe('Acceptance: Authentication', function() {
 
     it('logs in successfully', function() {
       expect(currentPath()).to.equal('index');
-      expect(find('.navbar-nav a').text()).to.equal('Logout');
+      expect(find('.dropdown-menu a:first').text()).to.equal('Profile');
+      expect(find('.dropdown-menu a:last').text()).to.equal('Logout');
       expect(find('#title').text()).to.equal('Fuck yeah! Your are signed in as member@email.com!');
+      click('.navbar-nav a'); // sign out
     });
 
     it('logs out', function() {

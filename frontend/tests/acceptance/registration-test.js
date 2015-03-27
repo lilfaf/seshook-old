@@ -11,6 +11,7 @@ import { expect } from 'chai';
 import Ember from 'ember';
 import startApp from '../helpers/start-app';
 import Pretender from 'pretender';
+import register from '../helpers/register-helper';
 
 var App;
 var FakeServer;
@@ -25,11 +26,11 @@ describe('Acceptance: Registration', function() {
     Ember.run(App, 'destroy');
   });
 
-  var register = function(email, password, passwordConfirmation) {
+  var register = function(email, password, passwordConf) {
     visit('/register');
     fillIn('#email', email);
     fillIn('#password', password);
-    fillIn('#password-confirmation', passwordConfirmation);
+    fillIn('#password-confirmation', passwordConf);
     click('form button');
   };
 
@@ -108,6 +109,7 @@ describe('Acceptance: Registration', function() {
       andThen(function() {
         expect(currentPath()).to.equal('index');
         expect(find('#title').text()).to.equal('Fuck yeah! Your are signed in as member@email.com!');
+        click('.navbar-nav a'); // sign out
       });
     });
   });

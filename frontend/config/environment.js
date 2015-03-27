@@ -23,6 +23,16 @@ module.exports = function(environment) {
     }
   };
 
+
+  ENV['simple-auth'] = {
+    authorizer: 'simple-auth-authorizer:oauth2-bearer'
+  };
+
+  ENV['simple-auth-oauth2'] = {
+    serverTokenEndpoint: '/oauth/token',
+    serverTokenRevocationEndpoint: '/oauth/revoke',
+  };
+
   if (environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
@@ -44,23 +54,12 @@ module.exports = function(environment) {
 
     ENV.APP.rootElement = '#ember-testing';
 
-    ENV['simple-auth'] = {
-      store: 'simple-auth-session-store:ephemeral'
-    }
+    ENV['simple-auth'].store = 'simple-auth-session-store:ephemeral';
   }
 
   if (environment === 'production') {
 
   }
-
-  ENV['simple-auth'] = {
-    authorizer: 'simple-auth-authorizer:oauth2-bearer'
-  };
-
-  ENV['simple-auth-oauth2'] = {
-    serverTokenEndpoint: '/oauth/token',
-    serverTokenRevocationEndpoint: '/oauth/revoke',
-  };
 
   return ENV;
 };
