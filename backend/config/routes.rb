@@ -12,7 +12,9 @@ Rails.application.routes.draw do
 
   namespace :api do
     scope module: :v1, constraints: Constraints::Api.new(version: 1, default: true) do
-      resources :spots, except: [:new, :edit]
+      resources :spots, except: [:new, :edit] do
+        get :search, on: :collection
+      end
       resources :users, except: [:new, :edit, :create]
     end
   end

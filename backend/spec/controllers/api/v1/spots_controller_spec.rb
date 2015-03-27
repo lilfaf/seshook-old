@@ -14,8 +14,8 @@ describe Api::V1::SpotsController do
       expect(json_response[:spots].first).to have_attributes(spot_attributes)
     end
 
-    context "pagination" do
-      it "can select the next page of products" do
+    context 'pagination' do
+      it 'can select the next page' do
         create(:spot)
         api_get :index, page: 2, per_page: 1
         expect(json_response[:spots].size).to eq(1)
@@ -27,6 +27,26 @@ describe Api::V1::SpotsController do
         expect(pagination_meta[:total_pages]).to eq(2)
         expect(pagination_meta[:total_count]).to eq(2)
       end
+    end
+  end
+
+  describe '#search' do
+    before do
+      Spot.__elasticsearch__.create_index! index: Spot.index_name
+      Spot.create!(attributes_for(:spot).merge(name: 'hola seshook'))
+    end
+
+    it 'return spots' do
+      api_get :search, q: 'hola'
+      expect(json_response[:spots].size).to eq(1)
+    end
+
+    context 'pagination' do
+      # TODO
+    end
+
+    after do
+      Spot.__elasticsearch__.client.indices.delete index: Spot.index_name
     end
   end
 

@@ -3,6 +3,8 @@ machine:
     version: 2.2.0
   services:
     - postgresql
+    - elasticsearch
+    - redis
 
 dependencies:
   pre:

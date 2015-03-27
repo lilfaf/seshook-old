@@ -65,6 +65,10 @@ gem 'carmen'
 # Static pages
 gem 'high_voltage', '~> 2.2.1'
 
+# Search
+gem 'elasticsearch-model', git: 'git://github.com/elasticsearch/elasticsearch-rails.git'
+gem 'elasticsearch-rails', git: 'git://github.com/elasticsearch/elasticsearch-rails.git'
+
 group :development, :test do
   gem 'puma', '~> 2.11.0'
   gem 'byebug'

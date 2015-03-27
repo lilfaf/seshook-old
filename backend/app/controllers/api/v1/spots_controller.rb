@@ -1,8 +1,16 @@
 module Api
   module V1
     class SpotsController < Api::BaseController
+      skip_load_resource only: :search
+
       def index
         @spots = @spots.page(params[:page]).per(params[:per_page])
+        render json: @spots, meta: metadata(@spots)
+      end
+
+      def search
+        @spots = Spot.search_for(params[:q]).records
+        raise @spots.size.inspect
         render json: @spots, meta: metadata(@spots)
       end
 

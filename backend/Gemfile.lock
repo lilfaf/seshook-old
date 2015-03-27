@@ -26,6 +26,16 @@ GIT
       json (>= 1.7)
       mime-types (>= 1.16)
 
+GIT
+  remote: git://github.com/elasticsearch/elasticsearch-rails.git
+  revision: 2f2c0fb7a25ece68fd3a9eec7b9026848e66fa4f
+  specs:
+    elasticsearch-model (0.1.6)
+      activesupport (> 3)
+      elasticsearch (> 0.4)
+      hashie
+    elasticsearch-rails (0.1.6)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -133,6 +143,14 @@ GEM
     dotenv (2.0.0)
     dotenv-rails (2.0.0)
       dotenv (= 2.0.0)
+    elasticsearch (1.0.8)
+      elasticsearch-api (= 1.0.7)
+      elasticsearch-transport (= 1.0.7)
+    elasticsearch-api (1.0.7)
+      multi_json
+    elasticsearch-transport (1.0.7)
+      faraday
+      multi_json
     ember-cli-rails (0.1.13)
       railties (>= 3.1, < 5)
       sprockets (>= 2.0)
@@ -226,6 +244,7 @@ GEM
       activesupport (>= 4.1.0)
     groupdate (2.3.0)
       activesupport (>= 3)
+    hashie (3.4.0)
     high_voltage (2.2.1)
     hike (1.2.3)
     hitimes (1.2.2)
@@ -437,6 +456,8 @@ DEPENDENCIES
   devise
   doorkeeper (~> 2.1.0)
   dotenv-rails (~> 2.0.0)
+  elasticsearch-model!
+  elasticsearch-rails!
   ember-cli-rails (~> 0.1.11)
   exifr
   factory_girl_rails
