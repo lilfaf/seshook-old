@@ -6,17 +6,17 @@
   table.table.table-striped.table-hover
     thead
       tr
+        th Parent
         th Name
-        th Albumable
         th
 
     tbody.rowlink data-link='row'
       - @albums.each do |album|
         tr
-          td = link_to album.name, edit_polymorphic_path([:admin, album.albumable, album])
           td.rowlink-skip
             - if albumable = album.albumable
               = link_to "##{albumable.try(:id)}", edit_polymorphic_path([:admin, albumable])
+          td = link_to album.name, edit_polymorphic_path([:admin, album.albumable, album])
           td.rowlink-skip
             = delete_action(album)
 

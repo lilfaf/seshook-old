@@ -1,4 +1,5 @@
 class Album < ActiveRecord::Base
+  include TemporalScopes
   include Photoable
   include RansackSearchable
 

@@ -7,7 +7,9 @@ module Admin
 
     def chart_data
       days = params.fetch(:days, 30)
-      render json: AdminChart.new(days).stats_for([Spot, User]).chart_json
+      render json: AdminChart.new(days).stats_for(
+        [Spot, User, Album, Photo]
+      ).chart_json
     end
   end
 end

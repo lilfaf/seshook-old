@@ -12,7 +12,8 @@ unless Rails.env.production?
   end
 
   (1..100).each do |i|
-    %i(user spot).each do |model|
+    %i(user spot album).each do |model|
+      FactoryGirl.create(model, created_at: rand(365).days.ago.to_date)
       FactoryGirl.create(model, created_at: rand(365).days.ago.to_date)
       FactoryGirl.create(model, created_at: rand(365).days.ago.to_date)
     end
