@@ -27,5 +27,5 @@ end
 
 task :test do
   sh 'cd backend && bundle exec rspec && cd -'
-  sh 'cd frontend && ember test'
+  sh 'cd frontend && ember test --silent'
 end

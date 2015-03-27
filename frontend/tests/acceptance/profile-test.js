@@ -9,7 +9,6 @@ import { expect } from 'chai';
 import Ember from 'ember';
 import startApp from '../helpers/start-app';
 import Pretender from 'pretender';
-import register from '../helpers/register-helper';
 
 var App;
 
