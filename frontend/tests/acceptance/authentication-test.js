@@ -66,7 +66,7 @@ describe('Acceptance: Authentication', function() {
       visit('/login');
       fillIn('#identification', 'unknown@email.com');
       fillIn('#password', '123');
-      click('button.btn.btn-success');
+      click('button.btn');
       andThen(function() {
         expect(currentPath()).to.equal('login');
         expect(find('div.alert.alert-danger').text()).to.have.string('Oh snap! Invalid email or password.');
