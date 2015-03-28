@@ -14,6 +14,6 @@ describe AvatarUploader do
     after  { described_class.storage = :fog }
 
     it { expect(subject.thumb).to have_dimensions(50, 50) }
-    it { expect(subject.thumb).to have_dimensions(200, 200) }
+    it { expect(subject.medium).to have_dimensions(200, 200) }
   end
 end
