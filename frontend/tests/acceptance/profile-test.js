@@ -34,7 +34,7 @@ describe('Acceptance: Profile', function() {
 
   it('can visit profile', function() {
     authenticateSession();
-    visit('/profile');
+    visit('/');
     andThen(function() {
       click('.dropdown-menu a:first');
       andThen(function() {
