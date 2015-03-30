@@ -7,7 +7,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/">SESHOOK</a>
+      {{#link-to 'index' class="navbar-brand"}}SESHOOK{{/link-to}}
     </div>
 
     <div class="navbar-collapse collapse navbar-responsive-collapse" id="collapsible-nav">
@@ -20,9 +20,9 @@
               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu" role="menu">
-              <li>{{#link-to 'profile'}}Profile{{/link-to}}</li>
+              <li>{{#link-to 'profile' id='profile'}}Profile{{/link-to}}</li>
               <li class="divider"></li>
-              <li><a {{ action 'invalidateSession' }}>Logout</a></li>
+              <li><a id='logout' {{ action 'invalidateSession'}}>Logout</a></li>
             </ul>
           </li>
         {{else}}

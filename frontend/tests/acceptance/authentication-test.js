@@ -127,7 +127,7 @@ describe('Acceptance: Authentication', function() {
     });
 
     it('logs out', function() {
-      click('.navbar-nav a');
+      click('#logout');
       andThen(function() {
         expect(currentPath()).to.equal('index');
         expect(find('.navbar-nav a:last').text()).to.equal('Login');

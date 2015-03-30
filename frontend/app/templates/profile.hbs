@@ -13,7 +13,7 @@
       <img class="img-circle avatar" {{bind-attr src=model.avatar_medium}} alt="Logo">
     </div>
     <div class="page-header">
-      <h2 id='info-title'>Edit your informations</h2>
+      <h2>Edit your informations</h2>
     </div>
     <form role="form" {{action 'save' on='submit'}}>
       <div {{bind-attr class=":form-group model.errors.email:has-error"}}>
