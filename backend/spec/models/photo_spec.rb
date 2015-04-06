@@ -10,13 +10,16 @@ describe Photo do
   it { is_expected.to have_db_column(:etag) }
   it { is_expected.to have_db_column(:photoable_id) }
   it { is_expected.to have_db_column(:photoable_type) }
+  it { is_expected.to have_db_column(:user_id) }
 
   it { is_expected.to have_db_index([:photoable_type, :photoable_id]) }
+  it { is_expected.to have_db_index(:user_id) }
 
   it { is_expected.to validate_presence_of(:file) }
   it { is_expected.to validate_presence_of(:content_type) }
   it { is_expected.to validate_presence_of(:size) }
 
+  it { is_expected.to belong_to(:user) }
   it { is_expected.to belong_to(:photoable) }
 
   it 'updates file size and content_type' do

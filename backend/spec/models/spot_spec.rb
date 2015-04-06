@@ -23,7 +23,7 @@ describe Spot do
 
   it { is_expected.to belong_to(:user) }
   it { is_expected.to have_one(:address).dependent(:destroy) }
-  #it { is_expected.to have_many(:photos).dependent(:destroy) }
+  it { is_expected.to have_many(:photos).dependent(:destroy) }
   it { is_expected.to have_many(:albums).dependent(:destroy) }
 
   it { is_expected.to accept_nested_attributes_for(:address) }

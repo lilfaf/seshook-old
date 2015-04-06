@@ -14,8 +14,10 @@ Rails.application.routes.draw do
     scope module: :v1, constraints: Constraints::Api.new(version: 1, default: true) do
       resources :spots, except: [:new, :edit] do
         get :search, on: :collection
+        resources :albums, except: [:new, :edit]
       end
       resources :users, except: [:new, :edit, :create]
+      resources :albums, except: [:new, :edit]
     end
   end
 

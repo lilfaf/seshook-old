@@ -7,6 +7,7 @@ class Photo < ActiveRecord::Base
   validates :content_type, presence: true
   validates :size,         presence: true
 
+  belongs_to :user
   belongs_to :photoable, polymorphic: true
 
   before_validation :update_file_attributes
