@@ -44,7 +44,7 @@ module Api
       def spot_params
         params.require(:spot).permit(
           :name, :latitude, :longitude, new_photo_uploads_uuids: [],
-          address_attributes: [:street, :city, :zip, :state, :country_code]
+          address_attributes: [:id, :street, :city, :zip, :state, :country_code]
         )
       end
     end

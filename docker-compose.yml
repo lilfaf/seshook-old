@@ -10,6 +10,11 @@ redis:
   ports:
     - "6379:6379"
 
+elasticsearch:
+  image: elasticsearch
+  ports:
+    - "9300:9300"
+
 worker:
   image: seshook-worker
   links:
