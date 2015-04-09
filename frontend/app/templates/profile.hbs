@@ -11,6 +11,9 @@
     </div>
     <div class="avatar-container">
       <img class="img-circle avatar" {{bind-attr src=model.avatar_medium}} alt="Logo">
+      <!-- file upload area -->
+      {{avatar-upload}}
+      <button class="btn btn-default" {{action 'openFileDialog'}}>Select avatar</button>
     </div>
     <div class="page-header">
       <h2>Edit your informations</h2>
@@ -25,7 +28,7 @@
         </div>
         {{/each}}
       </div>
-      <button type='submit' class="btn btn-primary">Save</button>
+      <button type='submit' class="btn btn-default">Save</button>
     </form>
   </div>
   {{outlet}}

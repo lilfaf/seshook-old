@@ -1,5 +1,7 @@
 {
   "predef": [
+    "Blob",
+    "WebKitBlobBuilder",
     "currentSession",
     "authenticateSession",
     "invalidateSession",

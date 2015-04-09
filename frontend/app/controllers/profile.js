@@ -10,6 +10,10 @@ export default Ember.Controller.extend({
       }, function() {
         self.set('message', null);
       });
+    },
+
+    openFileDialog: function() {
+      Ember.$('input[type=file]').click();
     }
   }
 });

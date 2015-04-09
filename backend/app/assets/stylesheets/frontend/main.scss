@@ -49,6 +49,11 @@ h2 {
     img.avatar {
       height: 100px;
       margin: 0 auto;
+      margin-bottom: 20px;
     }
+  }
+
+  input[type=file] {
+    display: none;
   }
 }

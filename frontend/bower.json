@@ -11,6 +11,7 @@
     "ember-load-initializers": "ember-cli/ember-load-initializers#0.0.2",
     "ember-simple-auth": "0.7.3",
     "ember-mocha": "~0.5.1",
-    "pretender": "~0.6.0"
+    "pretender": "~0.6.0",
+    "ember-uploader": "0.3.6"
   }
 }
