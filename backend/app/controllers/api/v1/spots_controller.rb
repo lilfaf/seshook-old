@@ -9,7 +9,7 @@ module Api
       end
 
       def search
-        @spots = Spot.search_for(params[:q]).records
+        @spots = Spot.search_for(params[:q]).page(params[:page]).per(params[:per_page]).records
         render json: @spots, meta: metadata(@spots)
       end
 

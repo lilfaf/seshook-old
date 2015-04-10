@@ -15,12 +15,8 @@ RUN bundle install
 
 # Add application to image
 ADD . /home/app/webapp/
-RUN chown -R app:app /home/app/webapp
-
-# Create sidekiq user and upload dir
-RUN useradd sidekiq
 RUN mkdir -p /home/app/webapp/backend/public/uploads
-RUN chown -R sidekiq /home/app/webapp/backend/public/uploads
+RUN chown -R app:app /home/app/webapp
 
 # Start sidekiq
 RUN mkdir /etc/service/sidekiq
