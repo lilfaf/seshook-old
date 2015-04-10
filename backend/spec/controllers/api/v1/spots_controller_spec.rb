@@ -33,7 +33,7 @@ describe Api::V1::SpotsController do
   describe '#search' do
     before do
       Spot.__elasticsearch__.create_index! index: Spot.index_name
-      create(:spot, name: 'hey seshook')
+      10.times{|i| create(:spot, name: "hey seshook #{i}")}
       # Sleeping here to allow Elasticsearch
       # to index the objects we created
       sleep 1
@@ -41,11 +41,21 @@ describe Api::V1::SpotsController do
 
     it 'return spots' do
       api_get :search, q: 'hey'
-      expect(json_response[:spots].size).to eq(1)
+      expect(json_response[:spots].size).to eq(10)
     end
 
     context 'pagination' do
-      # TODO
+      it 'can select the next page of search result' do
+        api_get :search, q: 'hey', page: 2, per_page: 2
+        expect(json_response[:spots].size).to eq(2)
+
+        pagination_meta = json_response[:meta][:pagination]
+        expect(pagination_meta[:current_page]).to eq(2)
+        expect(pagination_meta[:next_page]).to eq(3)
+        expect(pagination_meta[:prev_page]).to eq(1)
+        expect(pagination_meta[:total_pages]).to eq(5)
+        expect(pagination_meta[:total_count]).to eq(10)
+      end
     end
 
     after do
