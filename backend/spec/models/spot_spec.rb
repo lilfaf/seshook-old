@@ -5,6 +5,7 @@ describe Spot do
 
   it_behaves_like 'temporal scopes'
   it_behaves_like 'photoable'
+  it_behaves_like 'ransack searchable'
 
   it { is_expected.to have_db_column(:name) }
   it { is_expected.to have_db_column(:status).with_options(null: false, default: 0) }

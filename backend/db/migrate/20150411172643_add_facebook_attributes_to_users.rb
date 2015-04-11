@@ -7,5 +7,8 @@ class AddFacebookAttributesToUsers < ActiveRecord::Migration
     add_column :users, :username,    :string, null: false
     add_column :users, :locale,      :string
     add_column :users, :verified,    :boolean
+    add_column :users, :gender,      :integer, null: false, default: 0
+
+    add_index :users, :facebook_id, unique: true
   end
 end

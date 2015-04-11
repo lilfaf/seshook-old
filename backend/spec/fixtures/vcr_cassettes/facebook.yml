@@ -1,0 +1,145 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://graph.facebook.com/oauth/access_token?client_id=1085559301459225&client_secret=83600da19f026248f91cad492904cf80&code=AQBwCxIWn1cCedAz5w3V9XwVFXPReHWWXEYr00nRt_EBUl6AEPQ0DTDTepA8lySMqMdhsp4RNv3YobqiSQnHH-zllogwMyELb4x5xxJXfVerF_Q2f4f1gWSUua6NHXzehKNIRQWvkqohX9y1SxCAO8n2OtuLyfR_xNf_Q-lf-5aEioZvZMeMFDhkCmGhLoojACEZJt6L_x0uCqV6kUKIXp07OCNB5zp-I5dgEzI4thStXme-fLah_Vg1V_IMfTsSR3oh0Jd-k9P9VyQCvF9FIfodbfovUDVlRkMH-kGN8LDMXxuYu3IEI_g2BXy0Jb51R9c&redirect_uri=http://test.host/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.9.1
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/plain; charset=UTF-8
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Fb-Rev:
+      - '1685640'
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - private, no-cache, no-store, must-revalidate
+      Facebook-Api-Version:
+      - v1.0
+      Expires:
+      - Sat, 01 Jan 2000 00:00:00 GMT
+      X-Fb-Debug:
+      - mLKmzkD5vlQgG0jmqRu4fJ9SOKJaEilanacYNcFiZFA46vurqRckFgoYtPZ27Lb4DsplDF07TpkPT0WbQHMSZw==
+      Date:
+      - Sat, 11 Apr 2015 23:28:49 GMT
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '248'
+    body:
+      encoding: UTF-8
+      string: access_token=CAAPbT3iLzRkBAJzKz6wVOrGy28cqy0BDXB3ELsON2PUHAaas8gOtpv0bzye333mEsFw3WiNSlgNBl46QvSrWQzc3onHMDgc3i6y9dZASOabJXKbIgRCPDZB9RZA1gk8a9c3WbcfloM6Ky3RimtsIZAAlKEKVL9g98EVfcczLmdcqpzZB7ftw4PjZCUZBM7ZB8CwZB7lSMRzghvbQajoZBXSqzY&expires=5183933
+    http_version: 
+  recorded_at: Sat, 11 Apr 2015 23:28:49 GMT
+- request:
+    method: get
+    uri: https://graph.facebook.com/me?access_token=CAAPbT3iLzRkBAJzKz6wVOrGy28cqy0BDXB3ELsON2PUHAaas8gOtpv0bzye333mEsFw3WiNSlgNBl46QvSrWQzc3onHMDgc3i6y9dZASOabJXKbIgRCPDZB9RZA1gk8a9c3WbcfloM6Ky3RimtsIZAAlKEKVL9g98EVfcczLmdcqpzZB7ftw4PjZCUZBM7ZB8CwZB7lSMRzghvbQajoZBXSqzY
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.9.1
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Last-Modified:
+      - '2015-04-08T07:34:48+0000'
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Fb-Rev:
+      - '1685640'
+      Etag:
+      - '"fc61eca1546e8abc1f1b4b539b939c8e0663db2e"'
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - private, no-cache, no-store, must-revalidate
+      Facebook-Api-Version:
+      - v2.2
+      Expires:
+      - Sat, 01 Jan 2000 00:00:00 GMT
+      X-Fb-Debug:
+      - RGVPhKBBjOAlXK8bxyZwwH2TzovCVR1618+P1Pwc3uFCOr/7FU1gMreATxf9IWF7x2VFEU9gbjieWUCcjA5Q0w==
+      Date:
+      - Sat, 11 Apr 2015 23:28:50 GMT
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '335'
+    body:
+      encoding: UTF-8
+      string: '{"id":"10152992380438094","birthday":"03\/28\/1990","email":"louis.larpin\u0040gmail.com","first_name":"Louis","gender":"male","last_name":"Larpin","link":"https:\/\/www.facebook.com\/app_scoped_user_id\/10152992380438094\/","locale":"en_US","name":"Louis
+        Larpin","timezone":2,"updated_time":"2015-04-08T07:34:48+0000","verified":true}'
+    http_version: 
+  recorded_at: Sat, 11 Apr 2015 23:28:50 GMT
+- request:
+    method: get
+    uri: https://graph.facebook.com/10152992380438094/picture?access_token=CAAPbT3iLzRkBAJzKz6wVOrGy28cqy0BDXB3ELsON2PUHAaas8gOtpv0bzye333mEsFw3WiNSlgNBl46QvSrWQzc3onHMDgc3i6y9dZASOabJXKbIgRCPDZB9RZA1gk8a9c3WbcfloM6Ky3RimtsIZAAlKEKVL9g98EVfcczLmdcqpzZB7ftw4PjZCUZBM7ZB8CwZB7lSMRzghvbQajoZBXSqzY&type=large
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.9.1
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 302
+      message: Found
+    headers:
+      Content-Type:
+      - image/jpeg
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Fb-Rev:
+      - '1685640'
+      Pragma:
+      - no-cache
+      Location:
+      - https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xfa1/v/t1.0-1/p200x200/262465_10150275526258094_5306520_n.jpg?oh=db79c6f6f10da3acf38f8f7a02307532&oe=55A19F11&__gda__=1440701285_eb1a01bbf03f074a0622540d1ad234e3
+      Cache-Control:
+      - private, no-cache, no-store, must-revalidate
+      Facebook-Api-Version:
+      - v2.2
+      Expires:
+      - Sat, 01 Jan 2000 00:00:00 GMT
+      X-Fb-Debug:
+      - "+3Pd0Qjko+xcZH36I5AfgJ8w1dFZ+UkFERb6W/QjPe2/TfmSrQeI6noU59lQPko1eNso50DmOgd6EtUvB+xeTw=="
+      Date:
+      - Sat, 11 Apr 2015 23:28:50 GMT
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '0'
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Sat, 11 Apr 2015 23:28:50 GMT
+recorded_with: VCR 2.9.3

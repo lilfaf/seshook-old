@@ -117,6 +117,15 @@ describe Api::V1::UsersController do
 
     context "when new user" do
       it "creates and authenticates user" do
+        VCR.use_cassette('facebook') do
+          expect{
+            post :facebook, format: :json, user: {
+              facebook_auth_code: 'AQBwCxIWn1cCedAz5w3V9XwVFXPReHWWXEYr00nRt_EBUl6AEPQ0DTDTepA8lySMqMdhsp4RNv3YobqiSQnHH-zllogwMyELb4x5xxJXfVerF_Q2f4f1gWSUua6NHXzehKNIRQWvkqohX9y1SxCAO8n2OtuLyfR_xNf_Q-lf-5aEioZvZMeMFDhkCmGhLoojACEZJt6L_x0uCqV6kUKIXp07OCNB5zp-I5dgEzI4thStXme-fLah_Vg1V_IMfTsSR3oh0Jd-k9P9VyQCvF9FIfodbfovUDVlRkMH-kGN8LDMXxuYu3IEI_g2BXy0Jb51R9c'
+            }
+          }.to change(User, :count).by(1)
+          expect(response.status).to eq(200)
+          expect(User.last.first_name).to eq('Louis')
+        end
       end
     end
   end

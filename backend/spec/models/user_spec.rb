@@ -3,7 +3,7 @@ require 'rails_helper'
 describe User do
   subject { create(:user) }
 
-  it_behaves_like 'temporal scopes'
+  ## DB schema ----------------------------------------------------------------
 
   it { is_expected.to have_db_column(:email).with_options(null: false, default: '') }
   it { is_expected.to have_db_column(:encrypted_password).with_options(null: false, default: '') }
@@ -15,7 +15,7 @@ describe User do
   it { is_expected.to have_db_column(:last_sign_in_at) }
   it { is_expected.to have_db_column(:current_sign_in_ip) }
   it { is_expected.to have_db_column(:last_sign_in_ip) }
-  it { is_expected.to have_db_column(:role) }
+  it { is_expected.to have_db_column(:role).with_options(null: false, default: 0) }
   it { is_expected.to have_db_column(:avatar) }
   it { is_expected.to have_db_column(:facebook_id) }
   it { is_expected.to have_db_column(:birthday) }
@@ -24,19 +24,26 @@ describe User do
   it { is_expected.to have_db_column(:username).with_options(null: false) }
   it { is_expected.to have_db_column(:locale) }
   it { is_expected.to have_db_column(:verified) }
+  it { is_expected.to have_db_column(:gender).with_options(null: false, default: 0) }
 
   it { is_expected.to have_db_index(:email).unique }
   it { is_expected.to have_db_index(:reset_password_token).unique }
+  it { is_expected.to have_db_index(:facebook_id).unique }
+
+  ## Validations --------------------------------------------------------------
 
   it { is_expected.to validate_presence_of(:role) }
 
-  it { is_expected.to have_many(:spots) }
-  it { is_expected.to have_many(:photos) }
-  it { is_expected.to have_many(:albums) }
-  it { is_expected.to have_one(:avatar_upload) }
+  describe 'facebook user' do
+    subject { create(:facebook_user) }
+    it { is_expected.to validate_uniqueness_of(:facebook_id) }
+    it { is_expected.to allow_value('', nil).for(:facebook_id) }
+  end
 
-  it 'has member role by default' do
-    expect(subject.member?).to be(true)
+  it 'allow male/femal as gender' do
+    expect{subject.gender = 'male'}.not_to raise_error
+    expect{subject.gender = 'female'}.not_to raise_error
+    expect{subject.gender = 'dummy'}.to raise_error(ArgumentError)
   end
 
   let(:valid_emails) {[
@@ -48,6 +55,7 @@ describe User do
     'valid_email@email.com',
     'valid.email@email.com'
   ]}
+
   let(:invalid_emails) {[
     'invalid email@email.com',
     '.invalid.email@email.com',
@@ -74,12 +82,26 @@ describe User do
     end
   end
 
+  ## Associations -------------------------------------------------------------
+
+  it { is_expected.to have_many(:spots) }
+  it { is_expected.to have_many(:photos) }
+  it { is_expected.to have_many(:albums) }
+  it { is_expected.to have_one(:avatar_upload) }
+
+  ## Concerns -----------------------------------------------------------------
+
+  it_behaves_like 'temporal scopes'
+  it_behaves_like 'ransack searchable'
+
+  ## Callbacks ----------------------------------------------------------------
+
   describe 'processgin avatar' do
     include ActiveJob::TestHelper
     subject { build(:user) }
     let(:upload) { create(:avatar_upload) }
 
-    after   { clear_enqueued_jobs }
+    after { clear_enqueued_jobs }
 
     it 'should enqueue jobs' do
       subject.new_avatar_upload_uuid = upload.uuid
@@ -88,10 +110,10 @@ describe User do
     end
   end
 
+  ## Instance methods ---------------------------------------------------------
+
   describe '#full_name' do
-    subject {
-      create(:user, first_name: 'John', last_name: 'Doe')
-    }
+    subject { create(:user, first_name: 'John', last_name: 'Doe') }
 
     it 'concat first_name and last_name' do
       expect(subject.full_name).to eq('John Doe')

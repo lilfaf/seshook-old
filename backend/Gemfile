@@ -87,6 +87,8 @@ group :test do
   gem 'shoulda-matchers', require: false
   gem 'fakeredis'
   gem 'oauth2'
+  gem 'webmock'
+  gem 'vcr'
 end
 
 group :development do

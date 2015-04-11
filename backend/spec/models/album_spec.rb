@@ -3,6 +3,7 @@ require 'rails_helper'
 describe Album do
   it_behaves_like 'temporal scopes'
   it_behaves_like 'photoable'
+  it_behaves_like 'ransack searchable'
 
   it { is_expected.to have_db_column(:name).with_options(null: false) }
   it { is_expected.to have_db_column(:description) }

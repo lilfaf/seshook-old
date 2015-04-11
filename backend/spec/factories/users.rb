@@ -19,4 +19,8 @@ FactoryGirl.define do
   factory :user_with_avatar, parent: :user do
     after(:build) { |u| u.avatar = File.open('spec/fixtures/placeholder_avatar.png') }
   end
+
+  factory :facebook_user, parent: :user do
+    facebook_id { SecureRandom.random_number(1_000_000) }
+  end
 end
