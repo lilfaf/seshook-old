@@ -16,7 +16,9 @@ Rails.application.routes.draw do
         get :search, on: :collection
         resources :albums, except: [:new, :edit]
       end
-      resources :users, except: [:new, :edit, :create]
+      resources :users, except: [:new, :edit, :create] do
+        post :facebook, on: :collection
+      end
       resources :albums, except: [:new, :edit]
     end
   end

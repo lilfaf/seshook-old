@@ -41,6 +41,15 @@ module.exports = function(environment) {
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
 
     ENV.apiHost = 'http://localhost:3000';
+
+    ENV['torii'] = {
+      providers: {
+        'facebook-oauth2': {
+          apiKey: '1085559301459225',
+          redirectUri: ENV.apiHost
+        }
+      }
+    };
   }
 
   if (environment === 'test') {

@@ -8,6 +8,10 @@
         <strong>Oh snap!</strong> {{errorMessage}}
       </div>
       {{/if}}
+      <!-- facebook login -->
+      {{facebook-auth}}
+      <div class="divider"></div>
+      <!-- email login -->
       <form role="form" {{action 'authenticate' on='submit'}}>
         <div class="form-group">
           <label for='identification'>Email</label>

@@ -3,6 +3,10 @@
     <div class="panel-heading"><h2>Register</h2></div>
     <div class="panel-body">
 
+      <!-- facebook login -->
+      {{facebook-auth}}
+      <div class="divider"></div>
+
       {{#if errorMessage}}
       <div class="alert alert-danger alert-dismissable">
         <button {{action 'closeErrorMessage'}} class="close">&times;</button>
