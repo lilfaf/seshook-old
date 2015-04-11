@@ -11,6 +11,13 @@
     </div>
 
     <div class="navbar-collapse collapse navbar-responsive-collapse" id="collapsible-nav">
+      {{#if session.isAuthenticated}}
+        <ul class="nav navbar-nav navbar-left">
+          {{#link-to "explore" tagName="li" id='explore'}}
+            <a {{bind-attr href="view.href"}}>Explore</a>
+          {{/link-to}}
+        </ul>
+      {{/if}}
       <ul class="nav navbar-nav navbar-right">
         {{#if session.isAuthenticated}}
           <li class="dropdown">
