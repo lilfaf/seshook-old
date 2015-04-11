@@ -5,6 +5,8 @@ machine:
     - postgresql
     - elasticsearch
     - redis
+  node:
+    version: 0.12
 
 dependencies:
   pre:
