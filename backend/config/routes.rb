@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       end
       resources :users, except: [:new, :edit, :create]
       resources :albums, except: [:new, :edit]
+      resources :photos, only: [:destroy]
     end
   end
 
