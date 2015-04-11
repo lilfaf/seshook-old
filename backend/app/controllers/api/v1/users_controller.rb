@@ -72,7 +72,8 @@ module Api
 
       def user_params
         params.require(:user).permit(
-          :email, :new_avatar_upload_uuid, :remove_avatar,
+          :username, :email,
+          :new_avatar_upload_uuid, :remove_avatar,
           :password, :password_confirmation, :current_password,
           :facebook_auth_code
         )

@@ -5,12 +5,18 @@ class ApplicationController < ActionController::Base
 
   respond_to :html, :json
 
+  before_action :configure_permitted_parameters, if: :devise_controller?
+
   def after_sign_in_path_for(resource)
     if resource.admin? || resource.superadmin?
       stored_location_for(resource) || admin_dashboard_path
     else
       super
     end
+  end
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.for(:sign_up) << :username
   end
 
   def authenticate_for_s3_relay

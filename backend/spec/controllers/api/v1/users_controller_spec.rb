@@ -5,8 +5,9 @@ describe Api::V1::UsersController do
   let!(:valid_json) { {user: {email: user.email }}.to_json }
 
   let!(:attributes) {
-    [:id, :email, :avatar, :avatar_medium,
-      :avatar_thumb, :created_at, :updated_at]
+    [:id, :username, :email,
+      :avatar, :avatar_medium, :avatar_thumb,
+      :created_at, :updated_at]
   }
 
   describe '#index' do

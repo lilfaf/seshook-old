@@ -1,6 +1,7 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :email, :avatar, :avatar_medium,
-    :avatar_thumb, :created_at, :updated_at
+  attributes :id, :username, :email,
+    :avatar, :avatar_medium, :avatar_thumb,
+    :created_at, :updated_at
 
   def avatar
     object.avatar.url
