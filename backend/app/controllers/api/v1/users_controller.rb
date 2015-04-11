@@ -44,6 +44,9 @@ module Api
       # }
 
       def facebook
+
+        # TODO extract logic to service object
+
         oauth = Koala::Facebook::OAuth.new(
           ENV['FACEBOOK_APP_ID'],
           ENV['FACEBOOK_APP_SECRET'],

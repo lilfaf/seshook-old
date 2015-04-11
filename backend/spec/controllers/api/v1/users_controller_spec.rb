@@ -97,4 +97,27 @@ describe Api::V1::UsersController do
       expect(response.status).to eq(204)
     end
   end
+
+  describe "facebook" do
+    it "returns 400 bad request" do
+      api_post :facebook
+      assert_parameter_missing!
+    end
+
+    it "returns 400 bad verification code" do
+      api_post :facebook, user: { facebook_auth_code: 'abc' }
+      expect(response.status).to eq(400)
+      expect(json_response[:message]).to eq('Invalid verification code format.')
+    end
+
+    context "when user exists" do
+      it "authenticates user" do
+      end
+    end
+
+    context "when new user" do
+      it "creates and authenticates user" do
+      end
+    end
+  end
 end
