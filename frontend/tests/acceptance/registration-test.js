@@ -37,6 +37,7 @@ describe('Acceptance: Registration', function() {
     visit('/register');
     andThen(function() {
       expect(currentPath()).to.equal('register');
+      expect(find('#register.active')).to.exist;
     });
   });
 

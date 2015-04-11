@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
 
   mount_uploader :avatar, AvatarUploader
 
-  validates :role, presence: true
+  validates :role, :username, presence: true
 
   has_many :spots
   has_many :photos
@@ -21,6 +21,10 @@ class User < ActiveRecord::Base
 
   def import_upload(upload_id)
     ProcessAvatarJob.perform_later(self, S3Relay::Upload.find(upload_id))
+  end
+
+  def full_name
+    "#{first_name} #{last_name}".squish
   end
 
   private

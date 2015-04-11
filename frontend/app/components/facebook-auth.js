@@ -21,8 +21,8 @@ export default Ember.Component.extend({
                   facebook_auth_code: self.get('session.authorizationCode')
                 }
               }
-            }).done(function(response){
-              console.log(response);
+            }).done(function(){
+              //console.log(response);
               //_this.get('session').set('user_token', response.user_token);
               //_this.get('session').set('user_email', response.user_email);
               //// With the following line, the next request to rails api is correctly authenticated,
@@ -31,9 +31,9 @@ export default Ember.Component.extend({
             });
           });
         },
-        function(error) {
+        function() {
           //console.log('there was an error');
-          console.log(error);
+          //console.log(error);
         }
       );
     }

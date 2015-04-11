@@ -17,6 +17,13 @@ describe User do
   it { is_expected.to have_db_column(:last_sign_in_ip) }
   it { is_expected.to have_db_column(:role) }
   it { is_expected.to have_db_column(:avatar) }
+  it { is_expected.to have_db_column(:facebook_id) }
+  it { is_expected.to have_db_column(:birthday) }
+  it { is_expected.to have_db_column(:first_name) }
+  it { is_expected.to have_db_column(:last_name) }
+  it { is_expected.to have_db_column(:username).with_options(null: false) }
+  it { is_expected.to have_db_column(:locale) }
+  it { is_expected.to have_db_column(:verified) }
 
   it { is_expected.to have_db_index(:email).unique }
   it { is_expected.to have_db_index(:reset_password_token).unique }
@@ -78,6 +85,18 @@ describe User do
       subject.new_avatar_upload_uuid = upload.uuid
       subject.save
       expect(enqueued_jobs.size).to eq(1)
+    end
+  end
+
+  describe '#full_name' do
+    subject {
+      create(:user, first_name: 'John', last_name: 'Doe')
+    }
+
+    it 'concat first_name and last_name' do
+      expect(subject.full_name).to eq('John Doe')
+      subject.first_name = nil
+      expect(subject.full_name).to eq('Doe')
     end
   end
 end

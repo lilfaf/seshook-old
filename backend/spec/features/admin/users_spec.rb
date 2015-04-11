@@ -50,6 +50,7 @@ describe 'managing users' do
 
       it 'succeed with valid attributes' do
         visit new_admin_user_path
+        fill_in 'Username', with: 'seshook'
         fill_in 'Email', with: 'test@mail.com'
         fill_in 'user_password', with: 'seshook123'
         fill_in 'user_password_confirmation', with: 'seshook123'

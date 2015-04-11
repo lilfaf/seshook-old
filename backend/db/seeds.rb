@@ -1,5 +1,6 @@
 %w(member admin superadmin).each do |role|
   User.where(email: "#{role}@email.com").first_or_create do |u|
+    u.username = "seshook_#{role}"
     u.password = 'seshook123'
     u.password_confirmation = 'seshook123'
     u.role = role

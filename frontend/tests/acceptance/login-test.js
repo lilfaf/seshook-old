@@ -16,7 +16,7 @@ import Pretender from 'pretender';
 var App;
 var FakeServer;
 
-describe('Acceptance: Authentication', function() {
+describe('Acceptance: Login', function() {
   beforeEach(function() {
     App = startApp();
   });
@@ -41,6 +41,7 @@ describe('Acceptance: Authentication', function() {
     click('.navbar-nav a:last');
     andThen(function() {
       expect(currentPath()).to.equal('login');
+      expect(find('#login.active')).to.exist;
     });
   });
 

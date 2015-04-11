@@ -46,7 +46,8 @@ module.exports = function(environment) {
       providers: {
         'facebook-oauth2': {
           apiKey: '1085559301459225',
-          redirectUri: ENV.apiHost
+          redirectUri: ENV.apiHost,
+          scope: 'email,user_birthday'
         }
       }
     };
