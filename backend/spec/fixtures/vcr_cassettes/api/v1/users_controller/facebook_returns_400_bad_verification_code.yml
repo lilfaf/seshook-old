@@ -1,0 +1,50 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://graph.facebook.com/oauth/access_token?client_id=1085559301459225&client_secret=83600da19f026248f91cad492904cf80&code=abc&redirect_uri=http://test.host/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.9.1
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Www-Authenticate:
+      - OAuth "Facebook Platform" "invalid_code" "Invalid verification code format."
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Fb-Rev:
+      - '1685640'
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - no-store
+      Facebook-Api-Version:
+      - v1.0
+      Expires:
+      - Sat, 01 Jan 2000 00:00:00 GMT
+      X-Fb-Debug:
+      - ZwwBQRuVgftZnXfJkLKvtta0lPeI6j86r0Ci+DPAQuU7Vp6gNFBDT3WUYE3OHOaZ3CiI0gKBPNj/ExJFhiKKzg==
+      Date:
+      - Sun, 12 Apr 2015 01:03:25 GMT
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '92'
+    body:
+      encoding: UTF-8
+      string: '{"error":{"message":"Invalid verification code format.","type":"OAuthException","code":100}}'
+    http_version: 
+  recorded_at: Sun, 12 Apr 2015 01:03:25 GMT
+recorded_with: VCR 2.9.3

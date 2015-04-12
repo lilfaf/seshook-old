@@ -1,0 +1,50 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://graph.facebook.com/oauth/access_token?client_id=1085559301459225&client_secret=83600da19f026248f91cad492904cf80&code=AQBwCxIWn1cCedAz5w3V9XwVFXPReHWWXEYr00nRt_EBUl6AEPQ0DTDTepA8lySMqMdhsp4RNv3YobqiSQnHH-zllogwMyELb4x5xxJXfVerF_Q2f4f1gWSUua6NHXzehKNIRQWvkqohX9y1SxCAO8n2OtuLyfR_xNf_Q-lf-5aEioZvZMeMFDhkCmGhLoojACEZJt6L_x0uCqV6kUKIXp07OCNB5zp-I5dgEzI4thStXme-fLah_Vg1V_IMfTsSR3oh0Jd-k9P9VyQCvF9FIfodbfovUDVlRkMH-kGN8LDMXxuYu3IEI_g2BXy0Jb51R9c&redirect_uri=http://test.host/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.9.1
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Www-Authenticate:
+      - OAuth "Facebook Platform" "invalid_code" "This authorization code has expired."
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Fb-Rev:
+      - '1685640'
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - no-store
+      Facebook-Api-Version:
+      - v1.0
+      Expires:
+      - Sat, 01 Jan 2000 00:00:00 GMT
+      X-Fb-Debug:
+      - suzgIFJQh4D1AkYO/g3mlNfoXXieLGo6PQQsj/hNdP9fHX/YZd91cxVutHd0Y51AlwBVyNGh6piUC894QuSVDQ==
+      Date:
+      - Sun, 12 Apr 2015 01:03:26 GMT
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '95'
+    body:
+      encoding: UTF-8
+      string: '{"error":{"message":"This authorization code has expired.","type":"OAuthException","code":100}}'
+    http_version: 
+  recorded_at: Sun, 12 Apr 2015 01:03:26 GMT
+recorded_with: VCR 2.9.3

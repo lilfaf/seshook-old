@@ -58,13 +58,23 @@ module Api
             u.birthday    = Date.strptime(profile['birthday'], '%m/%d/%Y')
         end
 
-        if user.save
-          ## TODO request avatar url and trigger background processing
-          #
-          avatar = graph.get_picture(profile['id'], type: :large)
+        ## request avatar url and process
+        #
+        unless user.avatar
+          user.remove_avatar = graph.get_picture(profile['id'], type: :large)
+        end
 
-          ## TODO create auth token
-          render json: user
+        if user.save
+
+          ## create seshook access token
+          #
+          access_token = Doorkeeper::AccessToken.create!(
+            application_id: nil,
+            resource_owner_id: user.id,
+            expires_in: 7200
+          )
+
+          render json: Doorkeeper::OAuth::TokenResponse.new(access_token).body
         else
           invalid_record!(user)
         end
