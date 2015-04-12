@@ -6,17 +6,28 @@ class Spot < ActiveRecord::Base
   include Elasticsearch::Model
   include Elasticsearch::Model::Callbacks
 
+  ## Configuration ------------------------------------------------------------
+
   GEO_FACTORY = RGeo::Geographic.spherical_factory(srid: 4326)
   set_rgeo_factory_for_column :lonlat, GEO_FACTORY
 
-  attr_accessor :latitude, :longitude, :new_uploads_uuids
+  attr_accessor :latitude, :longitude, :new_photo_uploads_uuids
 
   enum status: [:pending, :approved, :rejected]
 
-  validates :latitude,  presence: true, numericality: { greater_than_or_equal_to: -90,  less_than_or_equal_to: 90 }
-  validates :longitude, presence: true, numericality: { greater_than_or_equal_to: -180, less_than_or_equal_to: 180 }
+  ## Validations --------------------------------------------------------------
+
+  validates :latitude,  presence: true, numericality: {
+    greater_than_or_equal_to: -90,  less_than_or_equal_to: 90
+  }
+
+  validates :longitude, presence: true, numericality: {
+    greater_than_or_equal_to: -180, less_than_or_equal_to: 180
+  }
 
   validate  :lonlat_uniqueness
+
+  ## Associations -------------------------------------------------------------
 
   belongs_to :user
   has_one    :address, as: :addressable, dependent: :destroy
@@ -24,8 +35,12 @@ class Spot < ActiveRecord::Base
 
   accepts_nested_attributes_for :address
 
+  ## Callbacks ----------------------------------------------------------------
+
   after_initialize  :finalize
   before_validation :update_lonlat
+
+  ## Instance methods ---------------------------------------------------------
 
   def finalize
     if lonlat.present?
@@ -45,6 +60,8 @@ class Spot < ActiveRecord::Base
     record = record.where.not(id: id) if persisted?
     errors.add(:lonlat, :taken) if record.exists?
   end
+
+  ## Class methods ------------------------------------------------------------
 
   def self.close_to(latitude, longitude, distance_in_meters = 2000)
     where(%Q{
