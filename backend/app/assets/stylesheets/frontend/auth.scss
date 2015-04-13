@@ -10,5 +10,9 @@
   .btn-facebook {
     @extend .btn-primary;
     margin-bottom: 15px;
+
+    i {
+      font-size: 30px;
+    }
   }
 }

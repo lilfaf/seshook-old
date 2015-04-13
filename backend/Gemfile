@@ -51,6 +51,7 @@ gem 'bootstrap-sass',     '~> 3.3.3'
 gem 'kaminari-bootstrap', '~> 3.0.1'
 gem 'mapbox-rails', github: 'aai/mapbox-rails'
 gem 'modernizr-rails'
+gem 'font-awesome-rails'
 
 # Asset pipeline
 gem 'jquery-rails'
