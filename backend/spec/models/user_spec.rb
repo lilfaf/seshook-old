@@ -17,7 +17,6 @@ describe User do
   it { is_expected.to have_db_column(:last_sign_in_ip) }
   it { is_expected.to have_db_column(:role).with_options(null: false, default: 0) }
   it { is_expected.to have_db_column(:avatar) }
-  it { is_expected.to have_db_column(:facebook_id) }
   it { is_expected.to have_db_column(:birthday) }
   it { is_expected.to have_db_column(:first_name) }
   it { is_expected.to have_db_column(:last_name) }
@@ -25,10 +24,14 @@ describe User do
   it { is_expected.to have_db_column(:locale) }
   it { is_expected.to have_db_column(:verified) }
   it { is_expected.to have_db_column(:gender).with_options(null: false, default: 0) }
+  it { is_expected.to have_db_column(:facebook_id) }
+  it { is_expected.to have_db_column(:oauth_token) }
+  it { is_expected.to have_db_column(:oauth_expires_at) }
 
   it { is_expected.to have_db_index(:email).unique }
   it { is_expected.to have_db_index(:reset_password_token).unique }
   it { is_expected.to have_db_index(:facebook_id).unique }
+  it { is_expected.to have_db_index(:oauth_token).unique }
 
   ## Validations --------------------------------------------------------------
 

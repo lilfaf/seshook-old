@@ -100,7 +100,7 @@ describe Api::V1::UsersController do
 
   describe 'facebook' do
     let!(:facebook_auth_code) {
-      'AQBwCxIWn1cCedAz5w3V9XwVFXPReHWWXEYr00nRt_EBUl6AEPQ0DTDTepA8lySMqMdhsp4RNv3YobqiSQnHH-zllogwMyELb4x5xxJXfVerF_Q2f4f1gWSUua6NHXzehKNIRQWvkqohX9y1SxCAO8n2OtuLyfR_xNf_Q-lf-5aEioZvZMeMFDhkCmGhLoojACEZJt6L_x0uCqV6kUKIXp07OCNB5zp-I5dgEzI4thStXme-fLah_Vg1V_IMfTsSR3oh0Jd-k9P9VyQCvF9FIfodbfovUDVlRkMH-kGN8LDMXxuYu3IEI_g2BXy0Jb51R9c'
+      'AQDE1QuDWOplchv_KnHVU_G6a3XuHMB15x0gRlCIA7RKPfh-YJ7R5vnIFfCFVx_jgmMb9HzjkEWiEt4eEKv9rwd1Eibcq9stws7-FDpszRWxqm2pI31KUAdxLccAoIAAOfFsPrBLJTwR2ufUpgQZN5EEGEnICrGXK1W1NutlTrSEYwWFvKe2C1eXZC1UuDtbEahgUKqU55HDjqxTiffJbnf8-ZFIWnfRHHNMJc9jiJ8rv5CB3YqCl4Rl8dLSc-pqs3VX9USQO_mRoLRj5ncHi-TeoKVXSaqucz0qSG8eFDe2JOuSfjsMBx5n-hLsDz_wnKM'
     }
 
     def with_facebook_vcr
@@ -147,7 +147,9 @@ describe Api::V1::UsersController do
             }
           }.to change(User, :count).by(1)
           expect(response.status).to eq(200)
-          expect(User.last.first_name).to eq('Louis')
+          user = User.last
+          expect(user.avatar?).to be(true)
+          expect(user.first_name).to eq('Louis')
           expect(Doorkeeper::AccessToken.count).to eq(1)
         end
       end
