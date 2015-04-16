@@ -28,17 +28,9 @@ module Api
       end
 
       def facebook
-        ## TODO extract logic to service and better validations
-        #
-
         ## request access token from verification code
         #
-        oauth = Koala::Facebook::OAuth.new(
-          ENV['FACEBOOK_APP_ID'],
-          ENV['FACEBOOK_APP_SECRET'],
-          ENV['FACEBOOK_CALLBACK_URL'] || root_url
-        )
-        token_info = oauth.get_access_token_info(user_params[:facebook_auth_code])
+        token_info = FB_OAUTH.get_access_token_info(user_params[:code])
 
         ## request user profile informations
         #
@@ -47,27 +39,15 @@ module Api
 
         ## find or create user from facebook hash
         #
-        user = User.where(email: profile['email']).first_or_initialize.tap do |u|
-            u.facebook_id      = profile['id']
-            u.username         = profile['name'].gsub(' ', '')
-            u.first_name       = profile['first_name']
-            u.last_name        = profile['last_name']
-            u.gender           = profile['gender']
-            u.verified         = profile['verified']
-            u.locale           = profile['locale'].split('_').last
-            u.birthday         = Date.strptime(profile['birthday'], '%m/%d/%Y')
-            u.oauth_token      = token_info['access_token']
-            u.oauth_expires_at = Time.now + token_info['expires'].to_i.seconds
-        end
+        user = User.from_facebook_auth(profile.merge(token_info))
 
         ## request avatar url and process
         #
-        unless user.avatar?
-          user.remote_avatar_url = graph.get_picture(profile['id'], type: :large)
-        end
+        #unless user.avatar?
+        #  user.remote_avatar_url = graph.get_picture(profile['id'], type: :large)
+        #end
 
-        if user.save
-
+        if user.persisted?
           ## create seshook access token
           #
           access_token = Doorkeeper::AccessToken.create!(
@@ -89,7 +69,7 @@ module Api
           :username, :email,
           :new_avatar_upload_uuid, :remove_avatar,
           :password, :password_confirmation, :current_password,
-          :facebook_auth_code
+          :code
         )
       end
     end

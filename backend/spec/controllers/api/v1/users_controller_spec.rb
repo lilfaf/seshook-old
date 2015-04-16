@@ -100,7 +100,7 @@ describe Api::V1::UsersController do
 
   describe 'facebook' do
     let!(:facebook_auth_code) {
-      'AQDE1QuDWOplchv_KnHVU_G6a3XuHMB15x0gRlCIA7RKPfh-YJ7R5vnIFfCFVx_jgmMb9HzjkEWiEt4eEKv9rwd1Eibcq9stws7-FDpszRWxqm2pI31KUAdxLccAoIAAOfFsPrBLJTwR2ufUpgQZN5EEGEnICrGXK1W1NutlTrSEYwWFvKe2C1eXZC1UuDtbEahgUKqU55HDjqxTiffJbnf8-ZFIWnfRHHNMJc9jiJ8rv5CB3YqCl4Rl8dLSc-pqs3VX9USQO_mRoLRj5ncHi-TeoKVXSaqucz0qSG8eFDe2JOuSfjsMBx5n-hLsDz_wnKM'
+      'AQBCTleAivDPhTtF4cDkxNq9sLYIyEK_51Yl4K6iHal2seHjTSxklGQ29KgzyUDAK43rWv-Pe3DgRjrO9K4SEfIcNgIcca2h4YSMZm3qBm1cS5JZlkLlD_B8P9pOLRyd5ZYV4LxYrQMA--GuBabK1MY6ctwJv7MI-oKImzxIW3FptHg9K0WXiS7BXdvf4QPX_Xa0vW8WlHtqZn2WQKyvht2JJ_rmafnboPwWTvWi_Fr4ldPmYbsIDTDTb2vWuVOEf5c_EUTK-BSQ7GGHHrN9HlMH9zf8a-Tt99Vj6ZzpJ-HU8IoWgLeqnT2w9KMkah2Z6kQ'
     }
 
     def with_facebook_vcr
@@ -115,7 +115,7 @@ describe Api::V1::UsersController do
     end
 
     it 'returns 400 bad verification code' do
-      api_post :facebook, user: { facebook_auth_code: 'abc' }
+      api_post :facebook, user: { code: 'abc' }
       expect(response.status).to eq(400)
       expect(json_response[:message]).to eq('Invalid verification code format.')
     end
@@ -129,7 +129,7 @@ describe Api::V1::UsersController do
         with_facebook_vcr do
           expect{
             post :facebook, format: :json, user: {
-              facebook_auth_code: facebook_auth_code
+              code: facebook_auth_code
             }
           }.to change(Doorkeeper::AccessToken, :count).by(1)
           expect(response.status).to eq(200)
@@ -143,8 +143,9 @@ describe Api::V1::UsersController do
         with_facebook_vcr do
           expect{
             post :facebook, format: :json, user: {
-              facebook_auth_code: facebook_auth_code
+              code: facebook_auth_code
             }
+            raise response.body
           }.to change(User, :count).by(1)
           expect(response.status).to eq(200)
           user = User.last

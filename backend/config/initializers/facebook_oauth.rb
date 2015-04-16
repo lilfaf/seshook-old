@@ -1,0 +1,5 @@
+FB_OAUTH = Koala::Facebook::OAuth.new(
+  ENV['FACEBOOK_APP_ID'],
+  ENV['FACEBOOK_APP_SECRET'],
+  ENV['FACEBOOK_CALLBACK_URL']
+)

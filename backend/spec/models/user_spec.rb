@@ -25,13 +25,13 @@ describe User do
   it { is_expected.to have_db_column(:verified) }
   it { is_expected.to have_db_column(:gender).with_options(null: false, default: 0) }
   it { is_expected.to have_db_column(:facebook_id) }
-  it { is_expected.to have_db_column(:oauth_token) }
-  it { is_expected.to have_db_column(:oauth_expires_at) }
+  it { is_expected.to have_db_column(:fb_access_token) }
+  it { is_expected.to have_db_column(:fb_access_token_expires_at) }
 
   it { is_expected.to have_db_index(:email).unique }
   it { is_expected.to have_db_index(:reset_password_token).unique }
   it { is_expected.to have_db_index(:facebook_id).unique }
-  it { is_expected.to have_db_index(:oauth_token).unique }
+  it { is_expected.to have_db_index(:fb_access_token).unique }
 
   ## Validations --------------------------------------------------------------
 
