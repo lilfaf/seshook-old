@@ -99,58 +99,50 @@ describe Api::V1::UsersController do
   end
 
   describe 'facebook' do
-    let!(:facebook_auth_code) {
-      'AQBCTleAivDPhTtF4cDkxNq9sLYIyEK_51Yl4K6iHal2seHjTSxklGQ29KgzyUDAK43rWv-Pe3DgRjrO9K4SEfIcNgIcca2h4YSMZm3qBm1cS5JZlkLlD_B8P9pOLRyd5ZYV4LxYrQMA--GuBabK1MY6ctwJv7MI-oKImzxIW3FptHg9K0WXiS7BXdvf4QPX_Xa0vW8WlHtqZn2WQKyvht2JJ_rmafnboPwWTvWi_Fr4ldPmYbsIDTDTb2vWuVOEf5c_EUTK-BSQ7GGHHrN9HlMH9zf8a-Tt99Vj6ZzpJ-HU8IoWgLeqnT2w9KMkah2Z6kQ'
-    }
-
-    def with_facebook_vcr
-      VCR.use_cassette('facebook') do
-        yield if block_given?
-      end
-    end
-
     it 'returns 400 bad request' do
       api_post :facebook
       assert_parameter_missing!
     end
 
     it 'returns 400 bad verification code' do
-      api_post :facebook, user: { code: 'abc' }
+      api_post :facebook, user: { facebook_auth_code: 'abc' }
       expect(response.status).to eq(400)
       expect(json_response[:message]).to eq('Invalid verification code format.')
     end
 
-    context 'when user exists' do
-      before {
-        create(:user, facebook_id: '10152992380438094', email: 'louis.larpin@gmail.com')
-      }
+    context 'with valid code' do
+      include FacebookHelper
 
-      it 'authenticates user' do
-        with_facebook_vcr do
+      before do
+        token_info = {
+          access_token: fb_user['access_token'],
+          expires: 123456789
+        }
+        allow(subject).to receive(:token_info).and_return(token_info)
+      end
+
+      context 'when user exists' do
+        before { create(:user, facebook_id: fb_user['id'], email: fb_user_email) }
+
+        it 'authenticates user' do
           expect{
-            post :facebook, format: :json, user: {
-              code: facebook_auth_code
-            }
+            post :facebook, format: :json, user: {facebook_auth_code: '123'}
           }.to change(Doorkeeper::AccessToken, :count).by(1)
           expect(response.status).to eq(200)
           expect(User.count).to eq(2)
         end
       end
-    end
 
-    context 'when new user' do
-      it 'creates and authenticates user' do
-        with_facebook_vcr do
+      context 'when new user' do
+        let(:last_user) { User.last }
+
+        it 'creates and authenticates user' do
           expect{
-            post :facebook, format: :json, user: {
-              code: facebook_auth_code
-            }
-            raise response.body
+            post :facebook, format: :json, user: {facebook_auth_code: '123'}
           }.to change(User, :count).by(1)
           expect(response.status).to eq(200)
-          user = User.last
-          expect(user.avatar?).to be(true)
-          expect(user.first_name).to eq('Louis')
+          expect(last_user.avatar?).to be(true)
+          expect(last_user.username).to eq('JohnDoe')
           expect(Doorkeeper::AccessToken.count).to eq(1)
         end
       end

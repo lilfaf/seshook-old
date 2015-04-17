@@ -28,28 +28,15 @@ module Api
       end
 
       def facebook
-        ## request access token from verification code
-        #
-        token_info = FB_OAUTH.get_access_token_info(user_params[:code])
+        # get user profile info
+        graph = Koala::Facebook::API.new(token_info[:access_token])
 
-        ## request user profile informations
-        #
-        graph = Koala::Facebook::API.new(token_info['access_token'])
-        profile = graph.get_object('me')
+        profile = graph.get_object('me').symbolize_keys!
 
-        ## find or create user from facebook hash
-        #
+        # find or create user from facebook hash
         user = User.from_facebook_auth(profile.merge(token_info))
 
-        ## request avatar url and process
-        #
-        #unless user.avatar?
-        #  user.remote_avatar_url = graph.get_picture(profile['id'], type: :large)
-        #end
-
         if user.persisted?
-          ## create seshook access token
-          #
           access_token = Doorkeeper::AccessToken.create!(
             application_id: nil,
             resource_owner_id: user.id,
@@ -64,12 +51,19 @@ module Api
 
       private
 
+      # get access token from verification code
+      def token_info
+        @token_info ||= FB_OAUTH.get_access_token_info(
+          user_params[:facebook_auth_code]
+        ).symbolize_keys!
+      end
+
       def user_params
         params.require(:user).permit(
           :username, :email,
           :new_avatar_upload_uuid, :remove_avatar,
           :password, :password_confirmation, :current_password,
-          :code
+          :facebook_auth_code
         )
       end
     end
