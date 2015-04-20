@@ -37,6 +37,7 @@ describe 'managing spots' do
       it 'autocomplete form form exif metatdata', js: true do
         visit new_admin_spot_path
         attach_file('spot_photos', 'spec/fixtures/exif.jpg')
+        sleep(1) # ensure js finished geocoding
         expect(page).to have_field('Photos')
         expect(page).to have_field('Latitude', with: '48.851')
         expect(page).to have_field('Longitude', with: '2.3705')

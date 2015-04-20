@@ -3,7 +3,11 @@ class Album < ActiveRecord::Base
   include Photoable
   include RansackSearchable
 
+  ## Validations --------------------------------------------------------------
+
   validates :name, presence: true, uniqueness: { scope: :albumable_id }
+
+  ## Associations -------------------------------------------------------------
 
   belongs_to :user
   belongs_to :albumable, polymorphic: true

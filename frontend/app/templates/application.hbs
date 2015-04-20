@@ -33,8 +33,12 @@
             </ul>
           </li>
         {{else}}
-          <li>{{#link-to 'register'}}Register{{/link-to}}</li>
-          <li>{{#link-to 'login'}}Login{{/link-to}}</li>
+          {{#link-to "register" tagName="li" id='register'}}
+            <a {{bind-attr href="view.href"}}>Register</a>
+          {{/link-to}}
+          {{#link-to "login" tagName="li" id='login'}}
+            <a {{bind-attr href="view.href"}}>Login</a>
+          {{/link-to}}
         {{/if}}
       </ul>
     </div>

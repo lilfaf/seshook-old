@@ -33,8 +33,10 @@ module Admin
     end
 
     def user_params
-      params.require(:user).permit(:email, :password,
-        :password_confirmation, :new_avatar_upload_uuid, :remove_avatar)
+      params.require(:user).permit(
+        :username, :email,
+        :password, :password_confirmation,
+        :new_avatar_upload_uuid, :remove_avatar)
     end
   end
 end

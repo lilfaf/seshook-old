@@ -5,19 +5,19 @@ describe Admin::ApplicationsController do
 
   before { sign_in admin }
 
-  context "as an admin" do
+  context 'as an admin' do
     let(:admin) { current_admin }
 
-    it "unauthorize access" do
+    it 'unauthorize access' do
       get :index
       expect(response).to redirect_to(admin_dashboard_path)
     end
   end
 
-  context "as an admin" do
+  context 'as an admin' do
     let(:admin) { create(:superadmin) }
 
-    it "renders admin layout" do
+    it 'renders admin layout' do
       get :index
       is_expected.to render_with_layout(:admin)
     end

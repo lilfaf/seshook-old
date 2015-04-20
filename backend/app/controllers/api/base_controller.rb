@@ -32,6 +32,7 @@ module Api
     rescue_from ActiveRecord::RecordNotFound, with: :not_found
     rescue_from CanCan::AccessDenied, with: :unauthorized
     rescue_from ActionController::ParameterMissing, with: :parameter_missing
+    rescue_from Koala::Facebook::APIError, with: :facebook_api_error
 
     before_action :doorkeeper_authorize!
 
@@ -85,6 +86,12 @@ module Api
       render json: {
         message: I18n.t('errors.parameter_missing', param: exception.param)
       }, status: :bad_request
+    end
+
+    def facebook_api_error(exception)
+      render json: {
+        message: exception.fb_error_message
+      }, status: exception.http_status
     end
   end
 end

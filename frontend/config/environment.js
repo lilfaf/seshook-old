@@ -6,7 +6,6 @@ module.exports = function(environment) {
     environment: environment,
     baseURL: '/',
     locationType: 'auto',
-    // application adapter config
     apiNamespace: 'api',
     apiHost: '',
 
@@ -23,6 +22,15 @@ module.exports = function(environment) {
     }
   };
 
+  ENV['torii'] = {
+    providers: {
+      'facebook-oauth2': {
+        apiKey: '1085559301459225',
+        redirectUri: 'http://localhost:3000',
+        scope: 'email,user_birthday'
+      }
+    }
+  };
 
   ENV['simple-auth'] = {
     authorizer: 'simple-auth-authorizer:oauth2-bearer'
@@ -34,11 +42,11 @@ module.exports = function(environment) {
   };
 
   if (environment === 'development') {
-    // ENV.APP.LOG_RESOLVER = true;
-    // ENV.APP.LOG_ACTIVE_GENERATION = true;
-    // ENV.APP.LOG_TRANSITIONS = true;
-    // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
-    // ENV.APP.LOG_VIEW_LOOKUPS = true;
+    //ENV.APP.LOG_RESOLVER = true;
+    //ENV.APP.LOG_ACTIVE_GENERATION = true;
+    //ENV.APP.LOG_TRANSITIONS = true;
+    //ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
+    //ENV.APP.LOG_VIEW_LOOKUPS = true;
 
     ENV.apiHost = 'http://localhost:3000';
   }

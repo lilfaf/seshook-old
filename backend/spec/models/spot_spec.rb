@@ -3,8 +3,7 @@ require 'rails_helper'
 describe Spot do
   subject { create(:spot) }
 
-  it_behaves_like 'temporal scopes'
-  it_behaves_like 'photoable'
+  ## DB schema ----------------------------------------------------------------
 
   it { is_expected.to have_db_column(:name) }
   it { is_expected.to have_db_column(:status).with_options(null: false, default: 0) }
@@ -15,11 +14,15 @@ describe Spot do
   it { is_expected.to have_db_index(:lonlat) }
   it { is_expected.to have_db_index(:user_id) }
 
+  ## Validations --------------------------------------------------------------
+
   it { is_expected.to validate_presence_of(:latitude) }
   it { is_expected.to validate_presence_of(:longitude) }
   it { is_expected.to validate_numericality_of(:latitude).is_greater_than_or_equal_to(-90).is_less_than_or_equal_to(90) }
   it { is_expected.to validate_numericality_of(:longitude).is_greater_than_or_equal_to(-180).is_less_than_or_equal_to(180) }
   it { is_expected.to validate_uniqueness_of(:lonlat) }
+
+  ## Associations -------------------------------------------------------------
 
   it { is_expected.to belong_to(:user) }
   it { is_expected.to have_one(:address).dependent(:destroy) }
@@ -28,9 +31,13 @@ describe Spot do
 
   it { is_expected.to accept_nested_attributes_for(:address) }
 
-  it 'has pending status by default' do
-    expect(subject.pending?).to be(true)
-  end
+  ## Concerns -----------------------------------------------------------------
+
+  it_behaves_like 'temporal scopes'
+  it_behaves_like 'photoable'
+  it_behaves_like 'ransack searchable'
+
+  # TODO extract localisation related methods a concern
 
   it 'set latitude and longitude on initialize' do
     obj = described_class.find(subject.id)
@@ -43,6 +50,13 @@ describe Spot do
     expect(subject).to receive(:update_lonlat)
     subject.validate
   end
+
+  it { is_expected.to have_attr_accessor(:latitude) }
+  it { is_expected.to have_attr_accessor(:longitude) }
+
+  ## Class methods ---------------------------------------------------------
+
+  it { is_expected.to have_attr_accessor(:new_photo_uploads_uuids) }
 
   describe 'search class methods' do
     let!(:far)     { create(:spot, latitude: 40,     longitude: -77) }

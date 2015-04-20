@@ -2,4 +2,17 @@
   .alert {
     margin-bottom: 15px;
   }
+
+  form {
+    margin-top: 15px;
+  }
+
+  .btn-facebook {
+    @extend .btn-primary;
+    margin-bottom: 15px;
+
+    i {
+      font-size: 30px;
+    }
+  }
 }
