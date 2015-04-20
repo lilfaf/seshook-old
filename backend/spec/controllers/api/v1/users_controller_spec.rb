@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 describe Api::V1::UsersController do
+  include ActiveJob::TestHelper
+  include FacebookHelper
+
   let!(:user) { create(:user) }
   let!(:valid_json) { {user: {email: user.email }}.to_json }
 
@@ -111,8 +114,6 @@ describe Api::V1::UsersController do
     end
 
     context 'with valid code' do
-      include FacebookHelper
-
       before do
         token_info = {
           'access_token' => fb_user['access_token'],
@@ -123,7 +124,8 @@ describe Api::V1::UsersController do
 
       context 'when user exists' do
         let!(:facebook_user) {
-          create(:user, username: 'test', facebook_id: fb_user['id'], email: fb_user_email)
+          create(:user, username: 'test',
+            facebook_id: fb_user['id'], email: fb_user_email)
         }
 
         it 'authenticates user' do
@@ -140,14 +142,19 @@ describe Api::V1::UsersController do
       context 'when new user' do
         let(:last_user) { User.last }
 
+        let(:action) {
+          post :facebook, format: :json, user: {facebook_auth_code: '123'}
+        }
+
         it 'creates and authenticates user' do
-          expect{
-            post :facebook, format: :json, user: {facebook_auth_code: '123'}
-          }.to change(User, :count).by(1)
+          expect{ action }.to change(User, :count).by(1)
           expect(response.status).to eq(200)
-          expect(last_user.avatar?).to be(true)
           expect(last_user.username).to eq('JohnDoe')
           expect(Doorkeeper::AccessToken.count).to eq(1)
+        end
+
+        it 'process facebook avatar' do
+          expect{ action }.to change{enqueued_jobs.size}.by(1)
         end
       end
     end

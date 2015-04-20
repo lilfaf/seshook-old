@@ -70,13 +70,8 @@ class User < ActiveRecord::Base
   end
 
   def process_facebook_avatar
-    unless avatar?
-      self.remote_avatar_url = facebook.get_picture(facebook_id, type: :large)
-      save
+    if fb_access_token.present? && !avatar?
+      FacebookAvatarJob.perform_later(self)
     end
-    # background process
-    #if fb_access_token.present? && !avatar?
-    #  FacebookAvatarJob.perform_later(self)
-    #end
   end
 end
