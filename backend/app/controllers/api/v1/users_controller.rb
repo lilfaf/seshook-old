@@ -29,23 +29,24 @@ module Api
 
       def facebook
         # get user profile info
-        graph = Koala::Facebook::API.new(token_info[:access_token])
+        graph = Koala::Facebook::API.new(token_info['access_token'])
 
-        profile = graph.get_object('me').symbolize_keys!
+        profile = graph.get_object('me')
+        response = FacebookResponse.new(profile, token_info)
 
         # find or create user from facebook hash
-        user = User.from_facebook_auth(profile.merge(token_info))
+        @user = User.from_facebook_auth(response)
 
-        if user.persisted?
+        if @user.persisted?
           access_token = Doorkeeper::AccessToken.create!(
             application_id: nil,
-            resource_owner_id: user.id,
+            resource_owner_id: @user.id,
             expires_in: 7200
           )
 
           render json: Doorkeeper::OAuth::TokenResponse.new(access_token).body
         else
-          invalid_record!(user)
+          invalid_record!(@user)
         end
       end
 
@@ -53,9 +54,7 @@ module Api
 
       # get access token from verification code
       def token_info
-        @token_info ||= FB_OAUTH.get_access_token_info(
-          user_params[:facebook_auth_code]
-        ).symbolize_keys!
+        @token_info ||= FB_OAUTH.get_access_token_info(user_params[:facebook_auth_code])
       end
 
       def user_params

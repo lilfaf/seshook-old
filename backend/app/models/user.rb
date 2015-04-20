@@ -50,17 +50,11 @@ class User < ActiveRecord::Base
 
   ## Class methods ------------------------------------------------------------
 
-  def self.from_facebook_auth(hash)
-    where(email: hash[:email]).first_or_initialize.tap do |u|
-      u.username ||= hash[:name].gsub(' ', '')
-      u.first_name = hash[:first_name]
-      u.last_name = hash[:last_name]
-      u.gender = hash[:gender]
-      u.locale = hash[:locale].split('_').last
-      u.birthday = Date.strptime(hash[:birthday], '%m/%d/%Y')
-      u.fb_access_token = hash[:access_token]
-      u.fb_access_token_expires_at = Time.now + hash[:expires].to_i.seconds
-      u.facebook_id = hash[:id]
+  def self.from_facebook_auth(resp)
+    where(email: resp.email).first_or_initialize.tap do |u|
+      u.assign_attributes(resp.body)
+
+      u.username = resp.info[:name].gsub(' ', '') if u.new_record?
       u.save
     end
   end

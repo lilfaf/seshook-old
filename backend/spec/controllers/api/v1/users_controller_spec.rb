@@ -115,14 +115,16 @@ describe Api::V1::UsersController do
 
       before do
         token_info = {
-          access_token: fb_user['access_token'],
-          expires: 123456789
+          'access_token' => fb_user['access_token'],
+          'expires' => 123456789
         }
         allow(subject).to receive(:token_info).and_return(token_info)
       end
 
       context 'when user exists' do
-        before { create(:user, facebook_id: fb_user['id'], email: fb_user_email) }
+        let!(:facebook_user) {
+          create(:user, username: 'test', facebook_id: fb_user['id'], email: fb_user_email)
+        }
 
         it 'authenticates user' do
           expect{
@@ -130,6 +132,8 @@ describe Api::V1::UsersController do
           }.to change(Doorkeeper::AccessToken, :count).by(1)
           expect(response.status).to eq(200)
           expect(User.count).to eq(2)
+          facebook_user.reload
+          expect(facebook_user.username).to eq('test')
         end
       end
 
