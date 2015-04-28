@@ -6,7 +6,6 @@ module Api
       def index
         @spots = if params.has_key?(:q)
                    Spot.lookup(params[:q],
-                               include: [:address],
                                page: params[:page],
                                per_page: params[:per_page])
                  else

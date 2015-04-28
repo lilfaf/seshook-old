@@ -5,16 +5,14 @@ class Spot < ActiveRecord::Base
 
   ## Configuration ------------------------------------------------------------
 
+  searchkick
+
   GEO_FACTORY = RGeo::Geographic.spherical_factory(srid: 4326)
   set_rgeo_factory_for_column :lonlat, GEO_FACTORY
 
   attr_accessor :latitude, :longitude, :new_photo_uploads_uuids
 
   enum status: [:pending, :approved, :rejected]
-
-  searchkick
-
-  #scope :search_import, -> { includes(:address) }
 
   ## Validations --------------------------------------------------------------
 
@@ -35,6 +33,10 @@ class Spot < ActiveRecord::Base
   has_many   :albums,  as: :albumable,   dependent: :destroy
 
   accepts_nested_attributes_for :address
+
+  ## Scopes -------------------------------------------------------------------
+
+  scope :search_import, -> { includes(:address) }
 
   ## Callbacks ----------------------------------------------------------------
 
@@ -60,6 +62,14 @@ class Spot < ActiveRecord::Base
     record = self.class.where(lonlat: lonlat)
     record = record.where.not(id: id) if persisted?
     errors.add(:lonlat, :taken) if record.exists?
+  end
+
+  def search_data
+    as_json(only: [:id, :name]).merge(
+      address.as_json(except: [:id, :created_at, :updated_at]).merge({
+        country: address.country_name
+      })
+    )
   end
 
   ## Class methods ------------------------------------------------------------

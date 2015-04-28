@@ -6,7 +6,12 @@
 
 <ul class="list-group">
   {{#each spot in model}}
-    <li class="list-group-item">{{spot.name}}</li>
+    <li class="list-group-item">
+      <h2>{{spot.name}}</h2>
+      <h3>{{spot.address.city}}
+        <small>{{spot.address.country}}</small>
+      </h3>
+    </li>
   {{/each}}
 </ul>
 
