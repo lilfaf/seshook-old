@@ -1,10 +1,7 @@
 class Spot < ActiveRecord::Base
   include TemporalScopes
   include Photoable
-  include Searchable
   include RansackSearchable
-  include Elasticsearch::Model
-  include Elasticsearch::Model::Callbacks
 
   ## Configuration ------------------------------------------------------------
 
@@ -14,6 +11,10 @@ class Spot < ActiveRecord::Base
   attr_accessor :latitude, :longitude, :new_photo_uploads_uuids
 
   enum status: [:pending, :approved, :rejected]
+
+  searchkick
+
+  #scope :search_import, -> { includes(:address) }
 
   ## Validations --------------------------------------------------------------
 

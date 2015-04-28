@@ -23,16 +23,16 @@ describe Api::V1::UsersController do
     end
 
     context 'pagination' do
+      let(:meta) { json_response[:meta] }
+
       it 'can select the next page of products' do
         api_get :index, page: 2, per_page: 1
         expect(json_response[:users].size).to eq(1)
-
-        pagination_meta = json_response[:meta][:pagination]
-        expect(pagination_meta[:current_page]).to eq(2)
-        expect(pagination_meta[:next_page]).to eq(nil)
-        expect(pagination_meta[:prev_page]).to eq(1)
-        expect(pagination_meta[:total_pages]).to eq(2)
-        expect(pagination_meta[:total_count]).to eq(2)
+        expect(meta[:current_page]).to eq(2)
+        expect(meta[:next_page]).to eq(nil)
+        expect(meta[:prev_page]).to eq(1)
+        expect(meta[:total_pages]).to eq(2)
+        expect(meta[:total_count]).to eq(2)
       end
     end
   end

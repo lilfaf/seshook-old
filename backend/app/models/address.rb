@@ -9,7 +9,7 @@ class Address < ActiveRecord::Base
 
   ## Associations -------------------------------------------------------------
 
-  belongs_to :addressable, polymorphic: true
+  belongs_to :addressable, polymorphic: true, touch: true
 
   ## Instance methods ---------------------------------------------------------
 

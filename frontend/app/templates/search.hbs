@@ -1,0 +1,13 @@
+{{outlet}}
+
+<div class='page-header'>
+  {{input class='form-control search' placeholder='Search' autocomplete='off' key-down='search' value=query}}
+</div>
+
+<ul class="list-group">
+  {{#each spot in model}}
+    <li class="list-group-item">{{spot.name}}</li>
+  {{/each}}
+</ul>
+
+{{infinity-loader infinityModel=model scrollable=true loadingText="Loading..." loadedText=""}}

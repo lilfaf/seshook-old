@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Api::V1::SpotsController do
   let!(:spot) { create(:spot, user: current_user) }
-  let!(:spot_attributes) { [:id, :latlon, :created_at, :updated_at, :address] }
+  let!(:spot_attributes) { [:id, :name, :latlon, :created_at, :updated_at, :address] }
   let!(:address_attributes) { [:id, :street, :zip, :city, :state, :country] }
 
   describe '#index' do
@@ -15,28 +15,26 @@ describe Api::V1::SpotsController do
     end
 
     context 'pagination' do
+      let(:meta) { json_response[:meta] }
+
       it 'can select the next page' do
         create(:spot)
         api_get :index, page: 2, per_page: 1
         expect(json_response[:spots].size).to eq(1)
-
-        pagination_meta = json_response[:meta][:pagination]
-        expect(pagination_meta[:current_page]).to eq(2)
-        expect(pagination_meta[:next_page]).to eq(nil)
-        expect(pagination_meta[:prev_page]).to eq(1)
-        expect(pagination_meta[:total_pages]).to eq(2)
-        expect(pagination_meta[:total_count]).to eq(2)
+        expect(meta[:current_page]).to eq(2)
+        expect(meta[:next_page]).to eq(nil)
+        expect(meta[:prev_page]).to eq(1)
+        expect(meta[:total_pages]).to eq(2)
+        expect(meta[:total_count]).to eq(2)
       end
     end
   end
 
   describe '#search' do
-    before do
-      Spot.__elasticsearch__.create_index! index: Spot.index_name
-      10.times{|i| create(:spot, name: "hey seshook #{i}")}
-      # Sleeping here to allow Elasticsearch
-      # to index the objects we created
-      sleep 1
+    before(:each) do
+      10.times {|i| create(:spot, name: "hey seshook #{i}")}
+      Spot.reindex
+      Spot.searchkick_index.refresh
     end
 
     it 'return spots' do
@@ -49,17 +47,13 @@ describe Api::V1::SpotsController do
         api_get :search, q: 'hey', page: 2, per_page: 2
         expect(json_response[:spots].size).to eq(2)
 
-        pagination_meta = json_response[:meta][:pagination]
+        pagination_meta = json_response[:meta]
         expect(pagination_meta[:current_page]).to eq(2)
         expect(pagination_meta[:next_page]).to eq(3)
         expect(pagination_meta[:prev_page]).to eq(1)
         expect(pagination_meta[:total_pages]).to eq(5)
         expect(pagination_meta[:total_count]).to eq(10)
       end
-    end
-
-    after do
-      Spot.__elasticsearch__.client.indices.delete index: Spot.index_name
     end
   end
 
