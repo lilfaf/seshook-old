@@ -12,10 +12,12 @@ class Ability
     elsif @user.member?
       can :read, [Spot, Album, Photo, User]
 
-      can [:create], [Album, Photo]
-      can [:search, :create], Spot
+      # user can create and search
+      can [:search, :create], [Spot, Album, Photo]
       # user can edit or update his own account
       can [:update, :destroy], [Spot, User, Album], id: user.id
+      # user can destroy his photos
+      can :destroy, Photo, user_id: user.id
     end
   end
 end

@@ -20,6 +20,7 @@ Rails.application.routes.draw do
         post :facebook, on: :collection
       end
       resources :albums, except: [:new, :edit]
+      resources :photos, only: [:destroy]
     end
   end
 
