@@ -1,5 +1,5 @@
 class SpotSerializer < ActiveModel::Serializer
-  attributes :id, :latlon, :created_at, :updated_at
+  attributes :id, :name, :latlon, :created_at, :updated_at
 
   has_one :address
   has_one :user

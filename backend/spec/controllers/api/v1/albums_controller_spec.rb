@@ -5,17 +5,17 @@ describe Api::V1::AlbumsController do
   let!(:album_attributes) { [:id, :name, :description] }
 
   context 'pagination' do
+    let(:meta) { json_response[:meta] }
+
     it 'can select the next page' do
       create(:album)
       api_get :index, page: 2, per_page: 1
       expect(json_response[:albums].size).to eq(1)
-
-      pagination_meta = json_response[:meta][:pagination]
-      expect(pagination_meta[:current_page]).to eq(2)
-      expect(pagination_meta[:next_page]).to eq(nil)
-      expect(pagination_meta[:prev_page]).to eq(1)
-      expect(pagination_meta[:total_pages]).to eq(2)
-      expect(pagination_meta[:total_count]).to eq(2)
+      expect(meta[:current_page]).to eq(2)
+      expect(meta[:next_page]).to eq(nil)
+      expect(meta[:prev_page]).to eq(1)
+      expect(meta[:total_pages]).to eq(2)
+      expect(meta[:total_count]).to eq(2)
     end
   end
 
@@ -41,7 +41,7 @@ describe Api::V1::AlbumsController do
         expect(response.status).to eq(200)
         expect(json_response[:album]).to have_attributes(album_attributes)
         # TODO test user hash attributes
-        expect(json_response[:album][:user]).not_to be_nil
+        expect(json_response[:users][0]).not_to be_nil
       end
     end
 
@@ -60,7 +60,7 @@ describe Api::V1::AlbumsController do
         api_post :create, album: attributes_for(:album)
         expect(response.status).to eq(200)
         expect(json_response[:album]).to have_attributes(album_attributes)
-        expect(json_response[:album][:user][:id]).to eq(current_user.id)
+        expect(json_response[:users][0][:id]).to eq(current_user.id)
       end
     end
 
@@ -140,7 +140,7 @@ describe Api::V1::AlbumsController do
         }.to change(spot.albums, :count).by(1)
         expect(response.status).to eq(200)
         expect(json_response[:album]).to have_attributes(album_attributes)
-        expect(json_response[:album][:user][:id]).to eq(current_user.id)
+        expect(json_response[:users][0][:id]).to eq(current_user.id)
       end
     end
 

@@ -25,7 +25,7 @@ describe Address do
 
   ## Associations -------------------------------------------------------------
 
-  it {is_expected.to belong_to(:addressable) }
+  it {is_expected.to belong_to(:addressable).touch(true) }
 
   describe '#country_name' do
     it 'returns the country name' do

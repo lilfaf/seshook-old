@@ -1,12 +1,11 @@
 class Spot < ActiveRecord::Base
   include TemporalScopes
   include Photoable
-  include Searchable
   include RansackSearchable
-  include Elasticsearch::Model
-  include Elasticsearch::Model::Callbacks
 
   ## Configuration ------------------------------------------------------------
+
+  searchkick
 
   GEO_FACTORY = RGeo::Geographic.spherical_factory(srid: 4326)
   set_rgeo_factory_for_column :lonlat, GEO_FACTORY
@@ -27,6 +26,8 @@ class Spot < ActiveRecord::Base
 
   validate  :lonlat_uniqueness
 
+  validates_associated :address
+
   ## Associations -------------------------------------------------------------
 
   belongs_to :user
@@ -35,9 +36,14 @@ class Spot < ActiveRecord::Base
 
   accepts_nested_attributes_for :address
 
+  ## Scopes -------------------------------------------------------------------
+
+  scope :search_import, -> { includes(:address) }
+
   ## Callbacks ----------------------------------------------------------------
 
   after_initialize  :finalize
+
   before_validation :update_lonlat
 
   ## Instance methods ---------------------------------------------------------
@@ -59,6 +65,12 @@ class Spot < ActiveRecord::Base
     record = self.class.where(lonlat: lonlat)
     record = record.where.not(id: id) if persisted?
     errors.add(:lonlat, :taken) if record.exists?
+  end
+
+  def search_data
+    as_json(only: [:id, :name]).merge(
+      address.as_json(except: [:id, :created_at, :updated_at])
+    )
   end
 
   ## Class methods ------------------------------------------------------------
