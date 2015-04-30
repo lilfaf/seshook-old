@@ -2,8 +2,9 @@ require 'rails_helper'
 
 describe Api::V1::SpotsController do
   let!(:spot) { create(:spot, user: current_user) }
-  let!(:spot_attributes) { [:id, :name, :latlon, :created_at, :updated_at, :address] }
+  let!(:spot_attributes) { [:id, :name, :latlon, :created_at, :updated_at, :address_id, :user_id] }
   let!(:address_attributes) { [:id, :street, :zip, :city, :state, :country] }
+  let!(:user_attributes) { [:id, :username, :email, :avatar, :avatar_medium, :avatar_thumb, :created_at, :updated_at] }
 
   describe '#index' do
     it 'return spots' do
@@ -67,9 +68,9 @@ describe Api::V1::SpotsController do
       api_get :show, id: spot.id
       expect(response.status).to eq(200)
       expect(json_response[:spot]).to have_attributes(spot_attributes)
-      expect(json_response[:spot][:address]).to have_attributes(address_attributes)
       expect(json_response[:spot][:latlon]).to eq([spot.latitude, spot.longitude])
-      expect(json_response[:spot][:user]).not_to be_nil
+      expect(json_response[:addresses][0]).to have_attributes(address_attributes)
+      expect(json_response[:users][0]).to have_attributes(user_attributes)
     end
   end
 
@@ -85,10 +86,11 @@ describe Api::V1::SpotsController do
     end
 
     it "can create spot" do
-      api_post :create, spot: attributes_for(:spot)
+      api_post :create, spot: attributes_for(:spot).merge(
+        address_attributes: attributes_for(:address))
       expect(response.status).to eq(200)
       expect(json_response[:spot]).to have_attributes(spot_attributes)
-      expect(json_response[:spot][:user][:id]).to eq(current_user.id)
+      expect(json_response[:users][0][:id]).to eq(current_user.id)
     end
   end
 

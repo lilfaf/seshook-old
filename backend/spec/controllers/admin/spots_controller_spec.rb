@@ -21,27 +21,33 @@ describe Admin::SpotsController do
 
   describe 'GET edit' do
     it 'assigns the requested spot as @spot' do
-      get :edit, {id: spot.id}
+      get :edit, id: spot.id
       expect(assigns(:spot)).to eq(spot)
     end
   end
 
   describe 'POST create' do
     describe 'with valid params' do
+      let(:valid_attributes) {
+        attributes_for(:spot).merge(
+          address_attributes: attributes_for(:address)
+        )
+      }
+
       it 'creates a new Spot' do
         expect {
-          post :create, {spot: attributes_for(:spot)}
+          post :create, spot: valid_attributes
         }.to change(Spot, :count).by(1)
       end
 
       it 'assigns a newly created spot as @spot' do
-        post :create, {spot: attributes_for(:spot)}
+        post :create, spot: valid_attributes
         expect(assigns(:spot)).to be_a(Spot)
         expect(assigns(:spot)).to be_persisted
       end
 
       it 'redirects to the created spot' do
-        post :create, {spot: attributes_for(:spot)}
+        post :create, spot: valid_attributes
         expect(response).to redirect_to admin_spots_url
       end
     end
@@ -63,7 +69,7 @@ describe Admin::SpotsController do
     describe 'with valid params' do
       let(:new_attributes) { {name: 'dummy'} }
 
-      before { put :update, {id: spot.id, spot: new_attributes} }
+      before { put :update, id: spot.id, spot: new_attributes }
 
       it 'updates the requested spot' do
         spot.reload
@@ -106,4 +112,3 @@ describe Admin::SpotsController do
     end
   end
 end
-

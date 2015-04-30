@@ -26,6 +26,8 @@ class Spot < ActiveRecord::Base
 
   validate  :lonlat_uniqueness
 
+  validates_associated :address
+
   ## Associations -------------------------------------------------------------
 
   belongs_to :user
@@ -41,6 +43,7 @@ class Spot < ActiveRecord::Base
   ## Callbacks ----------------------------------------------------------------
 
   after_initialize  :finalize
+
   before_validation :update_lonlat
 
   ## Instance methods ---------------------------------------------------------
@@ -66,9 +69,7 @@ class Spot < ActiveRecord::Base
 
   def search_data
     as_json(only: [:id, :name]).merge(
-      address.as_json(except: [:id, :created_at, :updated_at]).merge({
-        country: address.country_name
-      })
+      address.as_json(except: [:id, :created_at, :updated_at])
     )
   end
 

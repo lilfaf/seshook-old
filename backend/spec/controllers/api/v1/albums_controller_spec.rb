@@ -41,7 +41,7 @@ describe Api::V1::AlbumsController do
         expect(response.status).to eq(200)
         expect(json_response[:album]).to have_attributes(album_attributes)
         # TODO test user hash attributes
-        expect(json_response[:album][:user]).not_to be_nil
+        expect(json_response[:users][0]).not_to be_nil
       end
     end
 
@@ -60,7 +60,7 @@ describe Api::V1::AlbumsController do
         api_post :create, album: attributes_for(:album)
         expect(response.status).to eq(200)
         expect(json_response[:album]).to have_attributes(album_attributes)
-        expect(json_response[:album][:user][:id]).to eq(current_user.id)
+        expect(json_response[:users][0][:id]).to eq(current_user.id)
       end
     end
 
@@ -140,7 +140,7 @@ describe Api::V1::AlbumsController do
         }.to change(spot.albums, :count).by(1)
         expect(response.status).to eq(200)
         expect(json_response[:album]).to have_attributes(album_attributes)
-        expect(json_response[:album][:user][:id]).to eq(current_user.id)
+        expect(json_response[:users][0][:id]).to eq(current_user.id)
       end
     end
 
