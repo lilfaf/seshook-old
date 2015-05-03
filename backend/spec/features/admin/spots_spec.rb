@@ -2,8 +2,9 @@ require 'rails_helper'
 
 describe 'managing spots' do
   let!(:admin) { create(:admin) }
-  let!(:spot)  { create(:spot) }
-  let!(:spot_with_album)  { create(:spot_with_album) }
+  let!(:spot) { create(:spot) }
+  let!(:spot_with_album) { create(:spot_with_album) }
+  let!(:spot_with_photo) { create(:spot_with_photo) }
 
   context 'not signed in as admin' do
     it 'cannot view spots' do
@@ -102,6 +103,16 @@ describe 'managing spots' do
         attach_file('file', 'spec/fixtures/exif.jpg')
         expect(page).to have_selector('.s3r-progress')
         expect(page).to have_content('exif.jpg')
+      end
+
+      it 'delete a photo', js: true do
+        visit edit_admin_spot_path(spot_with_photo)
+        expect(page).to have_selector('.thumbnail')
+        expect{
+          click_link 'Delete'
+          sleep 2
+        }.to change{spot_with_photo.photos.count}.by(-1)
+        expect(page).not_to have_selector('.thumbnail')
       end
 
       it 'create an associated album' do

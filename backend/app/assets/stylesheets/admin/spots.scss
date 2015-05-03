@@ -4,6 +4,9 @@
   margin-bottom: 20px;
 }
 
-#edit_spot_photos {
-  margin-top: 10px;
+.glyphicon.glyphicon-remove {
+  color: #777;
+  &:hover {
+    color: #333;
+  }
 }

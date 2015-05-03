@@ -47,6 +47,7 @@ Rails.application.routes.draw do
     end
     resources :users, except: :show
     resources :albums, except: :show
+    resources :photos, only: :destroy
   end
 
   mount Sidekiq::Web, at: '/sidekiq', constraints: Constraint::CanCan.new(:manage, :sidekiq)

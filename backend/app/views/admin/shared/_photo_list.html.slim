@@ -6,5 +6,8 @@
   = s3_relay_field resource, :photo_uploads, multiple: true
   .row.thumbnails
     - resource.photos.each do |photo|
-      .col-xs-3.col-md-2
-        = link_to image_tag(photo.file.small.url), photo.file.large.url, class: 'thumbnail swipebox'
+      .col-xs-3.col-md-2 id="photo_#{photo.id}"
+        = link_to image_tag(photo.file.small.url), photo.file.large.url, class: 'thumbnail swipebox pull-left'
+        = link_to admin_photo_path(photo), title: 'Delete', method: :delete, class: 'pull-left', \
+          data: { confirm: 'Are you sure?'}, remote: true do
+          .glyphicon.glyphicon-remove
