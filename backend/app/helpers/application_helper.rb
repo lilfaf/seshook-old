@@ -8,12 +8,12 @@ module ApplicationHelper
     }[flash_type.to_sym] || flash_type.to_s
   end
 
-  def nav_link(text, link, &block)
+  def nav_link(text, link, options={}, &block)
     if recognized = Rails.application.routes.recognize_path(link) rescue nil
       class_name = recognized[:controller] == params[:controller] ? 'active' : ''
     end
     content = block_given? ? capture(&block) : ''
-    content_tag(:li, class: class_name) do
+    content_tag(:li, options.merge({class: class_name})) do
       link_to link do
         content + text
       end

@@ -48,6 +48,8 @@ describe 'dashboard' do
       expect(page).to have_content('Latest users')
       expect(page).to have_css('.table.table-striped')
       expect(page).to have_content(user.email)
+      click_link 'View all users'
+      expect(current_path).to eq(admin_users_path)
     end
 
     it 'can view latest pending spots' do
@@ -56,6 +58,8 @@ describe 'dashboard' do
       expect(page).to have_content('Latest pending spots')
       expect(page).to have_css('.table.table-striped')
       expect(page).to have_content(spot.address.city)
+      click_link 'View all spots'
+      expect(current_path).to eq(admin_spots_path)
     end
 
     # TODO redirect to root path on js side

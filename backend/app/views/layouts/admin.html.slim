@@ -10,17 +10,17 @@ html
   body.application
     .navmenu.navmenu-default.navmenu-fixed-left.offcanvas-xs
       ul.nav.navmenu-nav
-        = nav_link 'Dashboard', admin_dashboard_path
+        = nav_link 'Dashboard', admin_dashboard_path, id: 'dashboard-nav'
           i.glyphicon.glyphicon-dashboard
-        - if can? :manage, User
-          = nav_link 'Users', admin_users_path
-            i.glyphicon.glyphicon-user
         - if can? :manage, Spot
-          = nav_link 'Spots', admin_spots_path
+          = nav_link 'Spots', admin_spots_path, id: 'spots-nav'
             i.glyphicon.glyphicon-map-marker
         - if can? :manage, Album
-          = nav_link 'Albums', admin_albums_path
+          = nav_link 'Albums', admin_albums_path, id: 'albums-nav'
             i.glyphicon.glyphicon-picture
+        - if can? :manage, User
+          = nav_link 'Users', admin_users_path, id: 'users-nav'
+            i.glyphicon.glyphicon-user
         - if can? :manage, Doorkeeper::Application
           = nav_link 'OAuth Applications', oauth_applications_path
             i.glyphicon.glyphicon-phone

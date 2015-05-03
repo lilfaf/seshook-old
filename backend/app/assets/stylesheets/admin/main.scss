@@ -49,6 +49,30 @@ body {
   }
 }
 
+#dashboard-nav {
+  border-left: 4px solid darkgray;
+}
+
+#users-nav {
+  border-left: 4px solid #428bca;
+}
+
+#spots-nav {
+  border-left: 4px solid #5cb85c;
+}
+
+#albums-nav {
+  border-left: 4px solid #5bc0de;
+}
+
+/* Pagination */
+
+.pagination > .active > a {
+  background-color: #e7e7e7;
+  border-color: #ddd;
+  color: #337ab7;
+}
+
 /* Customise table actions glyphicons style */
 
 table.table > tbody.rowlink > tr > td.rowlink-skip:last-child {
