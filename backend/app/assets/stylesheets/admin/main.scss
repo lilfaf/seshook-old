@@ -14,7 +14,7 @@ body {
 }
 
 .container {
-  width: 100%;
+  width: 100% !important;
 }
 
 /*
@@ -27,7 +27,7 @@ body {
 }
 
 .navbar-right {
-  margin-right: 0;
+  margin-right: 0 !important;
 }
 
 .navmenu {
