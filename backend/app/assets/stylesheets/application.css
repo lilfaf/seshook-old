@@ -1,5 +1,9 @@
 /*
- *= require bootstrap_and_overrides
- *= require sticky_footer
+ *= require jasny-bootstrap
+ *= require bootstrap-select
+ *= require swipebox
+ *= require mapbox
+ *= require s3_relay
+ *= require_tree .
  *= require_self
  */

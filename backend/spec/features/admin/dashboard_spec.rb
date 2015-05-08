@@ -15,8 +15,8 @@ describe 'dashboard' do
     it 'denie access and redirect to root' do
       login_as user
       visit admin_dashboard_path
-      expect(page.current_path).to eq(root_path)
-      expect(page).to have_content('Unauthorized access!')
+      expect(page.current_path).to eq(new_admin_session_path)
+      expect(page).to have_content(I18n.t('errors.access_denied'))
     end
   end
 

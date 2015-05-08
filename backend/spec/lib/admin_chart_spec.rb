@@ -26,7 +26,7 @@ describe AdminChart do
 
       it { expect(subject.stats_for_model(User)[:data].size).to eq(3) }
       it { expect(subject.stats_for_model(User)[:data].values[0]).to eq(1) }
-      it { expect(subject.stats_for_model(User)[:data].values[2]).to eq(1) }
+      it { expect(subject.stats_for_model(User)[:data].values[2]).to eq(2) }
     end
   end
 end

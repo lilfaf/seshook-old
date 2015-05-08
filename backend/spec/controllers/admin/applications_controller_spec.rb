@@ -19,7 +19,7 @@ describe Admin::ApplicationsController do
 
     it 'renders admin layout' do
       get :index
-      is_expected.to render_with_layout(:admin)
+      is_expected.to render_with_layout(:application)
     end
   end
 end

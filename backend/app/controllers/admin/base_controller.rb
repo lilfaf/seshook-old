@@ -1,7 +1,5 @@
 module Admin
   class BaseController < ApplicationController
-    layout 'admin'
-
     self.responder = ApplicationResponder
     respond_to :html
 
@@ -12,7 +10,8 @@ module Admin
     def require_admin!
       authenticate_user!
       unless current_user.admin? || current_user.superadmin?
-        redirect_to root_path, alert: t('errors.access_denied')
+        sign_out(current_user)
+        redirect_to new_admin_session_path, alert: t('errors.access_denied')
       end
     end
   end

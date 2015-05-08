@@ -1,17 +1,6 @@
 /*
- *= require bootstrap_and_overrides
- *= require bootstrap_callout
- *= require jasny-bootstrap
- *= require swipebox
- *= require mapbox
- *= require s3_relay
- *= require_tree .
- *= require_self
- */
-
-/* shared components */
-
-/* body has padding left on large display for the sidebar */
+  body has padding left on large display for the sidebar
+*/
 
 body {
   margin-bottom: 50px;
@@ -28,7 +17,9 @@ body {
   width: 100%;
 }
 
-/* navbar and sidebar styles */
+/*
+  navbar and sidebar styles
+*/
 
 .navbar-avatar {
   margin: 8px 0px;
@@ -65,7 +56,9 @@ body {
   border-left: 4px solid #5bc0de;
 }
 
-/* Pagination */
+/*
+  pagination
+*/
 
 .pagination > .active > a {
   background-color: #e7e7e7;
@@ -73,7 +66,9 @@ body {
   color: #337ab7;
 }
 
-/* Customise table actions glyphicons style */
+/*
+  custom table actions glyphicons style
+*/
 
 table.table > tbody.rowlink > tr > td.rowlink-skip:last-child {
   width: 30px;
@@ -85,7 +80,9 @@ table.table > tbody.rowlink > tr > td.rowlink-skip:last-child {
   }
 }
 
-/* thumbnails */
+/*
+  thumbnails
+*/
 
 .thumbnails {
   .thumbnail {
@@ -95,13 +92,13 @@ table.table > tbody.rowlink > tr > td.rowlink-skip:last-child {
   }
 }
 
-/* Search form */
+/*
+  ransack styles
+*/
 
 .search-form {
   padding-left: 0;
 }
-
-/* Ransack custom */
 
 .sort_link {
   color: #333333;
