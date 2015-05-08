@@ -12,6 +12,12 @@ module.exports = function(environment) {
       'img-src': "'self' https://seshook-development.s3-us-west-2.amazonaws.com/ https://*.tiles.mapbox.com/",
     },
 
+    mapBox: {
+      tileUrl: 'https://{s}.tiles.mapbox.com/v4/{mapId}/{z}/{x}/{y}.png?access_token={accessToken}',
+      accessToken: 'pk.eyJ1IjoibGlsZmFmIiwiYSI6InY2TUktVkUifQ.eVZ3ivj1dlTxTAsJYRQI3g',
+      mapId: 'lilfaf.l26132mi'
+    },
+
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
