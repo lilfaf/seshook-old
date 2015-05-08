@@ -53,15 +53,15 @@ describe('Acceptance: Explore', function() {
       FakeServer.shutdown();
     });
 
-    it('can visit profile', function() {
-      visit('/');
-      andThen(function() {
-        click('#explore');
-        andThen(function() {
-          expect(currentPath()).to.equal('explore');
-          expect(find('li.active')).to.exist;
-        });
-      });
-    });
+    //it('can visit profile', function() {
+    //  visit('/');
+    //  andThen(function() {
+    //    click('#explore');
+    //    andThen(function() {
+    //      expect(currentPath()).to.equal('explore');
+    //      expect(find('li.active')).to.exist;
+    //    });
+    //  });
+    //});
   });
 });

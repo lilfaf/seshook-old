@@ -1,2 +1,23 @@
-<h2 id="title">Find a spot to ride!</h2>
+<div class="col-md-4">
+  <div id="search-input">
+    {{input class='form-control search' placeholder='Search' autocomplete='off' key-down='search' value=query}}
+  </div>
+  <ul class="list-group">
+    {{#each spot in model}}
+    <li class="list-group-item">
+      <h2>{{spot.name}}</h2>
+      <h3>{{spot.address.city}}
+        <small>{{spot.address.country}}</small>
+      </h3>
+    </li>
+    {{else}}
+      <small>type your search and find a place to ride!</small>
+    {{/each}}
+  </ul>
+  {{infinity-loader infinityModel=model scrollable=true loadingText="Loading..." loadedText=""}}
+</div>
+<div class="col-md-8">
+  {{mapbox-map id='map' markers=model}}
+</div>
+
 {{outlet}}
