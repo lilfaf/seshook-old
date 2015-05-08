@@ -8,6 +8,9 @@ module.exports = function(environment) {
     locationType: 'auto',
     apiNamespace: 'api',
     apiHost: '',
+    contentSecurityPolicy: {
+      'img-src': "'self' https://seshook-development.s3-us-west-2.amazonaws.com/ https://*.tiles.mapbox.com/",
+    },
 
     EmberENV: {
       FEATURES: {
@@ -26,7 +29,7 @@ module.exports = function(environment) {
     providers: {
       'facebook-oauth2': {
         apiKey: '1085559301459225',
-        redirectUri: 'http://localhost:3000',
+        redirectUri: 'http://localhost:4200',
         scope: 'email,user_birthday'
       }
     }
@@ -48,7 +51,7 @@ module.exports = function(environment) {
     //ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     //ENV.APP.LOG_VIEW_LOOKUPS = true;
 
-    ENV.apiHost = 'http://localhost:3000';
+    ENV.apiHost = 'http://localhost:4200';
   }
 
   if (environment === 'test') {

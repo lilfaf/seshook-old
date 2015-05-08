@@ -142,9 +142,6 @@ GEM
     elasticsearch-transport (1.0.7)
       faraday
       multi_json
-    ember-cli-rails (0.3.1)
-      railties (>= 3.1, < 5)
-      sprockets (>= 2.0)
     erubis (2.7.0)
     excon (0.45.3)
     execjs (2.5.2)
@@ -228,8 +225,6 @@ GEM
     fog-xml (0.1.2)
       fog-core
       nokogiri (~> 1.5, >= 1.5.11)
-    font-awesome-rails (4.3.0.0)
-      railties (>= 3.2, < 5.0)
     foreman (0.78.0)
       thor (~> 0.19.1)
     formatador (0.2.5)
@@ -302,6 +297,7 @@ GEM
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
     rack (1.6.0)
+    rack-cors (0.4.0)
     rack-protection (1.5.3)
       rack
     rack-test (0.6.3)
@@ -458,13 +454,11 @@ DEPENDENCIES
   devise
   doorkeeper (~> 2.1.0)
   dotenv-rails (~> 2.0.0)
-  ember-cli-rails (~> 0.3.1)
   exifr
   factory_girl_rails
   faker
   fakeredis
   fog (~> 1.26.0)
-  font-awesome-rails
   foreman
   geocoder
   groupdate (~> 2.3.0)
@@ -482,6 +476,7 @@ DEPENDENCIES
   poltergeist
   puma (~> 2.11.0)
   quiet_assets
+  rack-cors (~> 0.4.0)
   rails (= 4.2.0)
   ransack!
   responders

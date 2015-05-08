@@ -57,6 +57,5 @@ Rails.application.routes.draw do
   get 'privacy', to: 'high_voltage/pages#show', id: 'privacy'
   get 'terms',   to: 'high_voltage/pages#show', id: 'terms'
 
-  root to: 'application#index'
-  get '/*path', to: 'application#index' # proxy to ember app
+  root to: 'admin/dashboard#index'
 end
