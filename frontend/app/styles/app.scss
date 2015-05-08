@@ -1,28 +1,18 @@
+@import "bootstrap";
+
 /*
- *= require_tree .
- */
+  site wide announcement
+*/
 
-/* site wide bootstrap alert */
-
-body > .alert {
+body > .alert-info {
   margin-bottom: 0;
   border-radius: 0;
   text-align: center;
 }
 
-/* some dummy css */
-
-h2 {
-  font-weight: 100;
-  &::selection {
-    background: #ffb7b7;
-  }
-  &::-moz-selection {
-    background: #ffb7b7;
-  }
-}
-
-/* navigation bar */
+/*
+  navigation bar with avatar
+*/
 
 .navbar-nav > li.dropdown > a {
   padding-top: 8px;
@@ -34,7 +24,41 @@ h2 {
   }
 }
 
-/* Profile page */
+/*
+  login page
+*/
+
+.panel {
+  form {
+    margin-top: 15px;
+  }
+
+  .btn-facebook {
+    @extend .btn-primary;
+    margin-bottom: 15px;
+
+    i {
+      font-size: 30px;
+    }
+  }
+}
+
+/*
+  explore page
+*/
+
+#map {
+  width: 100%;
+  height: 400px;
+}
+
+#search-input {
+  margin-bottom: 15px;
+}
+
+/*
+  user profile page
+*/
 
 #profile {
   .page-header {
@@ -55,17 +79,5 @@ h2 {
 
   input[type=file] {
     display: none;
-  }
-}
-
-/* Search input */
-
-input.search {
-  border: none;
-  box-shadow: none;
-  font-size: 30px;
-  height: 46px;
-  &:focus {
-    box-shadow: none;
   }
 }
