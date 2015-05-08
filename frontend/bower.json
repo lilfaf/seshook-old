@@ -16,6 +16,7 @@
     "leaflet": "~0.7.3",
     "leaflet.markercluster": "~0.4.0",
     "bootstrap-sass": "~3.3.4",
-    "bootstrap-sass-official": "~3.3.4"
+    "bootstrap-sass-official": "~3.3.4",
+    "font-awesome": "~4.3.0"
   }
 }
