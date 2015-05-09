@@ -11,9 +11,7 @@ var tileLayer = TileLayer.extend({
     accessToken: Config.mapBox.accessToken,
     mapId: Config.mapBox.mapId
   },
-  subdomains: 'abcd',
-  minZoom: 0,
-  maxZoom: 20
+  subdomains: 'abcd'
 });
 
 var markerCollectionLayer = MarkerCollectionLayer.extend(CollectionBoundsMixin, {
@@ -21,7 +19,8 @@ var markerCollectionLayer = MarkerCollectionLayer.extend(CollectionBoundsMixin, 
 
   // used by bounds property from CollectionBoundsMixin
   locations: Ember.computed(function() {
-    return this.get('content').mapProperty('latlon');
+    var content = this.get('content');
+    return Ember.isEmpty(content) ? [] : content.mapProperty('latlon');
   }).property('content'),
 
   // observe content property and refresh map bounds to fit markers

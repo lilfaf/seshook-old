@@ -1,6 +1,30 @@
 @import "bootstrap";
 
 /*
+  global
+*/
+
+html, body {
+  height: 100%;
+
+  &> .ember-view {
+    height: 100%;
+
+    &> .wrapper, .container, .row, .col-md-12, .col-md-8, .col-md-4  {
+      height: 100%;
+    }
+  }
+}
+
+/*
+  override boostrap
+*/
+
+.container {
+  width: 100% !important;
+}
+
+/*
   site wide announcement
 */
 
@@ -49,11 +73,16 @@ body > .alert-info {
 
 #map {
   width: 100%;
-  height: 400px;
+  height: 100%;
 }
 
 #search-input {
   margin-bottom: 15px;
+}
+
+#search-list {
+  overflow: scroll;
+  height: 100%;
 }
 
 /*

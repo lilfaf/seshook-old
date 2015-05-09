@@ -21,12 +21,11 @@ Rails.application.routes.draw do
       end
       resources :albums, except: [:new, :edit]
       resources :photos, only: [:destroy]
-    end
-  end
 
-  scope :api do
-    as :user do
-      post 'users', to: 'devise/registrations#create', module: :devise
+      # registration
+      as :user do
+        post 'users', to: 'registrations#create'
+      end
     end
   end
 
