@@ -1,8 +1,8 @@
-<div class="col-md-4">
-  <div id="search-input">
-    {{input class='form-control search' placeholder='Search' autocomplete='off' key-down='search' value=query}}
+<div class="col-md-3 left-column">
+  <div class="nav-search">
+    {{input class='form-control' placeholder='Search' autocomplete='off' key-down='search' value=query}}
   </div>
-  <ul id="search-list" class="list-group">
+  <ul class="list-group search">
     {{#each spot in model}}
     <li class="list-group-item">
       <h3>{{spot.address.street}}</h3>
@@ -16,7 +16,7 @@
   </ul>
   {{infinity-loader infinityModel=model scrollable=true loadingText="Loading..." loadedText=""}}
 </div>
-<div class="col-md-8">
+<div class="col-md-9 right-column">
   {{mapbox-map id='map' markers=model}}
 </div>
 
