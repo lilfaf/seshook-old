@@ -2,6 +2,7 @@ import Ember from 'ember';
 import EmberLeafletComponent from 'ember-leaflet/components/leaflet-map';
 import TileLayer from 'ember-leaflet/layers/tile';
 import MarkerCollectionLayer from 'ember-leaflet/layers/marker-collection';
+import MarkerClusterLayer from 'ember-leaflet/layers/marker-cluster';
 import CollectionBoundsMixin from 'ember-leaflet/mixins/collection-bounds';
 import Config from '../config/environment';
 
@@ -26,14 +27,22 @@ var markerCollectionLayer = MarkerCollectionLayer.extend(CollectionBoundsMixin, 
   // observe content property and refresh map bounds to fit markers
   _contentDidChange: Ember.observer(function() {
     var bounds = this.get('bounds');
-    if (!Ember.isEmpty(bounds)) { this.get('parentLayer').get('layer').fitBounds(bounds); }
+    if (!Ember.isEmpty(bounds)) {
+      this.get('parentLayer.parentLayer.layer').fitBounds(bounds);
+    }
     this._super();
   }, 'content'),
+});
+
+var markerClusterLayer = MarkerClusterLayer.extend({
+  childLayers: [
+    markerCollectionLayer
+  ]
 });
 
 export default EmberLeafletComponent.extend({
   childLayers: [
     tileLayer,
-    markerCollectionLayer
+    markerClusterLayer
   ]
 });
