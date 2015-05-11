@@ -21,12 +21,11 @@ Rails.application.routes.draw do
       end
       resources :albums, except: [:new, :edit]
       resources :photos, only: [:destroy]
-    end
-  end
 
-  scope :api do
-    as :user do
-      post 'users', to: 'devise/registrations#create', module: :devise
+      # registration
+      as :user do
+        post 'users', to: 'registrations#create'
+      end
     end
   end
 
@@ -57,6 +56,5 @@ Rails.application.routes.draw do
   get 'privacy', to: 'high_voltage/pages#show', id: 'privacy'
   get 'terms',   to: 'high_voltage/pages#show', id: 'terms'
 
-  root to: 'application#index'
-  get '/*path', to: 'application#index' # proxy to ember app
+  root to: 'admin/dashboard#index'
 end

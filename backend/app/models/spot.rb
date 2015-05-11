@@ -69,7 +69,9 @@ class Spot < ActiveRecord::Base
 
   def search_data
     as_json(only: [:id, :name]).merge(
-      address.as_json(except: [:id, :created_at, :updated_at])
+      address.as_json(except: [:id, :created_at, :updated_at]).merge(
+        { country: address.country_name }
+      )
     )
   end
 

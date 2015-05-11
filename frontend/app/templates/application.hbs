@@ -13,11 +13,11 @@
     <div class="navbar-collapse collapse navbar-responsive-collapse" id="collapsible-nav">
       {{#if session.isAuthenticated}}
         <ul class="nav navbar-nav navbar-left">
+          {{#link-to "index" tagName="li" id='index'}}
+            <a {{bind-attr href="view.href"}}>Home</a>
+          {{/link-to}}
           {{#link-to "explore" tagName="li" id='explore'}}
             <a {{bind-attr href="view.href"}}>Explore</a>
-          {{/link-to}}
-          {{#link-to "search" tagName="li" id='search'}}
-            <a {{bind-attr href="view.href"}}>Search</a>
           {{/link-to}}
         </ul>
       {{/if}}
@@ -48,12 +48,11 @@
   </div>
 </nav>
 
-<div id="main" class="wrapper">
-  <div class="container">
+
+  <div class="container full-col">
     <div class="row">
-      <div class="col-lg-12">
-        {{ outlet }}
-      </div>
+
+        {{outlet}}
+
     </div>
   </div>
-</div>

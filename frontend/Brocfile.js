@@ -2,7 +2,13 @@
 
 var EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
-var app = new EmberApp();
+var app = new EmberApp({
+  sassOptions: {
+    includePaths: [
+      'bower_components/bootstrap-sass-official/assets/stylesheets'
+    ]
+  }
+});
 
 // Use `app.import` to add additional libraries to the generated
 // output files.
@@ -16,5 +22,14 @@ var app = new EmberApp();
 // modules that you would like to import into your application
 // please specify an object with the list of modules as keys
 // along with the exports of each module as its value.
+
+// Include the Font Awesome assets.
+app.import("bower_components/font-awesome/css/font-awesome.css");
+app.import("bower_components/font-awesome/fonts/fontawesome-webfont.eot", { destDir: "fonts" });
+app.import("bower_components/font-awesome/fonts/fontawesome-webfont.svg", { destDir: "fonts" });
+app.import("bower_components/font-awesome/fonts/fontawesome-webfont.ttf", { destDir: "fonts" });
+app.import("bower_components/font-awesome/fonts/fontawesome-webfont.woff", { destDir: "fonts" });
+app.import("bower_components/font-awesome/fonts/fontawesome-webfont.woff2", { destDir: "fonts" });
+app.import("bower_components/font-awesome/fonts/FontAwesome.otf", { destDir: "fonts" });
 
 module.exports = app.toTree();

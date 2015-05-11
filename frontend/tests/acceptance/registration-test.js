@@ -105,6 +105,7 @@ describe('Acceptance: Registration', function() {
 
     after(function() {
       FakeServer.shutdown();
+      invalidateSession();
     });
 
     it('register user successfully', function() {
@@ -112,7 +113,6 @@ describe('Acceptance: Registration', function() {
       andThen(function() {
         expect(currentPath()).to.equal('index');
         expect(find('#title').text()).to.equal('Fuck yeah! Your are signed in as member@email.com!');
-        click('.navbar-nav a'); // sign out
       });
     });
   });

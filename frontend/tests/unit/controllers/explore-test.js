@@ -6,8 +6,8 @@ import {
 } from 'ember-mocha';
 
 describeModule(
-  'controller:search',
-  'SearchController',
+  'controller:explore',
+  'ExploreController',
   {
     // Specify the other units that are required for this test.
     // needs: ['controller:foo']

@@ -12,6 +12,11 @@
     "ember-simple-auth": "0.7.3",
     "ember-mocha": "~0.5.1",
     "pretender": "~0.6.0",
-    "ember-uploader": "0.3.6"
+    "ember-uploader": "0.3.6",
+    "leaflet": "~0.7.3",
+    "leaflet.markercluster": "~0.4.0",
+    "bootstrap-sass": "~3.3.4",
+    "bootstrap-sass-official": "~3.3.4",
+    "font-awesome": "~4.3.0"
   }
 }

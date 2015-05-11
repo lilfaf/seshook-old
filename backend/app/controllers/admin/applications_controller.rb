@@ -1,6 +1,6 @@
 module Admin
   class ApplicationsController < Doorkeeper::ApplicationsController
-    layout 'admin'
+    layout 'application'
 
     authorize_resource class: 'Doorkeeper::Application'
 

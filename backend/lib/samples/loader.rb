@@ -32,7 +32,7 @@ module Samples
         ).first
         if spot = find_matching_spot(info, lat, lon)
           # add image to matching spot
-          spot.photos << Image.create!(image: File.open(img))
+          spot.photos << Photo.create!(file: File.open(img))
         elsif info
           # create a new entry
           spot = Spot.new(latitude: lat, longitude: lon)

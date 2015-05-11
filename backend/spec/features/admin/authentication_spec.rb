@@ -26,7 +26,7 @@ describe 'authentication' do
 
     it 'signs out and redirect to root' do
       click_link 'Log out'
-      expect(page.current_path).to eq(root_path)
+      expect(page.current_path).to eq(new_admin_session_path)
       expect(page).to have_content('Signed out successfully')
     end
   end
@@ -37,6 +37,16 @@ describe 'authentication' do
     it 'redirects to dashboard' do
       login_for superadmin.email, 'seshook123'
       expect(page.current_path).to eq(admin_dashboard_path)
+    end
+  end
+
+  context 'as a member' do
+    let(:user) { create(:user) }
+
+    it 'restrict access' do
+      login_for user.email, 'seshook123'
+      expect(page.current_path).to eq(new_admin_session_path)
+      expect(page).to have_content(I18n.t('errors.access_denied'))
     end
   end
 end
